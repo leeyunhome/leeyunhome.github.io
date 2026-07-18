@@ -122,9 +122,36 @@
       border-top: 1px solid var(--border);
     }
 
+    /* ── Tabs ── */
+    .tabs {
+      display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .tab-btn {
+      background: var(--surface);
+      color: var(--text2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 9px 20px;
+      font-size: 0.88rem; font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .tab-btn:hover { color: var(--text); border-color: #3d4570; }
+    .tab-btn.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: transparent;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
     @media (max-width: 500px) {
       header h1 { font-size: 1.5rem; }
       .grid { grid-template-columns: 1fr; }
+      .tabs { gap: 6px; }
+      .tab-btn { padding: 8px 14px; font-size: 0.82rem; }
     }
   </style>
 </head>
@@ -142,35 +169,16 @@
 
 <main>
 
-  <!-- 포트폴리오 -->
-  <section>
-    <h2>🗂 포트폴리오</h2>
+  <!-- 탭 네비게이션 -->
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="graphics" role="tab" aria-selected="true">🌐 그래픽스</button>
+    <button class="tab-btn" data-tab="tools" role="tab" aria-selected="false">🛠 도구</button>
+    <button class="tab-btn" data-tab="ai" role="tab" aria-selected="false">🤖 AI 활용 서비스</button>
+  </div>
+
+  <!-- 그래픽스 -->
+  <section class="tab-panel active" id="panel-graphics">
     <div class="grid">
-
-      <a class="card" href="https://leeyunhome.github.io/portfolio/" target="_blank">
-        <div class="card-header">
-          <span class="card-icon">🗂</span>
-          <span class="card-arrow">→</span>
-        </div>
-        <div class="card-title">포트폴리오</div>
-        <div class="card-desc">MkDocs Material 기반 개인 기술 포트폴리오. Edge AI 시스템 엔지니어링 경력 정리.</div>
-        <div class="card-foot">
-          <span class="badge badge-py">MkDocs</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://leeyunhome.github.io/ai_chatbot_hodu_ai/" target="_blank">
-        <div class="card-header">
-          <span class="card-icon">🐾</span>
-          <span class="card-arrow">→</span>
-        </div>
-        <div class="card-title">호두 AI 챗봇</div>
-        <div class="card-desc">Google Gemini 기반 한국어 챗봇. 로그인 없이 API 키만으로 사용. Gemini 3.1 Pro / 3.5 Flash 등 모델 선택 지원.</div>
-        <div class="card-foot">
-          <span class="badge badge-js">JavaScript</span>
-          <span class="badge badge-ai">🤖 AI · Gemini 3.1 Pro / 3.5 Flash</span>
-        </div>
-      </a>
 
       <a class="card" href="https://leeyunhome.github.io/splatting-viewer/" target="_blank">
         <div class="card-header">
@@ -200,26 +208,36 @@
         </div>
       </a>
 
-      <a class="card" href="https://leeyunhome.github.io/ebs-learning/" target="_blank">
+      <a class="card" href="https://leeyunhome.github.io/Smart-Image-Resizer/" target="_blank">
         <div class="card-header">
-          <span class="card-icon">🎧</span>
+          <span class="card-icon">🖼</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">EBS 왕초보 영어 대시보드</div>
-        <div class="card-desc">EBS 라디오를 자동 다운로드 → <strong>Whisper</strong>로 전사 → 음악 구간 분석으로 영어 대화만 추출해 배포하는 파이프라인의 웹 플레이어. faster-whisper large-v3-turbo + inaSpeechSegmenter 사용.</div>
+        <div class="card-title">Smart Image Resizer</div>
+        <div class="card-desc">브라우저에서 이미지를 원하는 크기로 리사이징. 서버 전송 없이 로컬 처리.</div>
         <div class="card-foot">
-          <span class="badge badge-html">HTML</span>
-          <span class="badge badge-ai">🤖 AI · Whisper (ASR)</span>
+          <span class="badge badge-ts">TypeScript</span>
         </div>
       </a>
 
     </div>
   </section>
 
-  <!-- 취미 -->
-  <section>
-    <h2>🎮 취미</h2>
+  <!-- 도구 -->
+  <section class="tab-panel" id="panel-tools">
     <div class="grid">
+
+      <a class="card" href="https://leeyunhome.github.io/portfolio/" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🗂</span>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">포트폴리오</div>
+        <div class="card-desc">MkDocs Material 기반 개인 기술 포트폴리오. Edge AI 시스템 엔지니어링 경력 정리.</div>
+        <div class="card-foot">
+          <span class="badge badge-py">MkDocs</span>
+        </div>
+      </a>
 
       <a class="card" href="https://leeyunhome.github.io/SmartStock-AI/" target="_blank">
         <div class="card-header">
@@ -270,18 +288,6 @@
         </div>
       </a>
 
-      <a class="card" href="https://leeyunhome.github.io/Smart-Image-Resizer/" target="_blank">
-        <div class="card-header">
-          <span class="card-icon">🖼</span>
-          <span class="card-arrow">→</span>
-        </div>
-        <div class="card-title">Smart Image Resizer</div>
-        <div class="card-desc">브라우저에서 이미지를 원하는 크기로 리사이징. 서버 전송 없이 로컬 처리.</div>
-        <div class="card-foot">
-          <span class="badge badge-ts">TypeScript</span>
-        </div>
-      </a>
-
       <a class="card" href="https://leeyunhome.github.io/lucky_canon/" target="_blank">
         <div class="card-header">
           <span class="card-icon">🎯</span>
@@ -321,11 +327,61 @@
     </div>
   </section>
 
+  <!-- AI 활용 서비스 -->
+  <section class="tab-panel" id="panel-ai">
+    <div class="grid">
+
+      <a class="card" href="https://leeyunhome.github.io/ai_chatbot_hodu_ai/" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🐾</span>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">AI 챗봇</div>
+        <div class="card-desc">Google Gemini 기반 한국어 챗봇. 로그인 없이 API 키만으로 사용. Gemini 3.1 Pro / 3.5 Flash 등 모델 선택 지원.</div>
+        <div class="card-foot">
+          <span class="badge badge-js">JavaScript</span>
+          <span class="badge badge-ai">🤖 AI · Gemini 3.1 Pro / 3.5 Flash</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://leeyunhome.github.io/ebs-learning/" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🎧</span>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">EBS 왕초보 영어 대시보드</div>
+        <div class="card-desc">EBS 라디오를 자동 다운로드 → <strong>Whisper</strong>로 전사 → 음악 구간 분석으로 영어 대화만 추출해 배포하는 파이프라인의 웹 플레이어. faster-whisper large-v3-turbo + inaSpeechSegmenter 사용.</div>
+        <div class="card-foot">
+          <span class="badge badge-html">HTML</span>
+          <span class="badge badge-ai">🤖 AI · Whisper (ASR)</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
 </main>
 
 <footer>
   © 2025 leeyunhome · Built with ❤ · <a href="https://github.com/leeyunhome" style="color:var(--accent);text-decoration:none;">GitHub</a>
 </footer>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.tab-btn').forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-panel').forEach(function (p) {
+        p.classList.remove('active');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
 
 </body>
 </html>
