@@ -6,7 +6,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal GitHub Pages site served at https://leeyunhome.github.io/ — a project hub landing page linking to the owner's other GitHub Pages projects (portfolio, AI experiments, browser tools).
 
-**The entire live site is the single self-contained [index.html](index.html)** — all CSS is inline in a `<style>` block, no JavaScript, no build step. Content is in Korean. Deployment is automatic: push to `main` and GitHub Pages serves it.
+**The entire live site is the single self-contained [index.html](index.html)** — all CSS is inline in a `<style>` block, vanilla JS only (no framework), no build step. Content is in Korean. Deployment is automatic: push to `main` and GitHub Pages serves it.
+
+## Visitor analytics (owner-excluded)
+
+`index.html`'s `<head>` loads Google Analytics 4 (`gtag.js`) via a small self-invoking script, so the owner can see visitor region (city-level, via GA's Reports) without a cookie banner or any visible indication to visitors.
+
+- **Owner exclusion**: the script checks `localStorage['lyh_owner']` before loading GA at all. Visiting `https://leeyunhome.github.io/?owner=1` once (per browser/device) sets that flag permanently — no GA script loads for that browser afterward, regardless of network/IP. This is intentionally IP-independent (unlike GA's "internal traffic" filter) since the owner's IP changes across networks.
+- **Don't add a consent banner or make this more visible** — that was a deliberate ask ("남들은 모르게"), not an oversight.
+- The GA4 Measurement ID lives inline as `GA_ID` in the head script — if analytics stop reporting, check this ID is still valid in the GA4 property before debugging anything else.
+- Low-traffic caveat: GA4 may suppress city-level breakdown as "(not set)" under its privacy thresholding when session volume is very small — this is GA's behavior, not a bug in the embed.
 
 ## Editing the hub page
 

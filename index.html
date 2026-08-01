@@ -4,6 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>leeyunhome — 프로젝트 허브</title>
+  <script>
+    (function () {
+      var OWNER_FLAG = 'lyh_owner';
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('owner') === '1') {
+        try { localStorage.setItem(OWNER_FLAG, '1'); } catch (e) {}
+      }
+      var isOwner = false;
+      try { isOwner = localStorage.getItem(OWNER_FLAG) === '1'; } catch (e) {}
+      if (isOwner) return;
+
+      var GA_ID = 'G-CQ6DVTEVCQ';
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+    })();
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
