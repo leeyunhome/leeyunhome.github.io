@@ -19,13 +19,14 @@ Personal GitHub Pages site served at https://leeyunhome.github.io/ — a project
 
 ## Editing the hub page
 
-- Project cards live in `index.html` inside five tab panels (`#panel-graphics`, `#panel-tools`, `#panel-monitoring`, `#panel-embedded`, `#panel-ai`), switched by plain vanilla-JS click handlers on `.tab-btn` — no framework, no build step. Each card is an `<a class="card">` with icon, title, description, and tech `badge-*` spans (`badge-js`, `badge-ts`, `badge-py`, `badge-html`, `badge-ai`, `badge-css`).
+- Project cards live in `index.html` inside six tab panels (`#panel-graphics`, `#panel-tools`, `#panel-monitoring`, `#panel-embedded`, `#panel-ai`, `#panel-dataviz`), switched by plain vanilla-JS click handlers on `.tab-btn` — no framework, no build step. Each card is an `<a class="card">` with icon, title, description, and tech `badge-*` spans (`badge-js`, `badge-ts`, `badge-py`, `badge-html`, `badge-ai`, `badge-css`).
 - Category convention:
   - **그래픽스**: rendering/graphics-tech projects (3DGS viewer, cloth sim, image resizer).
   - **도구**: everyday utility apps with no AI model in the core pipeline and not a monitoring dashboard (PDF tool, counters, portfolio link, mini-games).
   - **모니터링 도구**: real-time monitoring/dashboard UIs (stock ticker dashboard, edge-device fleet control room) — split out once there were 2+ of these; don't re-fold them back into 도구.
   - **임베디드 시스템**: embedded/hardware-adjacent engineering work (device farm test automation, firmware/kernel tooling) — split out deliberately even while it holds a single card; the owner wants this as its own category going forward, don't fold it back into 도구.
   - **AI 활용 서비스**: an AI model/API is a load-bearing part of the pipeline (Whisper ASR, Gemini chat, Imagen generation) — not just "written with AI help".
+  - **데이터 시각화**: charting/analysis technique showcases (histogram/KDE comparisons, dataset exploration tools) — distinct from AI 활용 서비스 since the analysis itself isn't AI-model-driven.
 - Design tokens (colors, radius) are CSS custom properties in `:root` — dark theme only.
 - Keep AI badges accurate to what each project actually uses (this has been a source of past corrections — see commit history).
 
