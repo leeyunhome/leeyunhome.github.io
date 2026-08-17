@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f8fc" />
   <title>leeyunhome — 프로젝트 허브</title>
   <script>
     (function () {
@@ -32,14 +33,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface2: #21253a;
-      --border: #2e3250;
-      --accent: #5b8af5;
-      --accent2: #7c63f5;
-      --text: #e2e6f0;
-      --text2: #8b92b3;
+      --bg: #f7f8fc;
+      --surface: #ffffff;
+      --surface2: #eef0f7;
+      --border: #dfe3ee;
+      --accent: #3767c9;
+      --accent2: #6b4fd8;
+      --text: #1a1d29;
+      --text2: #5d6480;
       --radius: 14px;
     }
 
@@ -54,7 +55,7 @@
     header {
       padding: 56px 24px 40px;
       text-align: center;
-      background: linear-gradient(160deg, #141828 0%, #0f1117 60%);
+      background: linear-gradient(160deg, #edf1fb 0%, #f7f8fc 60%);
       border-bottom: 1px solid var(--border);
     }
     header .avatar {
@@ -63,7 +64,7 @@
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       display: inline-flex; align-items: center; justify-content: center;
       font-size: 28px; margin-bottom: 16px;
-      box-shadow: 0 0 32px #5b8af540;
+      box-shadow: 0 6px 20px rgba(55,103,201,.28);
     }
     header h1 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.5px; }
     header h1 span { color: var(--accent); }
@@ -116,7 +117,7 @@
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       opacity: 0; transition: opacity 0.2s;
     }
-    .card:hover { transform: translateY(-3px); border-color: #3d4570; box-shadow: 0 8px 32px #0006; }
+    .card:hover { transform: translateY(-3px); border-color: #b6c1de; box-shadow: 0 8px 24px rgba(26,29,41,.10); }
     .card:hover::before { opacity: 1; }
 
     .card-header { display: flex; align-items: flex-start; justify-content: space-between; }
@@ -132,12 +133,12 @@
       font-size: 0.71rem; font-weight: 500; padding: 2px 9px;
       border-radius: 10px; border: 1px solid;
     }
-    .badge-js   { color: #f0c040; border-color: #f0c04044; background: #f0c04011; }
-    .badge-ts   { color: #4ea6e0; border-color: #4ea6e044; background: #4ea6e011; }
-    .badge-py   { color: #70c06a; border-color: #70c06a44; background: #70c06a11; }
-    .badge-html { color: #e8734a; border-color: #e8734a44; background: #e8734a11; }
-    .badge-ai   { color: #c07aee; border-color: #c07aee44; background: #c07aee11; }
-    .badge-css  { color: #5bc0de; border-color: #5bc0de44; background: #5bc0de11; }
+    .badge-js   { color: #8a6400; border-color: #8a640044; background: #8a640014; }
+    .badge-ts   { color: #1565a8; border-color: #1565a844; background: #1565a814; }
+    .badge-py   { color: #2e7d32; border-color: #2e7d3244; background: #2e7d3214; }
+    .badge-html { color: #c2410c; border-color: #c2410c44; background: #c2410c14; }
+    .badge-ai   { color: #6d28d9; border-color: #6d28d944; background: #6d28d914; }
+    .badge-css  { color: #0e7490; border-color: #0e749044; background: #0e749014; }
 
     /* ── Footer ── */
     footer {
@@ -162,7 +163,7 @@
       transition: all 0.18s;
       display: inline-flex; align-items: center; gap: 6px;
     }
-    .tab-btn:hover { color: var(--text); border-color: #3d4570; }
+    .tab-btn:hover { color: var(--text); border-color: #b6c1de; }
     .tab-btn.active {
       color: #fff;
       background: linear-gradient(135deg, var(--accent), var(--accent2));

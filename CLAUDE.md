@@ -27,7 +27,10 @@ Personal GitHub Pages site served at https://leeyunhome.github.io/ — a project
   - **임베디드 시스템**: embedded/hardware-adjacent engineering work (device farm test automation, firmware/kernel tooling) — split out deliberately even while it holds a single card; the owner wants this as its own category going forward, don't fold it back into 도구.
   - **AI 활용 서비스**: an AI model/API is a load-bearing part of the pipeline (Whisper ASR, Gemini chat, Imagen generation) — not just "written with AI help".
   - **데이터 시각화**: charting/analysis technique showcases (histogram/KDE comparisons, dataset exploration tools) — distinct from AI 활용 서비스 since the analysis itself isn't AI-model-driven.
-- Design tokens (colors, radius) are CSS custom properties in `:root` — dark theme only.
+- Design tokens (colors, radius) are CSS custom properties in `:root` — **light theme only** (switched from dark 2026-08-17). There is no light/dark toggle; don't add one unless asked.
+- **Badge colors are not tokenized** — each `.badge-*` rule hard-codes its `color` plus `44` (border) / `14` (background) alpha suffixes. The palette is held at ≥4.5:1 against `--surface` (#ffffff), i.e. WCAG AA for normal text, so when adding or changing a badge check the contrast rather than eyeballing it. The pre-2026-08-17 dark-theme badge colors (bright yellow `#f0c040`, green `#70c06a`, cyan `#5bc0de`) fail badly on white — don't reintroduce that family.
+- `--accent` also needs the full 4.5:1 against `--bg`, not just against white: the footer link renders it at 12.5px, which counts as normal text. `#3b6fd4` measured 4.49:1 and had to be darkened to `#3767c9`.
+- `<meta name="theme-color">` in the head should track `--bg` so mobile browser chrome matches the page.
 - Keep AI badges accurate to what each project actually uses (this has been a source of past corrections — see commit history).
 
 ## Lessons learned (workflow gotchas)
