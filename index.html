@@ -409,6 +409,21 @@
         </div>
       </a>
 
+      <a class="card" href="https://leeyunhome.github.io/jetson-mlops-lab/" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">⚡</span>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">Jetson MLOps Lab — 비전 파이프라인 최적화</div>
+        <div class="card-desc">Jetson Orin Nano 실기기에서 비전 모델 최적화 두 트랙을 직접 측정. ResNet-18 경량화 비교에서 TensorRT INT8은 PyTorch eager 대비 <strong>10.4배</strong> 빨라졌지만 CPU INT8 양자화는 크기 1/4로 줄어도 오히려 16% 느려짐. 이동 카메라 객체 계수 파이프라인은 검출→ByteTrack 추적→중복 제거로 프레임별 합산 오차(9.4배 부풀림)를 바로잡고, YOLO11n을 TensorRT FP16으로 <strong>30→135 FPS(4.4배)</strong>까지 끌어올림.</div>
+        <div class="card-foot">
+          <span class="badge badge-py">PyTorch</span>
+          <span class="badge badge-ai">TensorRT</span>
+          <span class="badge badge-ai">YOLO11</span>
+          <span class="badge badge-ai">ByteTrack</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
@@ -508,20 +523,6 @@
           <span class="badge badge-ai">VGG19</span>
           <span class="badge badge-ai">Transfer Learning</span>
           <span class="badge badge-py">Jupyter</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://leeyunhome.github.io/jetson-mlops-lab/notebooks/vision_compression_practice.html" target="_blank">
-        <div class="card-header">
-          <span class="card-icon">⚡</span>
-          <span class="card-arrow">→</span>
-        </div>
-        <div class="card-title">비전 모델 경량화 — Jetson Orin Nano</div>
-        <div class="card-desc">ResNet-18을 두 가지 방식으로 경량화해 Jetson Orin Nano 실기기에서 직접 벤치마크. PyTorch INT8 양자화(CPU)는 크기 1/4 감소에도 오히려 <strong>0.88배로 느려졌지만</strong>, TensorRT INT8(GPU)은 PyTorch FP32 대비 <strong>약 10배(5.4ms)</strong> 빨라짐 — "경량화가 곧 속도 향상은 아니다"를 실측으로 확인.</div>
-        <div class="card-foot">
-          <span class="badge badge-ai">PyTorch</span>
-          <span class="badge badge-ai">TensorRT</span>
-          <span class="badge badge-py">ONNX</span>
         </div>
       </a>
 
