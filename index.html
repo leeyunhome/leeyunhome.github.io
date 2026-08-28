@@ -409,6 +409,20 @@
         </div>
       </a>
 
+      <a class="card" href="https://leeyunhome.github.io/jetson-perf-profiling/" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🔥</span>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">perf/ftrace 성능 프로파일링 — Jetson Orin</div>
+        <div class="card-desc">VirtualBox에서 PMU 하드웨어 카운터가 막혀 있던 걸 계기로, Jetson Orin 실물 하드웨어·벤더 커스텀 커널(NVIDIA L4T)에서 perf·ftrace를 직접 붙잡고 재현. CPU 연산 집약 워크로드(fib(42))는 IPC <strong>3.37</strong>·분기 예측 미스율 0.01%까지 나온 반면 I/O 워크로드는 IPC 1.91에 그침 — 화염 그래프·perf annotate로 핫스팟 추적. 5회 반복 측정으로 단발성 측정의 착시(숨은 open() 실패, perf·ftrace 측정 범위 차이)까지 스스로 잡아냄.</div>
+        <div class="card-foot">
+          <span class="badge badge-ts">C</span>
+          <span class="badge badge-py">Bash</span>
+          <span class="badge badge-ai">perf · ftrace</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
