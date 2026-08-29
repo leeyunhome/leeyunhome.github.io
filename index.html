@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#f7f8fc" />
-  <title>leeyunhome — 프로젝트 허브</title>
+  <title data-en="leeyunhome — Project Hub">leeyunhome — 프로젝트 허브</title>
   <script>
     (function () {
       var OWNER_FLAG = 'lyh_owner';
@@ -70,12 +70,13 @@
     header h1 span { color: var(--accent); }
     header p  { margin-top: 8px; color: var(--text2); font-size: 0.95rem; }
     header .links { margin-top: 18px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    header .links a {
+    header .links a, header .links button {
       color: var(--text2); text-decoration: none; font-size: 0.85rem;
       padding: 5px 14px; border: 1px solid var(--border);
       border-radius: 20px; transition: all 0.2s;
+      background: none; font-family: inherit; cursor: pointer;
     }
-    header .links a:hover { color: var(--accent); border-color: var(--accent); }
+    header .links a:hover, header .links button:hover { color: var(--accent); border-color: var(--accent); }
 
     /* ── Main ── */
     main { max-width: 1100px; margin: 0 auto; padding: 48px 20px 80px; }
@@ -185,10 +186,11 @@
 <header>
   <div class="avatar">🏠</div>
   <h1>leeyun<span>home</span></h1>
-  <p>브라우저에서 바로 쓰는 도구 모음 · AI 실험 · 미니 앱</p>
+  <p data-en="Browser-based tools · AI experiments · mini apps">브라우저에서 바로 쓰는 도구 모음 · AI 실험 · 미니 앱</p>
   <div class="links">
     <a href="https://github.com/leeyunhome" target="_blank">⑃ GitHub</a>
     <a href="https://leeyunhome.github.io/portfolio/" target="_blank">📄 Portfolio</a>
+    <button id="langToggle" type="button">🌐 EN</button>
   </div>
 </header>
 
@@ -196,13 +198,13 @@
 
   <!-- 탭 네비게이션 -->
   <div class="tabs" role="tablist">
-    <button class="tab-btn active" data-tab="graphics" role="tab" aria-selected="true">🌐 그래픽스</button>
-    <button class="tab-btn" data-tab="tools" role="tab" aria-selected="false">🛠 도구</button>
-    <button class="tab-btn" data-tab="monitoring" role="tab" aria-selected="false">📡 모니터링 도구</button>
-    <button class="tab-btn" data-tab="embedded" role="tab" aria-selected="false">📟 임베디드 시스템</button>
-    <button class="tab-btn" data-tab="ai" role="tab" aria-selected="false">🤖 AI 활용 서비스</button>
-    <button class="tab-btn" data-tab="dataviz" role="tab" aria-selected="false">📊 데이터 시각화</button>
-    <button class="tab-btn" data-tab="deeplearning" role="tab" aria-selected="false">🧠 딥러닝</button>
+    <button class="tab-btn active" data-tab="graphics" role="tab" aria-selected="true" data-en="🌐 Graphics">🌐 그래픽스</button>
+    <button class="tab-btn" data-tab="tools" role="tab" aria-selected="false" data-en="🛠 Tools">🛠 도구</button>
+    <button class="tab-btn" data-tab="monitoring" role="tab" aria-selected="false" data-en="📡 Monitoring">📡 모니터링 도구</button>
+    <button class="tab-btn" data-tab="embedded" role="tab" aria-selected="false" data-en="📟 Embedded Systems">📟 임베디드 시스템</button>
+    <button class="tab-btn" data-tab="ai" role="tab" aria-selected="false" data-en="🤖 AI Services">🤖 AI 활용 서비스</button>
+    <button class="tab-btn" data-tab="dataviz" role="tab" aria-selected="false" data-en="📊 Data Viz">📊 데이터 시각화</button>
+    <button class="tab-btn" data-tab="deeplearning" role="tab" aria-selected="false" data-en="🧠 Deep Learning">🧠 딥러닝</button>
   </div>
 
   <!-- 그래픽스 -->
@@ -214,8 +216,8 @@
           <span class="card-icon">🌐</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">3D Gaussian Splatting Viewer</div>
-        <div class="card-desc">직접 촬영한 사진 → COLMAP → 3DGS 학습 → 브라우저 렌더링까지 전체 파이프라인 구현. 미분가능 렌더링·밀도 조절 알고리즘도 처음부터 직접 구현.</div>
+        <div class="card-title" data-en="3D Gaussian Splatting Viewer">3D Gaussian Splatting Viewer</div>
+        <div class="card-desc" data-en="Full pipeline from self-shot photos → COLMAP → 3DGS training → in-browser rendering. Differentiable rendering and density-control algorithms implemented from scratch.">직접 촬영한 사진 → COLMAP → 3DGS 학습 → 브라우저 렌더링까지 전체 파이프라인 구현. 미분가능 렌더링·밀도 조절 알고리즘도 처음부터 직접 구현.</div>
         <div class="card-foot">
           <span class="badge badge-js">Spark.js</span>
           <span class="badge badge-ai">3DGS</span>
@@ -228,8 +230,8 @@
           <span class="card-icon">🍅</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">Field2Scene</div>
-        <div class="card-desc">실외·농업 유사 씬을 3D Gaussian Splatting으로 재구성해 로봇 주행 시점 합성 데이터 350장(도메인 랜덤화 적용)을 생성하고, Sim-to-Real 갭까지 검증하는 Real2Sim 파이프라인. 공개 토마토 온실 영상 재구성 결과 held-out test <strong>PSNR 30.73dB</strong>, 실촬영 대비 렌더 YOLO 검출 갭은 검출수 ×0.94·IoU 매칭 recall <strong>0.909</strong>로 거의 동등.</div>
+        <div class="card-title" data-en="Field2Scene">Field2Scene</div>
+        <div class="card-desc" data-en="A Real2Sim pipeline that reconstructs outdoor/agriculture-like scenes with 3D Gaussian Splatting to generate 350 synthetic robot driving-view images (with domain randomization), then validates the Sim-to-Real gap. Reconstructing a public tomato-greenhouse video achieved a held-out test &lt;strong&gt;PSNR of 30.73dB&lt;/strong&gt;; the detection gap between real footage and renders was nearly on par — detection count ×0.94, IoU-matched recall &lt;strong&gt;0.909&lt;/strong&gt;.">실외·농업 유사 씬을 3D Gaussian Splatting으로 재구성해 로봇 주행 시점 합성 데이터 350장(도메인 랜덤화 적용)을 생성하고, Sim-to-Real 갭까지 검증하는 Real2Sim 파이프라인. 공개 토마토 온실 영상 재구성 결과 held-out test <strong>PSNR 30.73dB</strong>, 실촬영 대비 렌더 YOLO 검출 갭은 검출수 ×0.94·IoU 매칭 recall <strong>0.909</strong>로 거의 동등.</div>
         <div class="card-foot">
           <span class="badge badge-ai">3D Gaussian Splatting</span>
           <span class="badge badge-py">COLMAP</span>
@@ -244,8 +246,8 @@
           <span class="card-icon">🧵</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">Cloth Lab — 의상 시뮬레이션</div>
-        <div class="card-desc">mass-spring 천 시뮬레이션을 처음부터 구현. 단위 테스트 290개로 검증한 C++17 코어 + 라이브러리 없이 raw WebGL2·GLSL 직조 셰이더로 만든 인터랙티브 데모. 잡아끌고 찢을 수 있음.</div>
+        <div class="card-title" data-en="Cloth Lab — Garment Simulation">Cloth Lab — 의상 시뮬레이션</div>
+        <div class="card-desc" data-en="A mass-spring cloth simulation built from scratch: a C++17 core verified with 290 unit tests, plus an interactive demo written in raw WebGL2/GLSL weave shaders with no libraries. You can drag it and tear it.">mass-spring 천 시뮬레이션을 처음부터 구현. 단위 테스트 290개로 검증한 C++17 코어 + 라이브러리 없이 raw WebGL2·GLSL 직조 셰이더로 만든 인터랙티브 데모. 잡아끌고 찢을 수 있음.</div>
         <div class="card-foot">
           <span class="badge badge-ts">C++17</span>
           <span class="badge badge-js">WebGL2</span>
@@ -265,8 +267,8 @@
           <span class="card-icon">🖼</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">Smart Image Resizer</div>
-        <div class="card-desc">브라우저에서 이미지를 원하는 크기로 리사이징. 서버 전송 없이 로컬 처리.</div>
+        <div class="card-title" data-en="Smart Image Resizer">Smart Image Resizer</div>
+        <div class="card-desc" data-en="Resize images to any size right in the browser — processed locally, nothing sent to a server.">브라우저에서 이미지를 원하는 크기로 리사이징. 서버 전송 없이 로컬 처리.</div>
         <div class="card-foot">
           <span class="badge badge-ts">TypeScript</span>
         </div>
@@ -277,8 +279,8 @@
           <span class="card-icon">🗂</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">포트폴리오</div>
-        <div class="card-desc">MkDocs Material 기반 개인 기술 포트폴리오. Edge AI 시스템 엔지니어링 경력 정리.</div>
+        <div class="card-title" data-en="Portfolio">포트폴리오</div>
+        <div class="card-desc" data-en="Personal technical portfolio built with MkDocs Material, summarizing Edge AI systems engineering experience.">MkDocs Material 기반 개인 기술 포트폴리오. Edge AI 시스템 엔지니어링 경력 정리.</div>
         <div class="card-foot">
           <span class="badge badge-py">MkDocs</span>
         </div>
@@ -289,8 +291,8 @@
           <span class="card-icon">📑</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">PDF Tool Pro</div>
-        <div class="card-desc">PDF 병합 · 분리를 브라우저에서 바로 처리. 파일이 서버로 전송되지 않아 보안에 안전.</div>
+        <div class="card-title" data-en="PDF Tool Pro">PDF Tool Pro</div>
+        <div class="card-desc" data-en="Merge and split PDFs directly in the browser — files never leave your device, so it&#x27;s safe by design.">PDF 병합 · 분리를 브라우저에서 바로 처리. 파일이 서버로 전송되지 않아 보안에 안전.</div>
         <div class="card-foot">
           <span class="badge badge-js">JavaScript</span>
         </div>
@@ -301,8 +303,8 @@
           <span class="card-icon">🔢</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">CountFlow</div>
-        <div class="card-desc">글자 수, 공백 포함/제외, 바이트(한글 2byte), 단어 수까지 한번에 확인하는 프리미엄 글자수 세기 도구.</div>
+        <div class="card-title" data-en="CountFlow">CountFlow</div>
+        <div class="card-desc" data-en="A premium character-count tool: character count with/without spaces, byte count (2 bytes per Korean character), and word count, all at once.">글자 수, 공백 포함/제외, 바이트(한글 2byte), 단어 수까지 한번에 확인하는 프리미엄 글자수 세기 도구.</div>
         <div class="card-foot">
           <span class="badge badge-css">CSS</span>
           <span class="badge badge-js">JavaScript</span>
@@ -314,8 +316,8 @@
           <span class="card-icon">📝</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">Lorem Ipsum 생성기</div>
-        <div class="card-desc">디자인·개발 작업용 더미 텍스트 생성. 글자 수 설정 및 원클릭 복사 지원.</div>
+        <div class="card-title" data-en="Lorem Ipsum Generator">Lorem Ipsum 생성기</div>
+        <div class="card-desc" data-en="Generate placeholder text for design and dev work — set a target length and copy it in one click.">디자인·개발 작업용 더미 텍스트 생성. 글자 수 설정 및 원클릭 복사 지원.</div>
         <div class="card-foot">
           <span class="badge badge-js">JavaScript</span>
         </div>
@@ -326,8 +328,8 @@
           <span class="card-icon">🎯</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">럭키 캐논</div>
-        <div class="card-desc">이름을 입력하고 마지막까지 살아남은 구슬의 주인이 당첨! 간단한 추첨 앱.</div>
+        <div class="card-title" data-en="Lucky Cannon">럭키 캐논</div>
+        <div class="card-desc" data-en="Enter names — whoever&#x27;s marble survives last, wins! A simple raffle app.">이름을 입력하고 마지막까지 살아남은 구슬의 주인이 당첨! 간단한 추첨 앱.</div>
         <div class="card-foot">
           <span class="badge badge-html">HTML</span>
         </div>
@@ -338,8 +340,8 @@
           <span class="card-icon">🔮</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">오늘의 원소 예언</div>
-        <div class="card-desc">이름·생년월일·성별과 오행(불·물·나무·땅·바람)으로 오늘의 운세를 확인하는 재미 앱.</div>
+        <div class="card-title" data-en="Today&#x27;s Elemental Fortune">오늘의 원소 예언</div>
+        <div class="card-desc" data-en="A fun fortune-telling app that reads today&#x27;s luck from your name, birthdate, gender, and the five elements (fire, water, wood, earth, wind).">이름·생년월일·성별과 오행(불·물·나무·땅·바람)으로 오늘의 운세를 확인하는 재미 앱.</div>
         <div class="card-foot">
           <span class="badge badge-js">JavaScript</span>
         </div>
@@ -350,8 +352,8 @@
           <span class="card-icon">🚶</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">자리 비움 안내</div>
-        <div class="card-desc">복귀 예정 시간을 설정하면 카운트다운과 함께 "자리를 비웠습니다" 안내 화면을 표시.</div>
+        <div class="card-title" data-en="Be Right Back">자리 비움 안내</div>
+        <div class="card-desc" data-en="Set a return time and it shows a countdown with a &quot;Be right back&quot; screen.">복귀 예정 시간을 설정하면 카운트다운과 함께 "자리를 비웠습니다" 안내 화면을 표시.</div>
         <div class="card-foot">
           <span class="badge badge-html">HTML</span>
         </div>
@@ -369,8 +371,8 @@
           <span class="card-icon">📈</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">StockPulse</div>
-        <div class="card-desc">KOSPI·KOSDAQ·NASDAQ·S&P500 실시간 시황 대시보드. Yahoo Finance 데이터 기반 차트·캔들 조회.</div>
+        <div class="card-title" data-en="StockPulse">StockPulse</div>
+        <div class="card-desc" data-en="Real-time market dashboard for KOSPI, KOSDAQ, NASDAQ, and the S&amp;P 500 — charts and candlesticks powered by Yahoo Finance data.">KOSPI·KOSDAQ·NASDAQ·S&P500 실시간 시황 대시보드. Yahoo Finance 데이터 기반 차트·캔들 조회.</div>
         <div class="card-foot">
           <span class="badge badge-js">JavaScript</span>
         </div>
@@ -381,8 +383,8 @@
           <span class="card-icon">🖥</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">Edge Monitor</div>
-        <div class="card-desc">엣지 디바이스·로봇 플릿을 실시간으로 관리하는 통합 관제실 대시보드 데모. 온라인/오프라인 현황·온도·부하 텔레메트리 시각화, 원격 시작/정지/재시작·알람 확인까지 지원하는 순수 프런트엔드 구현.</div>
+        <div class="card-title" data-en="Edge Monitor">Edge Monitor</div>
+        <div class="card-desc" data-en="A control-room dashboard demo for managing a fleet of edge devices/robots in real time — online/offline status, temperature and load telemetry, and remote start/stop/restart plus alarm acknowledgment, all pure frontend.">엣지 디바이스·로봇 플릿을 실시간으로 관리하는 통합 관제실 대시보드 데모. 온라인/오프라인 현황·온도·부하 텔레메트리 시각화, 원격 시작/정지/재시작·알람 확인까지 지원하는 순수 프런트엔드 구현.</div>
         <div class="card-foot">
           <span class="badge badge-js">JavaScript</span>
         </div>
@@ -400,8 +402,8 @@
           <span class="card-icon">📟</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">임베디드 리눅스 테스트 자동화</div>
-        <div class="card-desc">임베디드 리눅스 디바이스 46대를 5개 커널 리비전 그룹으로 나눠 동시 자동화 테스트. 순차 6~8분 걸리던 전체 상태 점검을 병렬화로 11초로 단축, 부팅 로그 노이즈를 타임스탬프 기준으로 걸러내 실제 결함만 탐지. busybox만으로 CPU·메모리·네트워크 부하 유도, OCR 기반 glass-to-glass 지연시간 측정까지 포함.</div>
+        <div class="card-title" data-en="Embedded Linux Test Automation">임베디드 리눅스 테스트 자동화</div>
+        <div class="card-desc" data-en="Automated, simultaneous testing across 46 embedded Linux devices split into 5 kernel-revision groups. Parallelizing the full fleet status check cut it from 6–8 minutes down to 11 seconds; boot-log noise is filtered out by timestamp so only real faults get flagged. Also includes CPU/memory/network load generation using only busybox, plus OCR-based glass-to-glass latency measurement.">임베디드 리눅스 디바이스 46대를 5개 커널 리비전 그룹으로 나눠 동시 자동화 테스트. 순차 6~8분 걸리던 전체 상태 점검을 병렬화로 11초로 단축, 부팅 로그 노이즈를 타임스탬프 기준으로 걸러내 실제 결함만 탐지. busybox만으로 CPU·메모리·네트워크 부하 유도, OCR 기반 glass-to-glass 지연시간 측정까지 포함.</div>
         <div class="card-foot">
           <span class="badge badge-ts">Bash</span>
           <span class="badge badge-py">Python</span>
@@ -414,8 +416,8 @@
           <span class="card-icon">🔥</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">perf/ftrace 성능 프로파일링 — Jetson Orin</div>
-        <div class="card-desc">VirtualBox에서 PMU 하드웨어 카운터가 막혀 있던 걸 계기로, Jetson Orin 실물 하드웨어·벤더 커스텀 커널(NVIDIA L4T)에서 perf·ftrace를 직접 붙잡고 재현. CPU 연산 집약 워크로드(fib(42))는 IPC <strong>3.37</strong>·분기 예측 미스율 0.01%까지 나온 반면 I/O 워크로드는 IPC 1.91에 그침 — 화염 그래프·perf annotate로 핫스팟 추적. 5회 반복 측정으로 단발성 측정의 착시(숨은 open() 실패, perf·ftrace 측정 범위 차이)까지 스스로 잡아냄.</div>
+        <div class="card-title" data-en="perf/ftrace Performance Profiling — Jetson Orin">perf/ftrace 성능 프로파일링 — Jetson Orin</div>
+        <div class="card-desc" data-en="Prompted by PMU hardware counters being blocked in VirtualBox, this reproduces perf/ftrace profiling hands-on on real Jetson Orin hardware running NVIDIA&#x27;s vendor-customized L4T kernel. A CPU-bound workload (fib(42)) reached an IPC of &lt;strong&gt;3.37&lt;/strong&gt; with a 0.01% branch-miss rate, while an I/O-bound workload stayed at IPC 1.91 — hotspots traced with flame graphs and perf annotate. Repeating each measurement 5 times caught illusions from single-shot runs, including a hidden open() failure and a scope mismatch between perf and ftrace measurements.">VirtualBox에서 PMU 하드웨어 카운터가 막혀 있던 걸 계기로, Jetson Orin 실물 하드웨어·벤더 커스텀 커널(NVIDIA L4T)에서 perf·ftrace를 직접 붙잡고 재현. CPU 연산 집약 워크로드(fib(42))는 IPC <strong>3.37</strong>·분기 예측 미스율 0.01%까지 나온 반면 I/O 워크로드는 IPC 1.91에 그침 — 화염 그래프·perf annotate로 핫스팟 추적. 5회 반복 측정으로 단발성 측정의 착시(숨은 open() 실패, perf·ftrace 측정 범위 차이)까지 스스로 잡아냄.</div>
         <div class="card-foot">
           <span class="badge badge-ts">C</span>
           <span class="badge badge-py">Bash</span>
@@ -435,8 +437,8 @@
           <span class="card-icon">🐾</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">AI 챗봇</div>
-        <div class="card-desc">Google Gemini 기반 한국어 챗봇. 로그인 없이 API 키만으로 사용. Gemini 3.1 Pro / 3.5 Flash 등 모델 선택 지원.</div>
+        <div class="card-title" data-en="AI Chatbot">AI 챗봇</div>
+        <div class="card-desc" data-en="A Korean-language chatbot built on Google Gemini. No login required — just an API key. Supports switching between models like Gemini 3.1 Pro and 3.5 Flash.">Google Gemini 기반 한국어 챗봇. 로그인 없이 API 키만으로 사용. Gemini 3.1 Pro / 3.5 Flash 등 모델 선택 지원.</div>
         <div class="card-foot">
           <span class="badge badge-js">JavaScript</span>
           <span class="badge badge-ai">🤖 AI · Gemini 3.1 Pro / 3.5 Flash</span>
@@ -448,8 +450,8 @@
           <span class="card-icon">🎧</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">EBS 왕초보 영어 대시보드</div>
-        <div class="card-desc">EBS 라디오를 자동 다운로드 → <strong>Whisper</strong>로 전사 → 음악 구간 분석으로 영어 대화만 추출해 배포하는 파이프라인의 웹 플레이어. faster-whisper large-v3-turbo + inaSpeechSegmenter 사용.</div>
+        <div class="card-title" data-en="EBS Beginner English Dashboard">EBS 왕초보 영어 대시보드</div>
+        <div class="card-desc" data-en="A web player for a pipeline that auto-downloads EBS radio, transcribes it with &lt;strong&gt;Whisper&lt;/strong&gt;, and extracts just the English dialogue by detecting music segments — using faster-whisper large-v3-turbo and inaSpeechSegmenter.">EBS 라디오를 자동 다운로드 → <strong>Whisper</strong>로 전사 → 음악 구간 분석으로 영어 대화만 추출해 배포하는 파이프라인의 웹 플레이어. faster-whisper large-v3-turbo + inaSpeechSegmenter 사용.</div>
         <div class="card-foot">
           <span class="badge badge-html">HTML</span>
           <span class="badge badge-ai">🤖 AI · Whisper (ASR)</span>
@@ -461,8 +463,8 @@
           <span class="card-icon">🎙</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">굿모닝 팝스 팟캐스트</div>
-        <div class="card-desc">KBS 굿모닝 팝스 자동 처리 파이프라인. 다운로드 → <strong>Whisper</strong> 전사 → 코너 추출·최적화 → <strong>Imagen 4</strong>로 AI 아트워크 생성 → 자막 동기화 웹 플레이어 배포까지 전 과정 자동화.</div>
+        <div class="card-title" data-en="Good Morning Pops Podcast">굿모닝 팝스 팟캐스트</div>
+        <div class="card-desc" data-en="An automated pipeline for KBS&#x27;s Good Morning Pops: download → transcribe with &lt;strong&gt;Whisper&lt;/strong&gt; → extract and optimize segments → generate AI artwork with &lt;strong&gt;Imagen 4&lt;/strong&gt; → deploy a subtitle-synced web player, fully automated end to end.">KBS 굿모닝 팝스 자동 처리 파이프라인. 다운로드 → <strong>Whisper</strong> 전사 → 코너 추출·최적화 → <strong>Imagen 4</strong>로 AI 아트워크 생성 → 자막 동기화 웹 플레이어 배포까지 전 과정 자동화.</div>
         <div class="card-foot">
           <span class="badge badge-py">Python</span>
           <span class="badge badge-ai">🤖 AI · Whisper + Imagen 4</span>
@@ -481,8 +483,8 @@
           <span class="card-icon">📊</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">Data Visualization Playbook</div>
-        <div class="card-desc">인프런 "32가지 데이터 시각화 전략" 강의를 연습 예제가 아닌 실제 프로젝트 데이터에 적용. Field2Scene의 토마토 온실 3DGS 렌더 vs 실촬영 검출 신뢰도 분포를 히스토그램·KDE로 비교하고, CSV 업로드로 직접 데이터를 시각화·비교할 수 있음.</div>
+        <div class="card-title" data-en="Data Visualization Playbook">Data Visualization Playbook</div>
+        <div class="card-desc" data-en="Applies the Inflearn course &quot;32 Data Visualization Strategies&quot; to real project data instead of textbook exercises. Compares detection-confidence distributions between Field2Scene&#x27;s tomato-greenhouse 3DGS renders and real footage using histograms and KDE, and lets you upload your own CSV to visualize and compare data.">인프런 "32가지 데이터 시각화 전략" 강의를 연습 예제가 아닌 실제 프로젝트 데이터에 적용. Field2Scene의 토마토 온실 3DGS 렌더 vs 실촬영 검출 신뢰도 분포를 히스토그램·KDE로 비교하고, CSV 업로드로 직접 데이터를 시각화·비교할 수 있음.</div>
         <div class="card-foot">
           <span class="badge badge-py">Python</span>
           <span class="badge badge-js">JavaScript</span>
@@ -501,8 +503,8 @@
           <span class="card-icon">🧠</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">Deep Learning Portfolio</div>
-        <div class="card-desc">딥러닝 기초 개념을 강의 코드 복사 없이 직접 재구성하며 정리하는 학습 포트폴리오. <strong>nn.Module</strong> 기반 선형회귀 구현, torchviz로 autograd 계산 그래프(backward 경로) 시각화, SGD vs Adam 수렴 속도 비교까지 노트북으로 정리.</div>
+        <div class="card-title" data-en="Deep Learning Portfolio">Deep Learning Portfolio</div>
+        <div class="card-desc" data-en="A learning portfolio that reconstructs deep learning fundamentals from scratch rather than copying course code. Covers a &lt;strong&gt;nn.Module&lt;/strong&gt;-based linear regression implementation, visualizing the autograd computation graph (backward pass) with torchviz, and a notebook comparing SGD vs. Adam convergence speed.">딥러닝 기초 개념을 강의 코드 복사 없이 직접 재구성하며 정리하는 학습 포트폴리오. <strong>nn.Module</strong> 기반 선형회귀 구현, torchviz로 autograd 계산 그래프(backward 경로) 시각화, SGD vs Adam 수렴 속도 비교까지 노트북으로 정리.</div>
         <div class="card-foot">
           <span class="badge badge-ai">PyTorch</span>
           <span class="badge badge-ai">Autograd</span>
@@ -515,8 +517,8 @@
           <span class="card-icon">🧪</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">VGG19 전이학습 — CIFAR-10</div>
-        <div class="card-desc">ImageNet 사전학습 VGG19의 합성곱 층을 동결하고 분류기만 새로 얹는 특징 추출 방식 전이학습 실습 (Hugging Face CV 코스 기반, 로컬 RTX 3080 서버에서 실행). <strong>현재 데이터 파이프라인·EDA까지 완료</strong> — CIFAR-10 클래스 균형(클래스당 학습 5,000장·검증 1,000장) 검증과 224×224 배치 구성까지 마쳤고, 학습 루프는 진행 예정.</div>
+        <div class="card-title" data-en="VGG19 Transfer Learning — CIFAR-10">VGG19 전이학습 — CIFAR-10</div>
+        <div class="card-desc" data-en="A feature-extraction transfer-learning exercise: freeze the convolutional layers of an ImageNet-pretrained VGG19 and train only a new classifier head (based on the Hugging Face CV course, run on a local RTX 3080 server). &lt;strong&gt;Data pipeline and EDA are done&lt;/strong&gt; — CIFAR-10 class balance is verified (5,000 train / 1,000 validation images per class) and 224×224 batches are set up; the training loop is still to come.">ImageNet 사전학습 VGG19의 합성곱 층을 동결하고 분류기만 새로 얹는 특징 추출 방식 전이학습 실습 (Hugging Face CV 코스 기반, 로컬 RTX 3080 서버에서 실행). <strong>현재 데이터 파이프라인·EDA까지 완료</strong> — CIFAR-10 클래스 균형(클래스당 학습 5,000장·검증 1,000장) 검증과 224×224 배치 구성까지 마쳤고, 학습 루프는 진행 예정.</div>
         <div class="card-foot">
           <span class="badge badge-ai">PyTorch</span>
           <span class="badge badge-ai">VGG19</span>
@@ -530,8 +532,8 @@
           <span class="card-icon">⚡</span>
           <span class="card-arrow">→</span>
         </div>
-        <div class="card-title">Jetson MLOps Lab — 비전 파이프라인 최적화</div>
-        <div class="card-desc">Jetson Orin Nano 실기기에서 비전 모델 최적화 두 트랙을 직접 측정. ResNet-18 경량화 비교에서 TensorRT INT8은 PyTorch eager 대비 <strong>10.4배</strong> 빨라졌지만 CPU INT8 양자화는 크기 1/4로 줄어도 오히려 16% 느려짐. 이동 카메라 객체 계수 파이프라인은 검출→ByteTrack 추적→중복 제거로 프레임별 합산 오차(9.4배 부풀림)를 바로잡고, YOLO11n을 TensorRT FP16으로 <strong>30→135 FPS(4.4배)</strong>까지 끌어올림.</div>
+        <div class="card-title" data-en="Jetson MLOps Lab — Vision Pipeline Optimization">Jetson MLOps Lab — 비전 파이프라인 최적화</div>
+        <div class="card-desc" data-en="Hands-on measurements from two vision-optimization tracks on real Jetson Orin Nano hardware. Comparing ResNet-18 compression approaches, TensorRT INT8 was &lt;strong&gt;10.4× faster&lt;/strong&gt; than PyTorch eager, while CPU INT8 quantization was actually 16% slower despite a 4× smaller model. A moving-camera object-counting pipeline corrects the per-frame double-counting error (a 9.4× inflation) via detection → ByteTrack tracking → deduplication, and pushes YOLO11n from &lt;strong&gt;30 to 135 FPS (4.4×)&lt;/strong&gt; with TensorRT FP16.">Jetson Orin Nano 실기기에서 비전 모델 최적화 두 트랙을 직접 측정. ResNet-18 경량화 비교에서 TensorRT INT8은 PyTorch eager 대비 <strong>10.4배</strong> 빨라졌지만 CPU INT8 양자화는 크기 1/4로 줄어도 오히려 16% 느려짐. 이동 카메라 객체 계수 파이프라인은 검출→ByteTrack 추적→중복 제거로 프레임별 합산 오차(9.4배 부풀림)를 바로잡고, YOLO11n을 TensorRT FP16으로 <strong>30→135 FPS(4.4배)</strong>까지 끌어올림.</div>
         <div class="card-foot">
           <span class="badge badge-py">PyTorch</span>
           <span class="badge badge-ai">TensorRT</span>
@@ -564,6 +566,37 @@
       document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
     });
   });
+</script>
+
+<script>
+  (function () {
+    var LANG_KEY = 'lyh_lang';
+    var els = document.querySelectorAll('[data-en]');
+    // capture the original Korean markup once, before any toggling
+    els.forEach(function (el) { el.dataset.ko = el.innerHTML; });
+
+    var toggleBtn = document.getElementById('langToggle');
+
+    function apply(lang) {
+      document.documentElement.lang = lang;
+      els.forEach(function (el) {
+        el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.ko;
+      });
+      if (toggleBtn) toggleBtn.textContent = lang === 'en' ? '🌐 KO' : '🌐 EN';
+    }
+
+    var lang = 'ko';
+    try { lang = localStorage.getItem(LANG_KEY) || 'ko'; } catch (e) {}
+    apply(lang);
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function () {
+        lang = lang === 'en' ? 'ko' : 'en';
+        try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+        apply(lang);
+      });
+    }
+  })();
 </script>
 
 </body>

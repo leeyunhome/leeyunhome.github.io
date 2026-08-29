@@ -19,7 +19,7 @@ Personal GitHub Pages site served at https://leeyunhome.github.io/ — a project
 
 ## Editing the hub page
 
-- Project cards live in `index.html` inside six tab panels (`#panel-graphics`, `#panel-tools`, `#panel-monitoring`, `#panel-embedded`, `#panel-ai`, `#panel-dataviz`), switched by plain vanilla-JS click handlers on `.tab-btn` — no framework, no build step. Each card is an `<a class="card">` with icon, title, description, and tech `badge-*` spans (`badge-js`, `badge-ts`, `badge-py`, `badge-html`, `badge-ai`, `badge-css`).
+- Project cards live in `index.html` inside seven tab panels (`#panel-graphics`, `#panel-tools`, `#panel-monitoring`, `#panel-embedded`, `#panel-ai`, `#panel-dataviz`, `#panel-deeplearning`), switched by plain vanilla-JS click handlers on `.tab-btn` — no framework, no build step. Each card is an `<a class="card">` with icon, title, description, and tech `badge-*` spans (`badge-js`, `badge-ts`, `badge-py`, `badge-html`, `badge-ai`, `badge-css`).
 - Category convention:
   - **그래픽스**: rendering/graphics-tech projects (3DGS viewer, cloth sim).
   - **도구**: everyday utility apps with no AI model in the core pipeline and not a monitoring dashboard (PDF tool, image resizer, counters, portfolio link, mini-games).
@@ -32,6 +32,7 @@ Personal GitHub Pages site served at https://leeyunhome.github.io/ — a project
 - **Badge colors are not tokenized** — each `.badge-*` rule hard-codes its `color` plus `44` (border) / `14` (background) alpha suffixes. The palette is held at ≥4.5:1 against `--surface` (#ffffff), i.e. WCAG AA for normal text, so when adding or changing a badge check the contrast rather than eyeballing it. The pre-2026-08-17 dark-theme badge colors (bright yellow `#f0c040`, green `#70c06a`, cyan `#5bc0de`) fail badly on white — don't reintroduce that family.
 - `--accent` also needs the full 4.5:1 against `--bg`, not just against white: the footer link renders it at 12.5px, which counts as normal text. `#3b6fd4` measured 4.49:1 and had to be darkened to `#3767c9`.
 - `<meta name="theme-color">` in the head should track `--bg` so mobile browser chrome matches the page.
+- **Korean/English toggle (added 2026-08-18)**: the header has a `#langToggle` button. Translatable elements (`<title>`, tagline, tab labels, card titles/descriptions) carry a `data-en="..."` attribute holding the English HTML; the page-load script copies each element's *original* Korean `innerHTML` into `el.dataset.ko` automatically, so **you only ever author `data-en` by hand** — never hand-write a `data-ko` attribute, it's derived at runtime. Preference persists in `localStorage['lyh_lang']`. When adding a new card or tab, add `data-en="..."` to its title/desc/label element in the same edit — don't leave new content Korean-only.
 - Keep AI badges accurate to what each project actually uses (this has been a source of past corrections — see commit history).
 
 ## Lessons learned (workflow gotchas)
