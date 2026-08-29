@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -585,8 +585,8 @@
       if (toggleBtn) toggleBtn.textContent = lang === 'en' ? '🌐 KO' : '🌐 EN';
     }
 
-    var lang = 'ko';
-    try { lang = localStorage.getItem(LANG_KEY) || 'ko'; } catch (e) {}
+    var lang = 'en';
+    try { lang = localStorage.getItem(LANG_KEY) || 'en'; } catch (e) {}
     apply(lang);
 
     if (toggleBtn) {
