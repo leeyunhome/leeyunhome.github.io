@@ -2,6 +2,64 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// 1. Update emphasis.js in myslide to support multiline / auto font-size fit for conclusionBar
+const emphasisPath = 'c:/coding/my-github-repository/myslide/src/components/emphasis.js';
+const newEmphasisCode = `import { CANVAS, COLORS } from '../theme.js';
+import { box, text } from '../svg.js';
+import { textWidth } from '../measure.js';
+
+export function conclusionBar(props) {
+  const label = props.label || '교훈';
+  const barW = CANVAS.w - 260;
+  const maxContentW = barW - 70;
+
+  let rawLines = [];
+  if (Array.isArray(props.lines)) {
+    rawLines = props.lines;
+  } else if (props.text) {
+    rawLines = String(props.text).split(String.fromCharCode(10));
+  }
+
+  let fontSize = props.fontSize || (rawLines.length > 1 ? 25 : 30);
+  for (const line of rawLines) {
+    const w = textWidth(line, fontSize);
+    if (w > maxContentW) {
+      const fitted = Math.floor(fontSize * (maxContentW / w));
+      fontSize = Math.max(18, Math.min(fontSize, fitted));
+    }
+  }
+
+  const lineCount = Math.max(1, rawLines.length);
+  const lineGap = fontSize + 16;
+  const barH = Math.max(130, 50 + lineCount * lineGap + 20);
+  const x = (CANVAS.w - barW) / 2;
+  const y = props.y ?? CANVAS.h / 2 - barH / 2;
+  const stripeW = 8;
+
+  let out = '';
+  out += box({ x, y, w: barW, h: barH, r: 16, fill: COLORS.panel.fill, stroke: COLORS.panel.stroke, sw: 1.5 });
+  out += box({ x, y, w: stripeW, h: barH, r: 4, fill: COLORS.gold, stroke: 'none', sw: 0 });
+
+  out += text({
+    x: x + stripeW + 26, y: y + 32, content: label,
+    size: 18, fill: COLORS.gold, weight: 700, anchor: 'start',
+  });
+
+  const startTextY = y + 74 + Math.floor((fontSize - 25) / 2);
+  rawLines.forEach((ln, i) => {
+    out += text({
+      x: x + stripeW + 26, y: startTextY + i * lineGap, content: ln,
+      size: fontSize, fill: COLORS.text, weight: 800, anchor: 'start',
+    });
+  });
+
+  return out;
+}
+`;
+fs.writeFileSync(emphasisPath, newEmphasisCode, 'utf-8');
+console.log('Updated', emphasisPath);
+
+// 2. Define YAML with improved 2-line layout for slide 7
 const yamlContent = `meta:
   title: "leeyunhome Project Hub — 프로젝트 & 엔지니어링 생태계"
 
@@ -160,20 +218,22 @@ slides:
     figure:
       type: conclusionBar
       label: "Core Value"
-      text: "도구가 없으면 직접 만들고, 추측 대신 실측 데이터로 증명하며, 시스템의 깊은 계층까지 파고듭니다."
+      lines:
+        - "도구가 없으면 직접 만들고, 추측 대신 실측 데이터로 증명하며,"
+        - "시스템의 깊은 계층까지 파고들어 문제의 근본을 해결합니다."
 `;
 
 const targetYaml = 'c:/coding/my-github-repository/myslide/examples/hub_overview.yaml';
 fs.writeFileSync(targetYaml, yamlContent, 'utf-8');
 console.log('YAML written to', targetYaml);
 
-// Build slide
+// 3. Build slide
 const cliPath = 'c:/coding/my-github-repository/myslide/src/cli.js';
 const distDir = 'c:/coding/my-github-repository/myslide/dist';
 execSync(`node "${cliPath}" build "${targetYaml}" -o "${distDir}"`, { stdio: 'inherit' });
 console.log('Build completed.');
 
-// Copy to leeyunhome.github.io/slides/hub-overview.html
+// 4. Copy to leeyunhome.github.io/slides/hub-overview.html
 const slidesDir = path.join(__dirname, '../slides');
 if (!fs.existsSync(slidesDir)) {
   fs.mkdirSync(slidesDir, { recursive: true });
