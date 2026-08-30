@@ -58,7 +58,80 @@ export function conclusionBar(props) {
 `;
 fs.writeFileSync(emphasisPath, emphasisCode, 'utf-8');
 
-// 2. Korean YAML definition
+// 2. Update more.js in myslide to fix pipeline box overflow
+const morePath = 'c:/coding/my-github-repository/myslide/src/components/more.js';
+let moreCode = fs.readFileSync(morePath, 'utf-8');
+const pipelineRegex = /\/\/ ── figure: pipeline ──[\s\S]*$/;
+const newPipelineCode = `// ── figure: pipeline ─────────────────────────────────────────────────
+// 번호 pill 이 달린 단계 박스들을 가로로 나열하고 화살표로 연결.
+export function pipeline(props) {
+  const steps = props.steps || [];
+  const fs = 22;
+  const h = props.boxHeight || 100;
+  const y = props.rowY ?? CANVAS.h / 2;
+
+  const baseSubFs = 15;
+  const widths = steps.map((s) => {
+    const labelW = textWidth(s.label, fs) + 54;
+    const subW = s.sub ? textWidth(s.sub, baseSubFs) + 30 : 0;
+    return Math.max(185, Math.min(225, Math.max(labelW, subW)));
+  });
+
+  const sumW = widths.reduce((a, b) => a + b, 0);
+  const n = steps.length;
+  const gap = props.gap ?? (n > 1 ? Math.max(20, Math.min(50, Math.floor((1160 - sumW) / (n - 1)))) : 60);
+  const total = sumW + gap * (n - 1);
+  let x = (CANVAS.w - total) / 2;
+
+  const circled = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
+  let out = '';
+  const centers = [];
+  steps.forEach((s, i) => {
+    const w = widths[i];
+    const cxc = x + w / 2;
+    centers.push({ cxc, w });
+    x += w + gap;
+  });
+
+  for (let i = 0; i < centers.length - 1; i++) {
+    const a = centers[i], b = centers[i + 1];
+    const bidir = !!(props.links && props.links[i] && props.links[i].bidirectional);
+    out += arrow({ x1: a.cxc + a.w / 2 + 5, y1: y, x2: b.cxc - b.w / 2 - 5, y2: y, sw: 3, bidirectional: bidir });
+  }
+
+  const hasHighlight = props.highlight != null;
+  steps.forEach((s, i) => {
+    const { cxc, w } = centers[i];
+    const c = PALETTE[s.color] || COLORS.slate;
+    const isHi = hasHighlight && i === props.highlight;
+    const dim = hasHighlight && !isHi;
+    const stroke = isHi ? COLORS.gold : c.stroke;
+    const sw = isHi ? 3.5 : 2;
+
+    let subFs = baseSubFs;
+    if (s.sub) {
+      const swW = textWidth(s.sub, subFs);
+      const maxSubW = w - 18;
+      if (swW > maxSubW) {
+        subFs = Math.max(12, Math.floor(subFs * (maxSubW / swW)));
+      }
+    }
+
+    out += \`<g\${dim ? ' opacity="0.4"' : ''}>\`;
+    out += box({ x: cxc - w / 2, y: y - h / 2, w, h, r: 16, fill: c.fill, stroke, sw, glow: isHi });
+    out += text({ x: cxc, y: y - 10, content: \`\${circled[i] || i + 1} \${s.label}\`, size: fs, fill: c.text, weight: 700 });
+    if (s.sub) out += text({ x: cxc, y: y + 24, content: s.sub, size: subFs, fill: COLORS.textDim, weight: 600 });
+    out += '</g>';
+  });
+
+  return out;
+}
+`;
+moreCode = moreCode.replace(pipelineRegex, newPipelineCode);
+fs.writeFileSync(morePath, moreCode, 'utf-8');
+console.log('Updated pipeline in', morePath);
+
+// 3. Korean YAML definition
 const koYaml = `meta:
   title: "leeyunhome Project Hub — 프로젝트 & 엔지니어링 생태계"
 
@@ -170,7 +243,7 @@ slides:
           sub: "자동 다운로드 & 동기화"
           color: slate
         - label: "음성 전사"
-          sub: "faster-whisper large-v3"
+          sub: "Whisper large-v3"
           color: blue
         - label: "구간 분리"
           sub: "inaSpeechSegmenter"
@@ -222,7 +295,7 @@ slides:
         - "시스템의 깊은 계층까지 파고들어 문제의 근본을 해결합니다."
 `;
 
-// 3. English YAML definition
+// 4. English YAML definition
 const enYaml = `meta:
   title: "leeyunhome Project Hub — Engineering & AI Systems Ecosystem"
 
@@ -335,7 +408,7 @@ slides:
           sub: "Auto download & sync"
           color: slate
         - label: "ASR Transcribe"
-          sub: "faster-whisper large-v3"
+          sub: "Whisper large-v3"
           color: blue
         - label: "Segmentation"
           sub: "inaSpeechSegmenter"
@@ -400,7 +473,6 @@ fs.writeFileSync(koYamlPath, koYaml, 'utf-8');
 console.log('Building KO slide...');
 execSync(`node "${cliPath}" build "${koYamlPath}" -o "${distDir}"`, { stdio: 'inherit' });
 fs.copyFileSync(path.join(distDir, 'hub_overview.html'), path.join(slidesDir, 'hub-overview-ko.html'));
-// Also maintain hub-overview.html as backward compatibility (KO by default)
 fs.copyFileSync(path.join(distDir, 'hub_overview.html'), path.join(slidesDir, 'hub-overview.html'));
 
 // Write & Build EN
@@ -410,4 +482,4 @@ console.log('Building EN slide...');
 execSync(`node "${cliPath}" build "${enYamlPath}" -o "${distDir}"`, { stdio: 'inherit' });
 fs.copyFileSync(path.join(distDir, 'hub_overview_en.html'), path.join(slidesDir, 'hub-overview-en.html'));
 
-console.log('Both KO and EN slides built and copied successfully!');
+console.log('Both KO and EN slides built and copied successfully with pipeline fixes!');
