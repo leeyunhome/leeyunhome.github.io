@@ -2,9 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-// 1. Update emphasis.js in myslide to support multiline / auto font-size fit for conclusionBar
+// 1. Ensure emphasis.js has multiline & textWidth support in myslide
 const emphasisPath = 'c:/coding/my-github-repository/myslide/src/components/emphasis.js';
-const newEmphasisCode = `import { CANVAS, COLORS } from '../theme.js';
+const emphasisCode = `import { CANVAS, COLORS } from '../theme.js';
 import { box, text } from '../svg.js';
 import { textWidth } from '../measure.js';
 
@@ -56,11 +56,10 @@ export function conclusionBar(props) {
   return out;
 }
 `;
-fs.writeFileSync(emphasisPath, newEmphasisCode, 'utf-8');
-console.log('Updated', emphasisPath);
+fs.writeFileSync(emphasisPath, emphasisCode, 'utf-8');
 
-// 2. Define YAML with improved 2-line layout for slide 7
-const yamlContent = `meta:
+// 2. Korean YAML definition
+const koYaml = `meta:
   title: "leeyunhome Project Hub — 프로젝트 & 엔지니어링 생태계"
 
 slides:
@@ -223,22 +222,192 @@ slides:
         - "시스템의 깊은 계층까지 파고들어 문제의 근본을 해결합니다."
 `;
 
-const targetYaml = 'c:/coding/my-github-repository/myslide/examples/hub_overview.yaml';
-fs.writeFileSync(targetYaml, yamlContent, 'utf-8');
-console.log('YAML written to', targetYaml);
+// 3. English YAML definition
+const enYaml = `meta:
+  title: "leeyunhome Project Hub — Engineering & AI Systems Ecosystem"
 
-// 3. Build slide
+slides:
+  # 1. Agenda / Overview
+  - title: "**leeyunhome Project Hub** — Engineering & AI Systems"
+    caption: "In-browser tools, kernel profiling, 3D vision, and MLOps"
+    figure:
+      type: agenda
+      currentIndex: 0
+      sectionLabel: "Agenda"
+      items:
+        - "3D Graphics & Real2Sim (3DGS Viewer · Field2Scene · Cloth Physics Sim)"
+        - "Embedded Linux & Kernel Lab (Jetson Orin perf/ftrace · RPi 4B 6.12 Kernel)"
+        - "Edge AI & MLOps (TensorRT 10.4x Acceleration · YOLO11n + ByteTrack)"
+        - "End-to-End AI Pipelines (Whisper Transcription · Imagen 4 Artwork)"
+        - "Zero-Server Web Tools (Client-Side Local Utilities · Fleet Dashboard)"
+
+  # 2. 3D Graphics & Real2Sim
+  - title: "**3D Graphics & Real2Sim** — Rendering to Physics Simulation"
+    caption: "3DGS synthetic data pipeline & C++17 cloth physics engine"
+    figure:
+      type: compare
+      columns:
+        - label: "Field2Scene (Real2Sim)"
+          sub: "3DGS + YOLO-World Pipeline"
+          color: blue
+          lines:
+            - "High-fidelity 3DGS reconstruction of greenhouse scenes"
+            - "Achieved held-out test PSNR of 30.73 dB"
+            - "Generated 350 synthetic driving views with randomization"
+            - "Sim-to-Real gap validated with IoU recall 0.909 vs real video"
+          value: "PSNR 30.73 dB"
+        - label: "Cloth Lab (Garment Simulation)"
+          sub: "C++17 + WebGL2 / GLSL"
+          color: purple
+          lines:
+            - "Mass-spring physics engine implemented from scratch"
+            - "C++17 core verified with 290 Catch2 unit tests"
+            - "Raw WebGL2 / GLSL weave shaders with zero external libs"
+            - "Real-time interactive dragging and tearing in browser"
+          value: "290 Unit Tests"
+      resultBox:
+        lines:
+          - "Going beyond visual rendering: complete synthetic data generation and physics simulation from scratch"
+
+  # 3. Embedded Linux & Kernel Lab
+  - title: "**Embedded Linux & Kernel** — Hardware-Level Measurement"
+    caption: "Hands-on kernel profiling on real Jetson & RPi hardware"
+    figure:
+      type: compare
+      columns:
+        - label: "Jetson Orin Profiling"
+          sub: "L4T Custom Kernel Tracing"
+          color: green
+          lines:
+            - "PMU hardware counter profiling with perf"
+            - "CPU workload achieved IPC 3.37 / 0.01% branch miss"
+            - "Hotspot discovery using ftrace and flame graphs"
+            - "5-run repetitions caught illusions from single-shot tests"
+          value: "IPC 3.37 Measured"
+        - label: "RPi 4B Kernel Lab"
+          sub: "Kernel 6.12 aarch64 Source Build"
+          color: blue
+          lines:
+            - "Bridged gap from 32-bit Pi 3B (4.19) to 64-bit Pi 4B (6.12)"
+            - "Debugged ARM standard GICv2 interrupt architecture"
+            - "Measured execution time via ftrace irq_handler_entry/exit"
+            - "Dynamic irq_desc lookup directly via sysfs"
+          value: "64-bit Kernel Build"
+      resultBox:
+        lines:
+          - "Seamlessly connected with 46-device automated test farm experience (checks cut from 8m to 11s)"
+
+  # 4. Edge AI & MLOps
+  - title: "**Edge AI & MLOps** — Maximizing Throughput & Conquering Latency"
+    caption: "TensorRT quantization & tracking proven on Jetson hardware"
+    figure:
+      type: compare
+      columns:
+        - label: "ResNet-18 Acceleration"
+          sub: "PyTorch vs INT8 Quantization"
+          color: purple
+          lines:
+            - "TensorRT INT8: 10.4x speedup over eager PyTorch"
+            - "CPU INT8: 16% slower despite 4x size reduction"
+            - "Empirical proof of target hardware accelerator dependency"
+            - "Automated end-to-end engine benchmark suite"
+          value: "10.4x Speedup"
+        - label: "Moving Camera Counting"
+          sub: "YOLO11n + ByteTrack"
+          color: blue
+          lines:
+            - "Fixed 9.4x overcounting error from raw frame summation"
+            - "Built detection → ByteTrack tracking → deduplication"
+            - "TensorRT FP16: pushed YOLO11n from 30 to 135 FPS"
+            - "4.4x FPS boost enables real-time edge deployment"
+          value: "30 → 135 FPS"
+      resultBox:
+        lines:
+          - "Moving beyond model training to rigorous empirical validation on target edge hardware"
+
+  # 5. End-to-End AI Pipelines
+  - title: "**End-to-End AI Pipelines** — Ingestion, ASR to Web Deployment"
+    caption: "Whisper transcription, segmentation & Imagen 4 automation"
+    figure:
+      type: pipeline
+      steps:
+        - label: "Audio Ingest"
+          sub: "Auto download & sync"
+          color: slate
+        - label: "ASR Transcribe"
+          sub: "faster-whisper large-v3"
+          color: blue
+        - label: "Segmentation"
+          sub: "inaSpeechSegmenter"
+          color: purple
+        - label: "Artwork Gen"
+          sub: "Google Imagen 4"
+          color: green
+        - label: "Web Player"
+          sub: "Subtitle-synced web UI"
+          color: blue
+      highlight: 1
+
+  # 6. Zero-Server Web Tools & Monitoring
+  - title: "**Zero-Server Web Tools** — In-Browser Local Computing"
+    caption: "Zero-server client-side web tools & real-time telemetry"
+    figure:
+      type: compare
+      columns:
+        - label: "Fleet & Finance Dashboards"
+          sub: "Edge Monitor & StockPulse"
+          color: blue
+          lines:
+            - "Real-time telemetry dashboard for robot/device fleets"
+            - "Online/offline status, remote reset, and alarm controls"
+            - "Live Yahoo Finance market data and candlestick charts"
+            - "Pure frontend implementation for zero server footprint"
+          value: "Real-Time Telemetry"
+        - label: "Privacy-First Local Tools"
+          sub: "PDF Pro · Image Resizer · CountFlow"
+          color: green
+          lines:
+            - "PDF Pro: merge/split PDFs locally without data leaks"
+            - "Smart Image Resizer: client-side HTML5 canvas resizing"
+            - "CountFlow: precise Korean byte / char / word counter"
+            - "Zero server costs, zero privacy concerns"
+          value: "100% Client-Side"
+      resultBox:
+        lines:
+          - "Designed practical web tools delivering instant utility while guaranteeing user privacy"
+
+  # 7. Engineering Philosophy
+  - title: "**Engineering Philosophy** — \\"Build It When It Doesn't Exist\\""
+    caption: "Proving performance and reliability with empirical data"
+    figure:
+      type: conclusionBar
+      label: "Core Value"
+      lines:
+        - "When tools don't exist, build them; replace guesses with empirical data,"
+        - "and dive deep into system internals to solve root causes."
+`;
+
 const cliPath = 'c:/coding/my-github-repository/myslide/src/cli.js';
 const distDir = 'c:/coding/my-github-repository/myslide/dist';
-execSync(`node "${cliPath}" build "${targetYaml}" -o "${distDir}"`, { stdio: 'inherit' });
-console.log('Build completed.');
-
-// 4. Copy to leeyunhome.github.io/slides/hub-overview.html
 const slidesDir = path.join(__dirname, '../slides');
 if (!fs.existsSync(slidesDir)) {
   fs.mkdirSync(slidesDir, { recursive: true });
 }
-const srcHtml = path.join(distDir, 'hub_overview.html');
-const destHtml = path.join(slidesDir, 'hub-overview.html');
-fs.copyFileSync(srcHtml, destHtml);
-console.log(`Copied ${srcHtml} -> ${destHtml}`);
+
+// Write & Build KO
+const koYamlPath = 'c:/coding/my-github-repository/myslide/examples/hub_overview.yaml';
+fs.writeFileSync(koYamlPath, koYaml, 'utf-8');
+console.log('Building KO slide...');
+execSync(`node "${cliPath}" build "${koYamlPath}" -o "${distDir}"`, { stdio: 'inherit' });
+fs.copyFileSync(path.join(distDir, 'hub_overview.html'), path.join(slidesDir, 'hub-overview-ko.html'));
+// Also maintain hub-overview.html as backward compatibility (KO by default)
+fs.copyFileSync(path.join(distDir, 'hub_overview.html'), path.join(slidesDir, 'hub-overview.html'));
+
+// Write & Build EN
+const enYamlPath = 'c:/coding/my-github-repository/myslide/examples/hub_overview_en.yaml';
+fs.writeFileSync(enYamlPath, enYaml, 'utf-8');
+console.log('Building EN slide...');
+execSync(`node "${cliPath}" build "${enYamlPath}" -o "${distDir}"`, { stdio: 'inherit' });
+fs.copyFileSync(path.join(distDir, 'hub_overview_en.html'), path.join(slidesDir, 'hub-overview-en.html'));
+
+console.log('Both KO and EN slides built and copied successfully!');

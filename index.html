@@ -433,7 +433,7 @@
         <span class="btn-icon">▶</span>
         <span data-en="View Slides">슬라이드 바로보기</span>
       </button>
-      <a href="slides/hub-overview.html" target="_blank" class="btn-slide-secondary" data-en="Open Fullscreen ↗">
+      <a href="slides/hub-overview-en.html" target="_blank" class="btn-slide-secondary" id="bannerSlideFullscreen" data-en="Open Fullscreen ↗">
         전체화면 열기 ↗
       </a>
     </div>
@@ -831,7 +831,7 @@
         <span class="slide-modal-hint" data-en="(Use ← / → keys or click to navigate)">(← / → 방향키 또는 클릭으로 넘김)</span>
       </div>
       <div class="slide-modal-controls">
-        <a href="slides/hub-overview.html" target="_blank" class="slide-modal-btn" title="새 창에서 열기 (전체화면)" aria-label="Open in new window">
+        <a href="slides/hub-overview-en.html" target="_blank" class="slide-modal-btn" id="modalSlideFullscreen" title="새 창에서 열기 (전체화면)" aria-label="Open in new window">
           ↗
         </a>
         <button type="button" class="slide-modal-btn" id="closeSlideBtn" title="닫기 (Esc)" aria-label="Close modal">
@@ -846,18 +846,41 @@
 </div>
 
 <script>
-  // Slide Modal Handler
+  // Slide Modal & Multi-language Handler
   (function () {
     var modal = document.getElementById('slideModal');
     var iframe = document.getElementById('slideIframe');
     var openBtns = [document.getElementById('openSlideBtn'), document.getElementById('bannerSlideBtn')];
     var closeBtn = document.getElementById('closeSlideBtn');
-    var SLIDE_URL = 'slides/hub-overview.html';
+    var bannerFs = document.getElementById('bannerSlideFullscreen');
+    var modalFs = document.getElementById('modalSlideFullscreen');
+    var cardSlide = document.getElementById('cardSlideDeck');
+
+    function getSlideUrl(lang) {
+      return (lang === 'en') ? 'slides/hub-overview-en.html' : 'slides/hub-overview-ko.html';
+    }
+
+    function getCurrentLang() {
+      return document.documentElement.lang || 'en';
+    }
+
+    function updateSlideLinks(lang) {
+      var url = getSlideUrl(lang);
+      if (bannerFs) bannerFs.href = url;
+      if (modalFs) modalFs.href = url;
+      if (cardSlide) cardSlide.href = url;
+      if (iframe && iframe.getAttribute('src') && iframe.getAttribute('src') !== url) {
+        iframe.src = url;
+      }
+    }
+
+    window.updateSlideLinks = updateSlideLinks;
 
     function openModal() {
       if (!modal) return;
-      if (iframe && !iframe.getAttribute('src')) {
-        iframe.src = SLIDE_URL;
+      var url = getSlideUrl(getCurrentLang());
+      if (iframe && iframe.getAttribute('src') !== url) {
+        iframe.src = url;
       }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -928,6 +951,9 @@
         el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.ko;
       });
       if (toggleBtn) toggleBtn.textContent = lang === 'en' ? '🌐 KO' : '🌐 EN';
+      if (window.updateSlideLinks) {
+        window.updateSlideLinks(lang);
+      }
     }
 
     var lang = 'en';
