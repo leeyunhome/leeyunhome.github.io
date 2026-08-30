@@ -116,7 +116,7 @@ slides:
           lines:
             - "PMU 하드웨어 카운터 기반 perf 실측"
             - "CPU 워크로드 IPC 3.37 / 분기미스 0.01%"
-            - "ftrace 및 화염 그래프 핫스팟 분석"
+            - "ftrace 및 flame_graph 핫스팟 분석"
             - "5회 반복 측정으로 단발성 측정 착시 규명"
           value: "IPC 3.37 실측"
         - label: "RPi 4B 커널 랩"
