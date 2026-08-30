@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>leeyunhome Project Hub — 프로젝트 &amp; 엔지니어링 생태계</title>
+<style>
+:root { color-scheme: dark; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; background: #050608; overflow: hidden; }
+#deck { width: 100vw; height: 100vh; }
+.slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: opacity .35s ease; }
+.slide.active { opacity: 1; visibility: visible; }
+.stage { width: min(100vw, 177.78vh); height: min(56.25vw, 100vh); }
+#hud {
+  position: fixed; bottom: 16px; right: 22px; font-family: ui-monospace, monospace;
+  font-size: 14px; color: rgba(255,255,255,0.45); user-select: none;
+}
+</style>
+</head>
+<body>
+<div id="deck"><section class="slide" data-index="0"><svg class="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+    <radialGradient id="bgGlow" cx="78%" cy="8%" r="80%">
+      <stop offset="0%" stop-color="rgba(245, 184, 65, 0.10)" />
+      <stop offset="55%" stop-color="rgba(245,184,65,0)" />
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" />
+    </marker>
+    <marker id="arrowGoldThin" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" opacity="0.8" />
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#aeb6c2" />
+    </marker>
+  </defs>
+    <rect x="0" y="0" width="1280" height="720" fill="#0a0b10" />
+    <rect x="0" y="0" width="1280" height="720" fill="url(#bgGlow)" />
+    <line x1="150" y1="150" x2="190" y2="150" stroke="#aeb6c2" stroke-width="2" opacity="0.6" /><text x="204" y="150" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="18" font-weight="700" fill="#aeb6c2" text-anchor="start" dominant-baseline="middle" letter-spacing="0">이번 순서  1 / 5</text><text x="150" y="206" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5b841" text-anchor="start" dominant-baseline="middle" letter-spacing="0">•</text><text x="190" y="206" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5b841" text-anchor="start" dominant-baseline="middle" letter-spacing="0">3D Graphics &amp; Real2Sim (3DGS 뷰어 · Field2Scene · 물리 시뮬레이션)</text><text x="150" y="252" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="600" fill="rgba(174,182,194,0.45)" text-anchor="start" dominant-baseline="middle" letter-spacing="0">2</text><text x="190" y="252" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="600" fill="rgba(174,182,194,0.45)" text-anchor="start" dominant-baseline="middle" letter-spacing="0">Embedded Linux &amp; Kernel Lab (Orin perf/ftrace · RPi 4B 6.12 커널)</text><text x="150" y="298" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="600" fill="rgba(174,182,194,0.45)" text-anchor="start" dominant-baseline="middle" letter-spacing="0">3</text><text x="190" y="298" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="600" fill="rgba(174,182,194,0.45)" text-anchor="start" dominant-baseline="middle" letter-spacing="0">Edge AI &amp; MLOps (TensorRT 10.4배 가속 · YOLO11n + ByteTrack)</text><text x="150" y="344" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="600" fill="rgba(174,182,194,0.45)" text-anchor="start" dominant-baseline="middle" letter-spacing="0">4</text><text x="190" y="344" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="600" fill="rgba(174,182,194,0.45)" text-anchor="start" dominant-baseline="middle" letter-spacing="0">End-to-End AI Pipelines (Whisper 음성 전사 · Imagen 4 아트워크)</text><text x="150" y="390" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="600" fill="rgba(174,182,194,0.45)" text-anchor="start" dominant-baseline="middle" letter-spacing="0">5</text><text x="190" y="390" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="600" fill="rgba(174,182,194,0.45)" text-anchor="start" dominant-baseline="middle" letter-spacing="0">Zero-Server Web Tools (프런트엔드 로컬 처리 도구 · 관제 대시보드)</text><text x="640" y="96" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="44" font-weight="800" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5b841">leeyunhome Project Hub</tspan><tspan fill="#f5f7fa"> — 엔지니어링 &amp; AI 시스템</tspan></text><text x="640" y="676" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="30" font-weight="700" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">브라우저 기반 실용 도구부터 커널 계측·3D 비전·MLOps까지의 프로젝트 생태계</text>
+  </svg></section>
+<section class="slide" data-index="1"><svg class="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+    <radialGradient id="bgGlow" cx="78%" cy="8%" r="80%">
+      <stop offset="0%" stop-color="rgba(245, 184, 65, 0.10)" />
+      <stop offset="55%" stop-color="rgba(245,184,65,0)" />
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" />
+    </marker>
+    <marker id="arrowGoldThin" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" opacity="0.8" />
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#aeb6c2" />
+    </marker>
+  </defs>
+    <rect x="0" y="0" width="1280" height="720" fill="#0a0b10" />
+    <rect x="0" y="0" width="1280" height="720" fill="url(#bgGlow)" />
+    <rect x="110" y="170" width="510" height="340" rx="18" ry="18" fill="#1b2b4d" stroke="#3a5a9a" stroke-width="2" opacity="1" /><text x="365" y="212" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Field2Scene (Real2Sim)</text><text x="365" y="240" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="16" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">3DGS + YOLO-World 파이프라인</text><text x="365" y="278" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">실외·농업 온실 씬 3DGS 고품질 3D 재구성</text><text x="365" y="308" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">held-out test PSNR 30.73dB 달성</text><text x="365" y="338" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">로봇 주행 시점 합성 데이터 350장 생성</text><text x="365" y="368" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">실촬영 대비 검출 갭 recall 0.909 검증</text><text x="365" y="484" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="28" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">PSNR 30.73dB</text><rect x="660" y="170" width="510" height="340" rx="18" ry="18" fill="#2a1f45" stroke="#8a6fd0" stroke-width="2" opacity="1" /><text x="915" y="212" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Cloth Lab (의상 시뮬레이션)</text><text x="915" y="240" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="16" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">C++17 + WebGL2 / GLSL</text><text x="915" y="278" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d8c9f5" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Mass-spring 모델을 처음부터 자체 구현</text><text x="915" y="308" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d8c9f5" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">단위 테스트 290개로 검증된 C++17 코어</text><text x="915" y="338" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d8c9f5" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">외부 라이브러리 없는 raw WebGL2 직조 셰이더</text><text x="915" y="368" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d8c9f5" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">브라우저에서 실시간 인터랙티브 드래그·파망</text><text x="915" y="484" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="28" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">290개 단위 테스트</text><rect x="110" y="540" width="1060" height="96" rx="16" ry="16" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" opacity="1" /><text x="640" y="580" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="22" font-weight="700" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5f7fa">시각적 표현을 넘어 데이터 생성 및 물리 법칙 시뮬레이션까지 자체 구현</tspan></text><text x="640" y="96" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="42" font-weight="800" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5b841">3D Graphics &amp; Real2Sim</tspan><tspan fill="#f5f7fa"> — 렌더링부터 물리 시뮬레이션</tspan></text><text x="640" y="676" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="30" font-weight="700" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">3D Gaussian Splatting 기반 가상 데이터 생성과 C++17 의상 물리 엔진</text>
+  </svg></section>
+<section class="slide" data-index="2"><svg class="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+    <radialGradient id="bgGlow" cx="78%" cy="8%" r="80%">
+      <stop offset="0%" stop-color="rgba(245, 184, 65, 0.10)" />
+      <stop offset="55%" stop-color="rgba(245,184,65,0)" />
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" />
+    </marker>
+    <marker id="arrowGoldThin" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" opacity="0.8" />
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#aeb6c2" />
+    </marker>
+  </defs>
+    <rect x="0" y="0" width="1280" height="720" fill="#0a0b10" />
+    <rect x="0" y="0" width="1280" height="720" fill="url(#bgGlow)" />
+    <rect x="110" y="170" width="510" height="340" rx="18" ry="18" fill="#123528" stroke="#2f8f63" stroke-width="2" opacity="1" /><text x="365" y="212" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Jetson Orin 프로파일링</text><text x="365" y="240" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="16" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">L4T 커스텀 커널 계측</text><text x="365" y="278" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#7fe0b0" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">PMU 하드웨어 카운터 기반 perf 실측</text><text x="365" y="308" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#7fe0b0" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">CPU 워크로드 IPC 3.37 / 분기미스 0.01%</text><text x="365" y="338" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#7fe0b0" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">ftrace 및 화염 그래프 핫스팟 분석</text><text x="365" y="368" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#7fe0b0" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">5회 반복 측정으로 단발성 측정 착시 규명</text><text x="365" y="484" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="28" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">IPC 3.37 실측</text><rect x="660" y="170" width="510" height="340" rx="18" ry="18" fill="#1b2b4d" stroke="#3a5a9a" stroke-width="2" opacity="1" /><text x="915" y="212" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">RPi 4B 커널 랩</text><text x="915" y="240" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="16" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">커널 6.12 aarch64 소스 빌드</text><text x="915" y="278" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">책(Pi 3B 32bit)과 실제(Pi 4B 64bit) 갭 해결</text><text x="915" y="308" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">ARM 표준 GICv2 인터럽트 체계 디버깅</text><text x="915" y="338" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">ftrace irq_handler_entry/exit 시간 측정</text><text x="915" y="368" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">sysfs 기반 irq_desc 동적 조회</text><text x="915" y="484" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="28" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">64-bit 커널 빌드</text><rect x="110" y="540" width="1060" height="96" rx="16" ry="16" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" opacity="1" /><text x="640" y="580" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="22" font-weight="700" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5f7fa">46대 임베디드 디바이스 자동화 테스트 팜(점검 시간 8분→11초) 경험과 유기적 연결</tspan></text><text x="640" y="96" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="42" font-weight="800" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5b841">Embedded Linux &amp; Kernel</tspan><tspan fill="#f5f7fa"> — 실기기 기반 계측과 디버깅</tspan></text><text x="640" y="676" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="30" font-weight="700" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">시뮬레이터를 넘어 실물 하드웨어와 커널 내부를 직접 파헤치는 실측 엔지니어링</text>
+  </svg></section>
+<section class="slide" data-index="3"><svg class="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+    <radialGradient id="bgGlow" cx="78%" cy="8%" r="80%">
+      <stop offset="0%" stop-color="rgba(245, 184, 65, 0.10)" />
+      <stop offset="55%" stop-color="rgba(245,184,65,0)" />
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" />
+    </marker>
+    <marker id="arrowGoldThin" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" opacity="0.8" />
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#aeb6c2" />
+    </marker>
+  </defs>
+    <rect x="0" y="0" width="1280" height="720" fill="#0a0b10" />
+    <rect x="0" y="0" width="1280" height="720" fill="url(#bgGlow)" />
+    <rect x="110" y="170" width="510" height="340" rx="18" ry="18" fill="#2a1f45" stroke="#8a6fd0" stroke-width="2" opacity="1" /><text x="365" y="212" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">ResNet-18 가속 비교</text><text x="365" y="240" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="16" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">PyTorch vs INT8 양자화</text><text x="365" y="278" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d8c9f5" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">TensorRT INT8: PyTorch 대비 10.4배 가속</text><text x="365" y="308" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d8c9f5" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">CPU INT8 양자화: 크기 1/4 감소 불구 16% 지연</text><text x="365" y="338" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d8c9f5" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">타깃 HW 가속기 유무에 따른 실측 차이 규명</text><text x="365" y="368" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d8c9f5" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">엔진 벤치마크 파이프라인 자동화</text><text x="365" y="484" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="28" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">10.4배 가속 달성</text><rect x="660" y="170" width="510" height="340" rx="18" ry="18" fill="#1b2b4d" stroke="#3a5a9a" stroke-width="2" opacity="1" /><text x="915" y="212" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">이동 카메라 객체 계수</text><text x="915" y="240" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="16" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">YOLO11n + ByteTrack</text><text x="915" y="278" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">프레임 합산의 9.4배 중복 계수 오차 교정</text><text x="915" y="308" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">검출 → 추적 → 중복 제거 파이프라인 구축</text><text x="915" y="338" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">TensorRT FP16 적용: 30 → 135 FPS 달성</text><text x="915" y="368" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">4.4배 FPS 향상으로 실시간 엣지 파이프라인 완성</text><text x="915" y="484" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="28" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">30 → 135 FPS</text><rect x="110" y="540" width="1060" height="96" rx="16" ry="16" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" opacity="1" /><text x="640" y="580" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="22" font-weight="700" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5f7fa">단순 모델 훈련에 그치지 않고 타깃 임베디드 엣지 환경에 최적화하여 수치로 검증</tspan></text><text x="640" y="96" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="46" font-weight="800" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5b841">Edge AI &amp; MLOps</tspan><tspan fill="#f5f7fa"> — 실시간 추론 극대화 및 지연 정복</tspan></text><text x="640" y="676" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="30" font-weight="700" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Jetson Orin 실기기에서 양자화·추적·파이프라인 최적화 성능을 직접 증명</text>
+  </svg></section>
+<section class="slide" data-index="4"><svg class="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+    <radialGradient id="bgGlow" cx="78%" cy="8%" r="80%">
+      <stop offset="0%" stop-color="rgba(245, 184, 65, 0.10)" />
+      <stop offset="55%" stop-color="rgba(245,184,65,0)" />
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" />
+    </marker>
+    <marker id="arrowGoldThin" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" opacity="0.8" />
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#aeb6c2" />
+    </marker>
+  </defs>
+    <rect x="0" y="0" width="1280" height="720" fill="#0a0b10" />
+    <rect x="0" y="0" width="1280" height="720" fill="url(#bgGlow)" />
+    <line x1="221.47999999999996" y1="360" x2="279.4799999999999" y2="360" stroke="#f5b841" stroke-width="3.5" opacity="1" marker-end="url(#arrowGold)" stroke-linecap="round" /><line x1="465.15999999999997" y1="360" x2="523.16" y2="360" stroke="#f5b841" stroke-width="3.5" opacity="1" marker-end="url(#arrowGold)" stroke-linecap="round" /><line x1="708.84" y1="360" x2="766.8399999999999" y2="360" stroke="#f5b841" stroke-width="3.5" opacity="1" marker-end="url(#arrowGold)" stroke-linecap="round" /><line x1="1000.52" y1="360" x2="1058.52" y2="360" stroke="#f5b841" stroke-width="3.5" opacity="1" marker-end="url(#arrowGold)" stroke-linecap="round" /><g opacity="0.4"><rect x="17.799999999999955" y="312" width="197.68" height="96" rx="16" ry="16" fill="#161a24" stroke="#2c3444" stroke-width="2.5" opacity="1" /><text x="116.63999999999996" y="352" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="700" fill="#c4ccd8" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">① 라디오 수집</text><text x="116.63999999999996" y="386" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">자동 다운로드 &amp; 동기화</text></g><g><rect x="285.4799999999999" y="312" width="173.68" height="96" rx="16" ry="16" fill="#1b2b4d" stroke="#f5b841" stroke-width="4" opacity="1" filter="url(#glow)" /><text x="372.31999999999994" y="352" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="700" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">② 음성 전사</text><text x="372.31999999999994" y="386" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">faster-whisper large-v3</text></g><g opacity="0.4"><rect x="529.16" y="312" width="173.68" height="96" rx="16" ry="16" fill="#2a1f45" stroke="#8a6fd0" stroke-width="2.5" opacity="1" /><text x="616" y="352" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="700" fill="#d8c9f5" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">③ 구간 분리</text><text x="616" y="386" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">inaSpeechSegmenter</text></g><g opacity="0.4"><rect x="772.8399999999999" y="312" width="221.68" height="96" rx="16" ry="16" fill="#123528" stroke="#2f8f63" stroke-width="2.5" opacity="1" /><text x="883.68" y="352" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="700" fill="#7fe0b0" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">④ 아트워크 생성</text><text x="883.68" y="386" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Google Imagen 4</text></g><g opacity="0.4"><rect x="1064.52" y="312" width="197.68" height="96" rx="16" ry="16" fill="#1b2b4d" stroke="#3a5a9a" stroke-width="2.5" opacity="1" /><text x="1163.36" y="352" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="700" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">⑤ 웹 플레이어</text><text x="1163.36" y="386" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">자막 싱크 브라우저 배포</text></g><text x="640" y="96" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="44" font-weight="800" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5b841">End-to-End AI Pipelines</tspan><tspan fill="#f5f7fa"> — 수집·전사부터 배포까지</tspan></text><text x="640" y="676" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="30" font-weight="700" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Whisper 전사, 음악·대화 분리, Imagen 4 아트워크 생성 전 과정 자동화</text>
+  </svg></section>
+<section class="slide" data-index="5"><svg class="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+    <radialGradient id="bgGlow" cx="78%" cy="8%" r="80%">
+      <stop offset="0%" stop-color="rgba(245, 184, 65, 0.10)" />
+      <stop offset="55%" stop-color="rgba(245,184,65,0)" />
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" />
+    </marker>
+    <marker id="arrowGoldThin" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" opacity="0.8" />
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#aeb6c2" />
+    </marker>
+  </defs>
+    <rect x="0" y="0" width="1280" height="720" fill="#0a0b10" />
+    <rect x="0" y="0" width="1280" height="720" fill="url(#bgGlow)" />
+    <rect x="110" y="170" width="510" height="340" rx="18" ry="18" fill="#1b2b4d" stroke="#3a5a9a" stroke-width="2" opacity="1" /><text x="365" y="212" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">엣지 &amp; 금융 관제</text><text x="365" y="240" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="16" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Edge Monitor &amp; StockPulse</text><text x="365" y="278" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">디바이스·로봇 플릿 실시간 텔레메트리 대시보드</text><text x="365" y="308" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">온·오프라인 상태 / 원격 재시작 / 알람 제어</text><text x="365" y="338" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Yahoo Finance 실시간 차트 &amp; 캔들 시황 분석</text><text x="365" y="368" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#d3ddf2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">순수 프런트엔드 구현으로 가볍고 신속한 반응</text><text x="365" y="484" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="28" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">실시간 관제 대시보드</text><rect x="660" y="170" width="510" height="340" rx="18" ry="18" fill="#123528" stroke="#2f8f63" stroke-width="2" opacity="1" /><text x="915" y="212" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="24" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">보안형 로컬 미니 도구</text><text x="915" y="240" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="16" font-weight="600" fill="#aeb6c2" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">PDF Pro · Image Resizer · CountFlow</text><text x="915" y="278" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#7fe0b0" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">PDF 병합·분리: 파일이 기기를 벗어나지 않는 안전성</text><text x="915" y="308" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#7fe0b0" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">Smart Image Resizer: 브라우저 로컬 캔버스 리사이즈</text><text x="915" y="338" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#7fe0b0" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">CountFlow: 한글 2byte/단어/공백 동시 정밀 계측</text><text x="915" y="368" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="17" font-weight="600" fill="#7fe0b0" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">서버 비용 0원, 프라이버시 침해 0%</text><text x="915" y="484" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="28" font-weight="800" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">100% 로컬 처리</text><rect x="110" y="540" width="1060" height="96" rx="16" ry="16" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" opacity="1" /><text x="640" y="580" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="22" font-weight="700" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5f7fa">사용자 프라이버시를 보장하면서도 즉각적인 유용성을 제공하는 실용 웹 도구 설계</tspan></text><text x="640" y="96" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="48" font-weight="800" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5b841">Zero-Server Web Tools</tspan><tspan fill="#f5f7fa"> — 브라우저 로컬 컴퓨팅</tspan></text><text x="640" y="676" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="30" font-weight="700" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">서버 전송 없이 사용자의 브라우저 내에서 안전하고 빠르게 동작하는 실용 도구군</text>
+  </svg></section>
+<section class="slide" data-index="6"><svg class="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+    <radialGradient id="bgGlow" cx="78%" cy="8%" r="80%">
+      <stop offset="0%" stop-color="rgba(245, 184, 65, 0.10)" />
+      <stop offset="55%" stop-color="rgba(245,184,65,0)" />
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" />
+    </marker>
+    <marker id="arrowGoldThin" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5b841" opacity="0.8" />
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#aeb6c2" />
+    </marker>
+  </defs>
+    <rect x="0" y="0" width="1280" height="720" fill="#0a0b10" />
+    <rect x="0" y="0" width="1280" height="720" fill="url(#bgGlow)" />
+    <rect x="130" y="295" width="1020" height="130" rx="16" ry="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" opacity="1" /><rect x="130" y="295" width="8" height="130" rx="4" ry="4" fill="#f5b841" stroke="none" stroke-width="0" opacity="1" /><text x="164" y="329" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="18" font-weight="700" fill="#f5b841" text-anchor="start" dominant-baseline="middle" letter-spacing="0">Core Value</text><text x="164" y="373" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="30" font-weight="800" fill="#f5f7fa" text-anchor="start" dominant-baseline="middle" letter-spacing="0">도구가 없으면 직접 만들고, 추측 대신 실측 데이터로 증명하며, 시스템의 깊은 계층까지 파고듭니다.</text><text x="640" y="96" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="50" font-weight="800" text-anchor="middle" dominant-baseline="middle"><tspan fill="#f5b841">엔지니어링 철학</tspan><tspan fill="#f5f7fa"> — "도구가 없으면 직접 만든다"</tspan></text><text x="640" y="676" font-family="'Pretendard', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Nanum Gothic', sans-serif" font-size="30" font-weight="700" fill="#f5f7fa" text-anchor="middle" dominant-baseline="middle" letter-spacing="0">가설에 머무르지 않고 직접 측정·도구화하여 숫자로 성능과 신뢰성을 증명합니다.</text>
+  </svg></section></div>
+<div id="hud"><span id="pageno">1</span> / 7</div>
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var pageno = document.getElementById('pageno');
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+    if (pageno) pageno.textContent = i + 1;
+    location.hash = '#' + (i + 1);
+  }
+  function next() { show(i + 1); }
+  function prev() { show(i - 1); }
+  document.addEventListener('keydown', function (e) {
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].indexOf(e.key) >= 0) { next(); e.preventDefault(); }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp'].indexOf(e.key) >= 0) { prev(); e.preventDefault(); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+  });
+  document.addEventListener('click', function (e) { if (e.clientX < window.innerWidth * 0.3) prev(); else next(); });
+  var start = parseInt((location.hash || '').replace('#', ''), 10);
+  show(isNaN(start) ? 0 : start - 1);
+})();
+</script>
+</body>
+</html>

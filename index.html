@@ -173,11 +173,228 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    @media (max-width: 500px) {
-      header h1 { font-size: 1.5rem; }
-      .grid { grid-template-columns: 1fr; }
-      .tabs { gap: 6px; }
-      .tab-btn { padding: 8px 14px; font-size: 0.82rem; }
+    /* ── Slide Showcase Banner ── */
+    .slide-banner {
+      background: linear-gradient(135deg, rgba(26, 32, 53, 0.95), rgba(15, 18, 30, 0.95));
+      border: 1px solid rgba(107, 79, 216, 0.35);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 32px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(10, 14, 29, 0.15), 0 0 20px rgba(107, 79, 216, 0.12);
+    }
+    .slide-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(245, 184, 65, 0.18) 0%, rgba(107, 79, 216, 0.1) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .slide-banner-info {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+    .slide-banner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #f5b841;
+      background: rgba(245, 184, 65, 0.12);
+      border: 1px solid rgba(245, 184, 65, 0.3);
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f5b841;
+      box-shadow: 0 0 8px #f5b841;
+      animation: pulseAnim 2s infinite;
+    }
+    @keyframes pulseAnim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .slide-banner-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f5f7fa;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+    .slide-banner-desc {
+      font-size: 0.84rem;
+      color: #a0aec0;
+      line-height: 1.5;
+      max-width: 650px;
+    }
+    .slide-banner-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+    .btn-slide-primary {
+      background: linear-gradient(135deg, #f5b841, #e09f23);
+      color: #12141d;
+      border: none;
+      font-weight: 700;
+      font-size: 0.86rem;
+      padding: 9px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(245, 184, 65, 0.35);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .btn-slide-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(245, 184, 65, 0.45);
+    }
+    .btn-slide-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-weight: 600;
+      font-size: 0.84rem;
+      padding: 9px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-slide-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    /* ── Slide Modal ── */
+    .slide-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 8, 14, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      padding: 20px;
+    }
+    .slide-modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .slide-modal-window {
+      width: 100%;
+      max-width: 1100px;
+      background: #0a0c14;
+      border: 1px solid rgba(245, 184, 65, 0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(245, 184, 65, 0.15);
+      display: flex;
+      flex-direction: column;
+      transform: scale(0.96);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide-modal-backdrop.active .slide-modal-window {
+      transform: scale(1);
+    }
+    .slide-modal-header {
+      background: #111420;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .slide-modal-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .slide-modal-hint {
+      font-size: 0.76rem;
+      color: #718096;
+      margin-left: 8px;
+      font-weight: normal;
+    }
+    .slide-modal-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .slide-modal-btn {
+      background: none;
+      border: none;
+      color: #a0aec0;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.18s, background 0.18s;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .slide-modal-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .slide-modal-body {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      background: #050608;
+    }
+    .slide-modal-body iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    @media (max-width: 768px) {
+      .slide-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .slide-modal-hint {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -190,11 +407,37 @@
   <div class="links">
     <a href="https://github.com/leeyunhome" target="_blank">⑃ GitHub</a>
     <a href="https://leeyunhome.github.io/portfolio/" target="_blank">📄 Portfolio</a>
+    <button id="openSlideBtn" type="button">📽️ <span data-en="Slide Deck">슬라이드 덱</span></button>
     <button id="langToggle" type="button">🌐 EN</button>
   </div>
 </header>
 
 <main>
+
+  <!-- 슬라이드 쇼케이스 배너 -->
+  <div class="slide-banner">
+    <div class="slide-banner-info">
+      <div class="slide-banner-badge">
+        <span class="pulse-dot"></span>
+        <span data-en="Interactive Slide Deck">인터랙티브 슬라이드 덱</span>
+      </div>
+      <h2 class="slide-banner-title" data-en="leeyunhome Project Hub — Visual Slide Deck">
+        leeyunhome 프로젝트 허브 — 비주얼 슬라이드 덱
+      </h2>
+      <p class="slide-banner-desc" data-en="Explore 3D graphics, embedded kernel labs, Edge AI &amp; MLOps, and automation pipelines through dark-themed vector slides built with myslide.">
+        3D 그래픽스부터 임베디드 커널 랩, Edge AI/MLOps, 자동화 파이프라인까지 자체 엔진(myslide)으로 빌드된 고품질 다크 테마 슬라이드로 한눈에 확인하세요.
+      </p>
+    </div>
+    <div class="slide-banner-actions">
+      <button type="button" class="btn-slide-primary" id="bannerSlideBtn">
+        <span class="btn-icon">▶</span>
+        <span data-en="View Slides">슬라이드 바로보기</span>
+      </button>
+      <a href="slides/hub-overview.html" target="_blank" class="btn-slide-secondary" data-en="Open Fullscreen ↗">
+        전체화면 열기 ↗
+      </a>
+    </div>
+  </div>
 
   <!-- 탭 네비게이션 -->
   <div class="tabs" role="tablist">
@@ -261,6 +504,20 @@
   <!-- 도구 -->
   <section class="tab-panel" id="panel-tools">
     <div class="grid">
+
+      <a class="card" href="slides/hub-overview.html" target="_blank" id="cardSlideDeck">
+        <div class="card-header">
+          <span class="card-icon">📽️</span>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title" data-en="Project Hub Slide Deck">프로젝트 허브 슬라이드 덱</div>
+        <div class="card-desc" data-en="An interactive dark-themed vector slide deck built with the custom myslide engine. Summarizes 5 core engineering domains including 3DGS, embedded kernel labs, and Edge AI pipelines.">자체 개발 myslide 엔진으로 제작된 인터랙티브 다크 테마 슬라이드 덱. 3DGS부터 임베디드 리눅스 커널, Edge AI/MLOps까지 5대 핵심 엔지니어링 영역을 요약·조망.</div>
+        <div class="card-foot">
+          <span class="badge badge-ai">myslide</span>
+          <span class="badge badge-ts">SVG · Vector</span>
+          <span class="badge badge-js">Interactive</span>
+        </div>
+      </a>
 
       <a class="card" href="https://leeyunhome.github.io/Smart-Image-Resizer/" target="_blank">
         <div class="card-header">
@@ -425,6 +682,20 @@
         </div>
       </a>
 
+      <a class="card" href="https://github.com/leeyunhome/rpi-kernel-lab" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🐧</span>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title" data-en="Linux Kernel Build &amp; ftrace Lab — Raspberry Pi 4B">리눅스 커널 빌드 &amp; ftrace 실습 — Raspberry Pi 4B</div>
+        <div class="card-desc" data-en="Built the Linux kernel from source on Raspberry Pi 4B (BCM2711 / aarch64 / kernel 6.12) and traced interrupt handling and scheduling internals with ftrace. Bridging the gap between a 32-bit Pi 3B / kernel 4.19 reference book and the actual 64-bit Pi 4B hardware — the process of resolving every discrepancy is the main record.">Raspberry Pi 4B(BCM2711 / aarch64 / 커널 6.12)에서 리눅스 커널 소스 빌드 후 ftrace로 인터럽트 처리·스케줄링 내부 동작 추적. 32비트 Pi 3B / 커널 4.19 기준의 참고 서적과 실제 장비 간 차이를 하나씩 확인하고 메워가는 과정을 주된 기록 대상으로 삼음.</div>
+        <div class="card-foot">
+          <span class="badge badge-ts">C</span>
+          <span class="badge badge-py">Bash</span>
+          <span class="badge badge-ai">ftrace · GICv2</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
@@ -550,6 +821,80 @@
 <footer>
   © 2025 leeyunhome · Built with ❤ · <a href="https://github.com/leeyunhome" style="color:var(--accent);text-decoration:none;">GitHub</a>
 </footer>
+
+<!-- 슬라이드 모달 뷰어 -->
+<div id="slideModal" class="slide-modal-backdrop" role="dialog" aria-modal="true" aria-label="Slide Deck">
+  <div class="slide-modal-window">
+    <div class="slide-modal-header">
+      <div class="slide-modal-title">
+        <span>📽️ leeyunhome Project Hub</span>
+        <span class="slide-modal-hint" data-en="(Use ← / → keys or click to navigate)">(← / → 방향키 또는 클릭으로 넘김)</span>
+      </div>
+      <div class="slide-modal-controls">
+        <a href="slides/hub-overview.html" target="_blank" class="slide-modal-btn" title="새 창에서 열기 (전체화면)" aria-label="Open in new window">
+          ↗
+        </a>
+        <button type="button" class="slide-modal-btn" id="closeSlideBtn" title="닫기 (Esc)" aria-label="Close modal">
+          ✕
+        </button>
+      </div>
+    </div>
+    <div class="slide-modal-body">
+      <iframe id="slideIframe" title="Hub Overview Slides" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Slide Modal Handler
+  (function () {
+    var modal = document.getElementById('slideModal');
+    var iframe = document.getElementById('slideIframe');
+    var openBtns = [document.getElementById('openSlideBtn'), document.getElementById('bannerSlideBtn')];
+    var closeBtn = document.getElementById('closeSlideBtn');
+    var SLIDE_URL = 'slides/hub-overview.html';
+
+    function openModal() {
+      if (!modal) return;
+      if (iframe && !iframe.getAttribute('src')) {
+        iframe.src = SLIDE_URL;
+      }
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () {
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.focus();
+        }
+      }, 250);
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    openBtns.forEach(function (btn) {
+      if (btn) btn.addEventListener('click', openModal);
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    if (modal) {
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  })();
+</script>
 
 <script>
   document.querySelectorAll('.tab-btn').forEach(function (btn) {
