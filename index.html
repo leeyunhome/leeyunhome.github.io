@@ -148,6 +148,195 @@
       border-top: 1px solid var(--border);
     }
 
+    /* ── View Mode Switcher ── */
+    .view-mode-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .view-mode-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .view-mode-switcher {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3px;
+      border-radius: 24px;
+      display: inline-flex;
+      gap: 4px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+    .view-mode-btn {
+      background: none;
+      border: none;
+      color: var(--text2);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .view-mode-btn:hover {
+      color: var(--text);
+    }
+    .view-mode-btn.active {
+      background: #111420;
+      color: #f5b841;
+      border: 1px solid rgba(245, 184, 65, 0.35);
+      box-shadow: 0 3px 12px rgba(17, 20, 32, 0.3);
+      font-weight: 700;
+    }
+
+    /* ── Style A: myslide Dark Diagram ── */
+    .card-diagram-myslide {
+      display: none;
+      background: #090b12;
+      border: 1px solid rgba(245, 184, 65, 0.25);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.6);
+    }
+    .card-diagram-myslide::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245, 184, 65, 0.45), transparent);
+    }
+    .myslide-flow {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .myslide-flow::-webkit-scrollbar {
+      display: none;
+    }
+    .myslide-step {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 6px;
+      padding: 5px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-width: 68px;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .myslide-step.highlight {
+      background: rgba(245, 184, 65, 0.12);
+      border-color: #f5b841;
+      box-shadow: 0 0 10px rgba(245, 184, 65, 0.25);
+    }
+    .myslide-step-num {
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: #f5b841;
+      margin-bottom: 2px;
+    }
+    .myslide-step-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #f5f7fa;
+      white-space: nowrap;
+    }
+    .myslide-step-sub {
+      font-size: 0.62rem;
+      color: #aeb6c2;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+    .myslide-arrow {
+      color: #f5b841;
+      font-size: 0.76rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+
+    /* ── Style B: Modern Inline Flow Chips ── */
+    .card-flow-chips {
+      display: none;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+    .flow-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.71rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: #f1f4fa;
+      border: 1px solid #dce3f0;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .flow-chip.active {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+    .flow-sep {
+      color: #94a3b8;
+      font-size: 0.70rem;
+      font-weight: 700;
+    }
+
+    /* ── View Mode Display Control ── */
+    body[data-view-mode="diagram"] .card-diagram-myslide {
+      display: block;
+      animation: fadeIn 0.22s ease-in-out;
+    }
+    body[data-view-mode="diagram"] .card-flow-chips {
+      display: none;
+    }
+
+    body[data-view-mode="chips"] .card-diagram-myslide {
+      display: none;
+    }
+    body[data-view-mode="chips"] .card-flow-chips {
+      display: flex;
+      animation: fadeIn 0.22s ease-in-out;
+    }
+
+    body[data-view-mode="text"] .card-diagram-myslide,
+    body[data-view-mode="text"] .card-flow-chips {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* ── Tabs ── */
     .tabs {
       display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
@@ -439,6 +628,22 @@
     </div>
   </div>
 
+  <!-- 다이어그램 뷰 모드 스위처 -->
+  <div class="view-mode-container">
+    <span class="view-mode-label" data-en="🎨 View Mode">🎨 뷰 모드</span>
+    <div class="view-mode-switcher" role="radiogroup" aria-label="Diagram View Mode">
+      <button type="button" class="view-mode-btn active" data-mode="diagram" data-en="💎 Dark Diagram">
+        💎 다크 다이어그램
+      </button>
+      <button type="button" class="view-mode-btn" data-mode="chips" data-en="⚡ Flow Chips">
+        ⚡ 플로우 칩
+      </button>
+      <button type="button" class="view-mode-btn" data-mode="text" data-en="📝 Text Only">
+        📝 텍스트 전용
+      </button>
+    </div>
+  </div>
+
   <!-- 탭 네비게이션 -->
   <div class="tabs" role="tablist">
     <button class="tab-btn active" data-tab="graphics" role="tab" aria-selected="true" data-en="🌐 Graphics">🌐 그래픽스</button>
@@ -461,6 +666,47 @@
         </div>
         <div class="card-title" data-en="3D Gaussian Splatting Viewer">3D Gaussian Splatting Viewer</div>
         <div class="card-desc" data-en="Full pipeline from self-shot photos → COLMAP → 3DGS training → in-browser rendering. Differentiable rendering and density-control algorithms implemented from scratch.">직접 촬영한 사진 → COLMAP → 3DGS 학습 → 브라우저 렌더링까지 전체 파이프라인 구현. 미분가능 렌더링·밀도 조절 알고리즘도 처음부터 직접 구현.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① INPUT</span>
+              <span class="myslide-step-title" data-en="Photo Ingest">다각도 촬영</span>
+              <span class="myslide-step-sub" data-en="Self-shot">직접 촬영</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">② SfM</span>
+              <span class="myslide-step-title" data-en="COLMAP">COLMAP</span>
+              <span class="myslide-step-sub" data-en="Points">포인트 추정</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">③ TRAIN</span>
+              <span class="myslide-step-title" data-en="3DGS Core">3DGS 학습</span>
+              <span class="myslide-step-sub" data-en="Diff-Raster">미분가능 렌더러</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ WEB</span>
+              <span class="myslide-step-title" data-en="WebGL Render">브라우저 배포</span>
+              <span class="myslide-step-sub" data-en="Spark.js">실시간 뷰어</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="📸 Photos">📸 사진 촬영</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🗺️ COLMAP">🗺️ COLMAP</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="✨ 3DGS Training">✨ 3DGS 학습</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🌐 WebGL Viewer">🌐 WebGL 렌더</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-js">Spark.js</span>
           <span class="badge badge-ai">3DGS</span>
@@ -475,6 +721,47 @@
         </div>
         <div class="card-title" data-en="Field2Scene">Field2Scene</div>
         <div class="card-desc" data-en="A Real2Sim pipeline that reconstructs outdoor/agriculture-like scenes with 3D Gaussian Splatting to generate 350 synthetic robot driving-view images (with domain randomization), then validates the Sim-to-Real gap. Reconstructing a public tomato-greenhouse video achieved a held-out test &lt;strong&gt;PSNR of 30.73dB&lt;/strong&gt;; the detection gap between real footage and renders was nearly on par — detection count ×0.94, IoU-matched recall &lt;strong&gt;0.909&lt;/strong&gt;.">실외·농업 유사 씬을 3D Gaussian Splatting으로 재구성해 로봇 주행 시점 합성 데이터 350장(도메인 랜덤화 적용)을 생성하고, Sim-to-Real 갭까지 검증하는 Real2Sim 파이프라인. 공개 토마토 온실 영상 재구성 결과 held-out test <strong>PSNR 30.73dB</strong>, 실촬영 대비 렌더 YOLO 검출 갭은 검출수 ×0.94·IoU 매칭 recall <strong>0.909</strong>로 거의 동등.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① INPUT</span>
+              <span class="myslide-step-title" data-en="Real Video">온실 영상</span>
+              <span class="myslide-step-sub" data-en="Greenhouse">공개 비디오</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">② 3DGS</span>
+              <span class="myslide-step-title" data-en="3D Recon">3D 재구성</span>
+              <span class="myslide-step-sub" data-en="30.73 dB">PSNR 30.73dB</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">③ SYNTH</span>
+              <span class="myslide-step-title" data-en="Robot Views">합성 데이터</span>
+              <span class="myslide-step-sub" data-en="350 Images">도메인 랜덤화</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ VERIFY</span>
+              <span class="myslide-step-title" data-en="Sim-to-Real">갭 검증</span>
+              <span class="myslide-step-sub" data-en="Recall 0.909">Recall 0.909</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="📹 Greenhouse Video">📹 온실 영상</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🌾 3DGS (30.73dB)">🌾 3DGS 재구성</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🤖 350 Synth Views">🤖 350장 합성 데이터</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🎯 Sim2Real (Recall 0.909)">🎯 Sim-to-Real 검증</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-ai">3D Gaussian Splatting</span>
           <span class="badge badge-py">COLMAP</span>
@@ -491,6 +778,47 @@
         </div>
         <div class="card-title" data-en="Cloth Lab — Garment Simulation">Cloth Lab — 의상 시뮬레이션</div>
         <div class="card-desc" data-en="A mass-spring cloth simulation built from scratch: a C++17 core verified with 290 unit tests, plus an interactive demo written in raw WebGL2/GLSL weave shaders with no libraries. You can drag it and tear it.">mass-spring 천 시뮬레이션을 처음부터 구현. 단위 테스트 290개로 검증한 C++17 코어 + 라이브러리 없이 raw WebGL2·GLSL 직조 셰이더로 만든 인터랙티브 데모. 잡아끌고 찢을 수 있음.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① MODEL</span>
+              <span class="myslide-step-title" data-en="Mass-Spring">물리 모델</span>
+              <span class="myslide-step-sub" data-en="From Scratch">자체 구현</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">② CORE</span>
+              <span class="myslide-step-title" data-en="C++17 Engine">C++17 코어</span>
+              <span class="myslide-step-sub" data-en="290 Tests">단위테스트 290개</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">③ SHADER</span>
+              <span class="myslide-step-title" data-en="WebGL2 / GLSL">직조 셰이더</span>
+              <span class="myslide-step-sub" data-en="Raw GLSL">Zero-Library</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ INTERACT</span>
+              <span class="myslide-step-title" data-en="Interactive">실시간 조작</span>
+              <span class="myslide-step-sub" data-en="Drag &amp; Tear">드래그·파망</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="⚛️ Mass-Spring">⚛️ Mass-Spring</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🛡️ C++17 (290 Tests)">🛡️ C++17 단위테스트</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🧵 WebGL2 Shader">🧵 WebGL2 셰이더</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🖐️ Drag &amp; Tear">🖐️ 인터랙티브 조작</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-ts">C++17</span>
           <span class="badge badge-js">WebGL2</span>
@@ -642,6 +970,47 @@
         </div>
         <div class="card-title" data-en="Edge Monitor">Edge Monitor</div>
         <div class="card-desc" data-en="A control-room dashboard demo for managing a fleet of edge devices/robots in real time — online/offline status, temperature and load telemetry, and remote start/stop/restart plus alarm acknowledgment, all pure frontend.">엣지 디바이스·로봇 플릿을 실시간으로 관리하는 통합 관제실 대시보드 데모. 온라인/오프라인 현황·온도·부하 텔레메트리 시각화, 원격 시작/정지/재시작·알람 확인까지 지원하는 순수 프런트엔드 구현.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① FLEET</span>
+              <span class="myslide-step-title" data-en="Edge Nodes">디바이스 플릿</span>
+              <span class="myslide-step-sub" data-en="Robots/Nodes">로봇·엣지 기기</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">② METRICS</span>
+              <span class="myslide-step-title" data-en="Telemetry">텔레메트리</span>
+              <span class="myslide-step-sub" data-en="Temp/Load">온도·부하 수집</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">③ DASHBOARD</span>
+              <span class="myslide-step-title" data-en="Live Monitor">관제 화면</span>
+              <span class="myslide-step-sub" data-en="Real-time UI">실시간 시각화</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ ACTION</span>
+              <span class="myslide-step-title" data-en="Remote Ctrl">원격 제어</span>
+              <span class="myslide-step-sub" data-en="Reset/Alarm">재시작·알람확인</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="📡 Device Fleet">📡 디바이스 플릿</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="📊 Telemetry">📊 텔레메트리 수집</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🖥️ Live Dashboard">🖥️ 실시간 관제</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="⚡ Remote Control">⚡ 원격 제어</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-js">JavaScript</span>
         </div>
@@ -661,6 +1030,47 @@
         </div>
         <div class="card-title" data-en="Embedded Linux Test Automation">임베디드 리눅스 테스트 자동화</div>
         <div class="card-desc" data-en="Automated, simultaneous testing across 46 embedded Linux devices split into 5 kernel-revision groups. Parallelizing the full fleet status check cut it from 6–8 minutes down to 11 seconds; boot-log noise is filtered out by timestamp so only real faults get flagged. Also includes CPU/memory/network load generation using only busybox, plus OCR-based glass-to-glass latency measurement.">임베디드 리눅스 디바이스 46대를 5개 커널 리비전 그룹으로 나눠 동시 자동화 테스트. 순차 6~8분 걸리던 전체 상태 점검을 병렬화로 11초로 단축, 부팅 로그 노이즈를 타임스탬프 기준으로 걸러내 실제 결함만 탐지. busybox만으로 CPU·메모리·네트워크 부하 유도, OCR 기반 glass-to-glass 지연시간 측정까지 포함.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① TARGETS</span>
+              <span class="myslide-step-title" data-en="46 Devices">46대 장비</span>
+              <span class="myslide-step-sub" data-en="5 Kernel Grps">5개 커널 그룹</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">② FLASH</span>
+              <span class="myslide-step-title" data-en="FTP Deploy">FTP 플래싱</span>
+              <span class="myslide-step-sub" data-en="Auto Flash">자동 커널 배포</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">③ PARALLEL</span>
+              <span class="myslide-step-title" data-en="11s Check">병렬 진단</span>
+              <span class="myslide-step-sub" data-en="8m → 11s">8분 ➔ 11초 단축</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ LATENCY</span>
+              <span class="myslide-step-title" data-en="OCR Measure">지연 실측</span>
+              <span class="myslide-step-sub" data-en="Glass-to-Glass">Glass-to-Glass</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="📟 46 Devices">📟 46대 장비 제어</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="⚡ FTP Auto-Flash">⚡ FTP 커널 배포</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="⏱️ Parallel Check (11s)">⏱️ 병렬 진단(11초)</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="👁️ OCR Latency">👁️ OCR 지연 실측</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-ts">Bash</span>
           <span class="badge badge-py">Python</span>
@@ -675,6 +1085,47 @@
         </div>
         <div class="card-title" data-en="perf/ftrace Performance Profiling — Jetson Orin">perf/ftrace 성능 프로파일링 — Jetson Orin</div>
         <div class="card-desc" data-en="Prompted by PMU hardware counters being blocked in VirtualBox, this reproduces perf/ftrace profiling hands-on on real Jetson Orin hardware running NVIDIA&#x27;s vendor-customized L4T kernel. A CPU-bound workload (fib(42)) reached an IPC of &lt;strong&gt;3.37&lt;/strong&gt; with a 0.01% branch-miss rate, while an I/O-bound workload stayed at IPC 1.91 — hotspots traced with flame graphs and perf annotate. Repeating each measurement 5 times caught illusions from single-shot runs, including a hidden open() failure and a scope mismatch between perf and ftrace measurements.">VirtualBox에서 PMU 하드웨어 카운터가 막혀 있던 걸 계기로, Jetson Orin 실물 하드웨어·벤더 커스텀 커널(NVIDIA L4T)에서 perf·ftrace를 직접 붙잡고 재현. CPU 연산 집약 워크로드(fib(42))는 IPC <strong>3.37</strong>·분기 예측 미스율 0.01%까지 나온 반면 I/O 워크로드는 IPC 1.91에 그침 — flame_graph·perf annotate로 핫스팟 추적. 5회 반복 측정으로 단발성 측정의 착시(숨은 open() 실패, perf·ftrace 측정 범위 차이)까지 스스로 잡아냄.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① TARGET</span>
+              <span class="myslide-step-title" data-en="Jetson Orin">Jetson Orin</span>
+              <span class="myslide-step-sub" data-en="L4T Kernel">L4T 커스텀 커널</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">② PMU</span>
+              <span class="myslide-step-title" data-en="Hardware Counter">PMU 카운터</span>
+              <span class="myslide-step-sub" data-en="IPC 3.37">IPC 3.37 실측</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">③ TRACE</span>
+              <span class="myslide-step-title" data-en="perf / ftrace">perf &amp; ftrace</span>
+              <span class="myslide-step-sub" data-en="5 Runs">5회 반복 교차검증</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ HOTSPOT</span>
+              <span class="myslide-step-title" data-en="flame_graph">flame_graph</span>
+              <span class="myslide-step-sub" data-en="Annotate">핫스팟 추적</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="🐧 Jetson Orin L4T">🐧 Jetson Orin</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="📊 PMU (IPC 3.37)">📊 PMU 하드웨어 카운터</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🔬 perf / ftrace">🔬 perf &amp; ftrace</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🔥 flame_graph">🔥 flame_graph</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-ts">C</span>
           <span class="badge badge-py">Bash</span>
@@ -689,6 +1140,47 @@
         </div>
         <div class="card-title" data-en="Linux Kernel Build &amp; ftrace Lab — Raspberry Pi 4B">리눅스 커널 빌드 &amp; ftrace 실습 — Raspberry Pi 4B</div>
         <div class="card-desc" data-en="Built the Linux kernel from source on Raspberry Pi 4B (BCM2711 / aarch64 / kernel 6.12) and traced interrupt handling and scheduling internals with ftrace. Bridging the gap between a 32-bit Pi 3B / kernel 4.19 reference book and the actual 64-bit Pi 4B hardware — the process of resolving every discrepancy is the main record.">Raspberry Pi 4B(BCM2711 / aarch64 / 커널 6.12)에서 리눅스 커널 소스 빌드 후 ftrace로 인터럽트 처리·스케줄링 내부 동작 추적. 32비트 Pi 3B / 커널 4.19 기준의 참고 서적과 실제 장비 간 차이를 하나씩 확인하고 메워가는 과정을 주된 기록 대상으로 삼음.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① TARGET</span>
+              <span class="myslide-step-title" data-en="RPi 4B 64-bit">RPi 4B</span>
+              <span class="myslide-step-sub" data-en="BCM2711">aarch64 하드웨어</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">② BUILD</span>
+              <span class="myslide-step-title" data-en="Kernel 6.12">커널 6.12 빌드</span>
+              <span class="myslide-step-sub" data-en="Source Build">32 vs 64bit 갭 해결</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">③ INTERRUPT</span>
+              <span class="myslide-step-title" data-en="GICv2 Standard">GICv2 분석</span>
+              <span class="myslide-step-sub" data-en="sysfs irq_desc">sysfs 동적 조회</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ FTRACE</span>
+              <span class="myslide-step-title" data-en="IRQ Tracing">ftrace 계측</span>
+              <span class="myslide-step-sub" data-en="irq_handler">핸들러 지연 시간</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="🐧 RPi 4B 64-bit">🐧 RPi 4B 64-bit</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🔨 Kernel 6.12 Build">🔨 커널 6.12 빌드</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="⚡ GICv2 Architecture">⚡ GICv2 인터럽트</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="⏱️ ftrace IRQ Profiling">⏱️ ftrace 계측</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-ts">C</span>
           <span class="badge badge-py">Bash</span>
@@ -710,6 +1202,47 @@
         </div>
         <div class="card-title" data-en="AI Chatbot">AI 챗봇</div>
         <div class="card-desc" data-en="A Korean-language chatbot built on Google Gemini. No login required — just an API key. Supports switching between models like Gemini 3.1 Pro and 3.5 Flash.">Google Gemini 기반 한국어 챗봇. 로그인 없이 API 키만으로 사용. Gemini 3.1 Pro / 3.5 Flash 등 모델 선택 지원.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① QUERY</span>
+              <span class="myslide-step-title" data-en="User Input">사용자 질의</span>
+              <span class="myslide-step-sub" data-en="Web UI">웹 인터페이스</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">② ROUTE</span>
+              <span class="myslide-step-title" data-en="Gemini Router">모델 라우팅</span>
+              <span class="myslide-step-sub" data-en="Pro / Flash">3.1 Pro · 3.5 Flash</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">③ STREAM</span>
+              <span class="myslide-step-title" data-en="Streaming API">API 스트리밍</span>
+              <span class="myslide-step-sub" data-en="Client-Key">무로그인 키 인증</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ RENDER</span>
+              <span class="myslide-step-title" data-en="Markdown View">실시간 렌더</span>
+              <span class="myslide-step-sub" data-en="Response">마크다운 응답</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="💬 User Query">💬 사용자 질문</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🤖 Gemini Router">🤖 Gemini 모델 선택</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="⚡ Streaming API">⚡ 실시간 스트리밍</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="📝 Markdown View">📝 마크다운 렌더</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-js">JavaScript</span>
           <span class="badge badge-ai">🤖 AI · Gemini 3.1 Pro / 3.5 Flash</span>
@@ -723,6 +1256,47 @@
         </div>
         <div class="card-title" data-en="EBS Beginner English Dashboard">EBS 왕초보 영어 대시보드</div>
         <div class="card-desc" data-en="A web player for a pipeline that auto-downloads EBS radio, transcribes it with &lt;strong&gt;Whisper&lt;/strong&gt;, and extracts just the English dialogue by detecting music segments — using faster-whisper large-v3-turbo and inaSpeechSegmenter.">EBS 라디오를 자동 다운로드 → <strong>Whisper</strong>로 전사 → 음악 구간 분석으로 영어 대화만 추출해 배포하는 파이프라인의 웹 플레이어. faster-whisper large-v3-turbo + inaSpeechSegmenter 사용.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① INGEST</span>
+              <span class="myslide-step-title" data-en="EBS Radio">라디오 수집</span>
+              <span class="myslide-step-sub" data-en="Auto Download">자동 다운로드</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">② ASR</span>
+              <span class="myslide-step-title" data-en="Whisper v3">음성 전사</span>
+              <span class="myslide-step-sub" data-en="faster-whisper">Whisper Large</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">③ MUSIC</span>
+              <span class="myslide-step-title" data-en="inaSpeech">음악 감지</span>
+              <span class="myslide-step-sub" data-en="Segmenting">대화/음악 분리</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ DEPLOY</span>
+              <span class="myslide-step-title" data-en="Web Player">영어 대화</span>
+              <span class="myslide-step-sub" data-en="Web Player">웹 플레이어 배포</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="📻 EBS Radio">📻 라디오 자동수집</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🎙️ Whisper ASR">🎙️ Whisper 전사</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🎵 inaSpeech Music Filter">🎵 음악 구간 분리</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🎧 Web Player">🎧 영어 대화 웹 배포</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-html">HTML</span>
           <span class="badge badge-ai">🤖 AI · Whisper (ASR)</span>
@@ -736,6 +1310,47 @@
         </div>
         <div class="card-title" data-en="Good Morning Pops Podcast">굿모닝 팝스 팟캐스트</div>
         <div class="card-desc" data-en="An automated pipeline for KBS&#x27;s Good Morning Pops: download → transcribe with &lt;strong&gt;Whisper&lt;/strong&gt; → extract and optimize segments → generate AI artwork with &lt;strong&gt;Imagen 4&lt;/strong&gt; → deploy a subtitle-synced web player, fully automated end to end.">KBS 굿모닝 팝스 자동 처리 파이프라인. 다운로드 → <strong>Whisper</strong> 전사 → 코너 추출·최적화 → <strong>Imagen 4</strong>로 AI 아트워크 생성 → 자막 동기화 웹 플레이어 배포까지 전 과정 자동화.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① INGEST</span>
+              <span class="myslide-step-title" data-en="KBS Radio">라디오 수집</span>
+              <span class="myslide-step-sub" data-en="Auto Download">자동 수집</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">② ASR</span>
+              <span class="myslide-step-title" data-en="Whisper Transcribe">Whisper 전사</span>
+              <span class="myslide-step-sub" data-en="Large-v3">코너 세그먼트</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">③ ARTWORK</span>
+              <span class="myslide-step-title" data-en="Imagen 4">아트워크 생성</span>
+              <span class="myslide-step-sub" data-en="Google AI">Google Imagen 4</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ DEPLOY</span>
+              <span class="myslide-step-title" data-en="Synced Player">웹 플레이어</span>
+              <span class="myslide-step-sub" data-en="Subtitle Sync">자막 싱크 배포</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="📻 KBS Radio">📻 KBS 라디오</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🎙️ Whisper ASR">🎙️ Whisper 전사</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🎨 Imagen 4 Artwork">🎨 Imagen 4 아트워크</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🌐 Synced Web Player">🌐 싱크 웹 플레이어</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-py">Python</span>
           <span class="badge badge-ai">🤖 AI · Whisper + Imagen 4</span>
@@ -756,6 +1371,47 @@
         </div>
         <div class="card-title" data-en="Data Visualization Playbook">Data Visualization Playbook</div>
         <div class="card-desc" data-en="Applies the Inflearn course &quot;32 Data Visualization Strategies&quot; to real project data instead of textbook exercises. Compares detection-confidence distributions between Field2Scene&#x27;s tomato-greenhouse 3DGS renders and real footage using histograms and KDE, and lets you upload your own CSV to visualize and compare data.">인프런 "32가지 데이터 시각화 전략" 강의를 연습 예제가 아닌 실제 프로젝트 데이터에 적용. Field2Scene의 토마토 온실 3DGS 렌더 vs 실촬영 검출 신뢰도 분포를 히스토그램·KDE로 비교하고, CSV 업로드로 직접 데이터를 시각화·비교할 수 있음.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① DATA</span>
+              <span class="myslide-step-title" data-en="3DGS Renders">실측 데이터</span>
+              <span class="myslide-step-sub" data-en="Field2Scene">3DGS vs 실촬영</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">② STATS</span>
+              <span class="myslide-step-title" data-en="KDE Density">KDE 밀도 추정</span>
+              <span class="myslide-step-sub" data-en="Confidence">검출 신뢰도 분석</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">③ COMPARE</span>
+              <span class="myslide-step-title" data-en="Histograms">분포 비교</span>
+              <span class="myslide-step-sub" data-en="Distribution">히스토그램</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ UPLOAD</span>
+              <span class="myslide-step-title" data-en="Interactive CSV">커스텀 업로드</span>
+              <span class="myslide-step-sub" data-en="Visualizer">인터랙티브 분석</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="📊 3DGS Renders">📊 3DGS 실측 데이터</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="📈 KDE Density">📈 KDE 밀도 추정</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="📉 Histograms">📉 신뢰도 분포 비교</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="📁 Interactive CSV">📁 CSV 인터랙티브 분석</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-py">Python</span>
           <span class="badge badge-js">JavaScript</span>
@@ -776,6 +1432,39 @@
         </div>
         <div class="card-title" data-en="Deep Learning Portfolio">Deep Learning Portfolio</div>
         <div class="card-desc" data-en="A learning portfolio that reconstructs deep learning fundamentals from scratch rather than copying course code. Covers a &lt;strong&gt;nn.Module&lt;/strong&gt;-based linear regression implementation, visualizing the autograd computation graph (backward pass) with torchviz, and a notebook comparing SGD vs. Adam convergence speed.">딥러닝 기초 개념을 강의 코드 복사 없이 직접 재구성하며 정리하는 학습 포트폴리오. <strong>nn.Module</strong> 기반 선형회귀 구현, torchviz로 autograd 계산 그래프(backward 경로) 시각화, SGD vs Adam 수렴 속도 비교까지 노트북으로 정리.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① MODEL</span>
+              <span class="myslide-step-title" data-en="nn.Module">nn.Module</span>
+              <span class="myslide-step-sub" data-en="From Scratch">선형회귀 자체구현</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">② AUTOGRAD</span>
+              <span class="myslide-step-title" data-en="torchviz Graph">계산 그래프</span>
+              <span class="myslide-step-sub" data-en="Backward Pass">Backward 시각화</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">③ OPTIMIZE</span>
+              <span class="myslide-step-title" data-en="SGD vs Adam">수렴 비교</span>
+              <span class="myslide-step-sub" data-en="Benchmarks">SGD vs Adam</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="🧱 nn.Module">🧱 nn.Module 선형회귀</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🔄 Autograd Graph">🔄 Autograd 역전파 시각화</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="⚡ SGD vs Adam">⚡ SGD vs Adam 수렴 비교</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-ai">PyTorch</span>
           <span class="badge badge-ai">Autograd</span>
@@ -790,6 +1479,47 @@
         </div>
         <div class="card-title" data-en="VGG19 Transfer Learning — CIFAR-10">VGG19 전이학습 — CIFAR-10</div>
         <div class="card-desc" data-en="A feature-extraction transfer-learning exercise: freeze the convolutional layers of an ImageNet-pretrained VGG19 and train only a new classifier head (based on the Hugging Face CV course, run on a local RTX 3080 server). &lt;strong&gt;Data pipeline and EDA are done&lt;/strong&gt; — CIFAR-10 class balance is verified (5,000 train / 1,000 validation images per class) and 224×224 batches are set up; the training loop is still to come.">ImageNet 사전학습 VGG19의 합성곱 층을 동결하고 분류기만 새로 얹는 특징 추출 방식 전이학습 실습 (Hugging Face CV 코스 기반, 로컬 RTX 3080 서버에서 실행). <strong>현재 데이터 파이프라인·EDA까지 완료</strong> — CIFAR-10 클래스 균형(클래스당 학습 5,000장·검증 1,000장) 검증과 224×224 배치 구성까지 마쳤고, 학습 루프는 진행 예정.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① DATASET</span>
+              <span class="myslide-step-title" data-en="CIFAR-10">CIFAR-10 EDA</span>
+              <span class="myslide-step-sub" data-en="5k/1k Balanced">클래스 균형 검증</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">② FREEZE</span>
+              <span class="myslide-step-title" data-en="VGG19 Feature">VGG19 동결</span>
+              <span class="myslide-step-sub" data-en="Conv Layers">합성곱 특징 추출</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">③ BATCH</span>
+              <span class="myslide-step-title" data-en="224x224 Batches">배치 구성</span>
+              <span class="myslide-step-sub" data-en="Pipeline Done">파이프라인 구축</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ HEAD</span>
+              <span class="myslide-step-title" data-en="Classifier Head">새 분류기</span>
+              <span class="myslide-step-sub" data-en="RTX 3080">전이학습 실행</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="📦 CIFAR-10 EDA">📦 CIFAR-10 균형 검증</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="❄️ VGG19 Freeze">❄️ VGG19 합성곱 동결</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🔄 224x224 Batches">🔄 224×224 배치 파이프라인</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🎯 Classifier Train">🎯 새 분류기 전이학습</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-ai">PyTorch</span>
           <span class="badge badge-ai">VGG19</span>
@@ -805,6 +1535,47 @@
         </div>
         <div class="card-title" data-en="Jetson MLOps Lab — Vision Pipeline Optimization">Jetson MLOps Lab — 비전 파이프라인 최적화</div>
         <div class="card-desc" data-en="Hands-on measurements from two vision-optimization tracks on real Jetson Orin Nano hardware. Comparing ResNet-18 compression approaches, TensorRT INT8 was &lt;strong&gt;10.4× faster&lt;/strong&gt; than PyTorch eager, while CPU INT8 quantization was actually 16% slower despite a 4× smaller model. A moving-camera object-counting pipeline corrects the per-frame double-counting error (a 9.4× inflation) via detection → ByteTrack tracking → deduplication, and pushes YOLO11n from &lt;strong&gt;30 to 135 FPS (4.4×)&lt;/strong&gt; with TensorRT FP16.">Jetson Orin Nano 실기기에서 비전 모델 최적화 두 트랙을 직접 측정. ResNet-18 경량화 비교에서 TensorRT INT8은 PyTorch eager 대비 <strong>10.4배</strong> 빨라졌지만 CPU INT8 양자화는 크기 1/4로 줄어도 오히려 16% 느려짐. 이동 카메라 객체 계수 파이프라인은 검출→ByteTrack 추적→중복 제거로 프레임별 합산 오차(9.4배 부풀림)를 바로잡고, YOLO11n을 TensorRT FP16으로 <strong>30→135 FPS(4.4배)</strong>까지 끌어올림.</div>
+        
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① INPUT</span>
+              <span class="myslide-step-title" data-en="Moving Camera">이동 카메라</span>
+              <span class="myslide-step-sub" data-en="Video Stream">비디오 입력</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">② DETECT</span>
+              <span class="myslide-step-title" data-en="YOLO11n">YOLO11n</span>
+              <span class="myslide-step-sub" data-en="Real-time">객체 검출</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">③ TRACK</span>
+              <span class="myslide-step-title" data-en="ByteTrack">ByteTrack</span>
+              <span class="myslide-step-sub" data-en="Deduplication">중복 제거</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">④ TENSORRT</span>
+              <span class="myslide-step-title" data-en="TensorRT FP16">135 FPS 달성</span>
+              <span class="myslide-step-sub" data-en="30 → 135 FPS">4.4배 가속</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="🎥 Moving Camera">🎥 이동 카메라</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🎯 YOLO11n Detect">🎯 YOLO11n 검출</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🔗 ByteTrack Deduplication">🔗 ByteTrack 중복제거</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="⚡ TensorRT (30→135 FPS)">⚡ TensorRT FP16 가속</span>
+        </div>
+
         <div class="card-foot">
           <span class="badge badge-py">PyTorch</span>
           <span class="badge badge-ai">TensorRT</span>
@@ -967,6 +1738,38 @@
         apply(lang);
       });
     }
+  })();
+</script>
+
+<script>
+  // View Mode Switcher Handler (Diagram vs Chips vs Text)
+  (function () {
+    var VIEW_MODE_KEY = 'lyh_view_mode';
+    var modeBtns = document.querySelectorAll('.view-mode-btn');
+
+    function setViewMode(mode) {
+      document.body.setAttribute('data-view-mode', mode);
+      modeBtns.forEach(function (btn) {
+        var isActive = btn.dataset.mode === mode;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      });
+      try {
+        localStorage.setItem(VIEW_MODE_KEY, mode);
+      } catch (e) {}
+    }
+
+    modeBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setViewMode(btn.dataset.mode);
+      });
+    });
+
+    var initialMode = 'diagram';
+    try {
+      initialMode = localStorage.getItem(VIEW_MODE_KEY) || 'diagram';
+    } catch (e) {}
+    setViewMode(initialMode);
   })();
 </script>
 
