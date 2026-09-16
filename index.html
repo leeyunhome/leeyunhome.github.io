@@ -632,10 +632,10 @@
   <div class="view-mode-container">
     <span class="view-mode-label" data-en="🎨 View Mode">🎨 뷰 모드</span>
     <div class="view-mode-switcher" role="radiogroup" aria-label="Diagram View Mode">
-      <button type="button" class="view-mode-btn active" data-mode="diagram" data-en="💎 Dark Diagram">
+      <button type="button" class="view-mode-btn" data-mode="diagram" data-en="💎 Dark Diagram">
         💎 다크 다이어그램
       </button>
-      <button type="button" class="view-mode-btn" data-mode="chips" data-en="⚡ Flow Chips">
+      <button type="button" class="view-mode-btn active" data-mode="chips" data-en="⚡ Flow Chips">
         ⚡ 플로우 칩
       </button>
       <button type="button" class="view-mode-btn" data-mode="text" data-en="📝 Text Only">
@@ -1820,9 +1820,9 @@
       });
     });
 
-    var initialMode = 'diagram';
+    var initialMode = 'chips';
     try {
-      initialMode = localStorage.getItem(VIEW_MODE_KEY) || 'diagram';
+      initialMode = localStorage.getItem(VIEW_MODE_KEY) || 'chips';
     } catch (e) {}
     setViewMode(initialMode);
   })();
