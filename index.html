@@ -1016,6 +1016,61 @@
         </div>
       </a>
 
+      <a class="card" href="https://leeyunhome.github.io/mxd-twin/" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🏢</span>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title" data-en="mxd-twin — MXD Integrated Operations">mxd-twin — 복합단지 통합관제</div>
+        <div class="card-desc" data-en="A prototype built to derive design-phase requirements by building the final ops screen first, for a not-yet-built complex (Seongsu MXD). Reconstructs a public 3D office model with 3D Gaussian Splatting (PSNR 23.1dB / SSIM 0.918), then prunes reflection-streak splats by spatial bounds for a &lt;strong&gt;79.8% splat reduction (319MB → 64.5MB)&lt;/strong&gt;. Unifies heterogeneous protocols (Modbus TCP, BACnet/IP, RTSP, MQTT, OCPP, contact I/O) into one status model, so an alarm is located in 3D space instead of a table row, then handed off to an SOP panel.">아직 착공 전인 복합단지(성수 MXD)를 위해, 최종 운영 화면을 먼저 만들어 설계 단계 요구사항을 역산하는 프로토타입. 공개 3D 오피스 모델을 3D Gaussian Splatting으로 재구성(PSNR 23.1dB·SSIM 0.918)한 뒤 반사 스트릭 스플랫을 공간 기준으로 잘라내 <strong>스플랫 79.8% 감소(319MB→64.5MB)</strong>로 경량화. Modbus TCP·BACnet/IP·RTSP·MQTT·OCPP·접점 등 이종 통신 규격을 하나의 상태 모델로 통합해, 경보 발생 시 표 대신 3D 공간에서 위치를 짚고 SOP 패널로 이어줌.</div>
+
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① SCAN</span>
+              <span class="myslide-step-title" data-en="Office 3DGS">오피스 3DGS</span>
+              <span class="myslide-step-sub" data-en="23.1dB / 0.918">PSNR 23.1dB</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">② PRUNE</span>
+              <span class="myslide-step-title" data-en="Spatial Prune">공간 기준 정제</span>
+              <span class="myslide-step-sub" data-en="-79.8% Splats">319MB→64.5MB</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">③ UNIFY</span>
+              <span class="myslide-step-title" data-en="Protocol Unify">규격 통합</span>
+              <span class="myslide-step-sub" data-en="Modbus/BACnet/MQTT">이종 계통 정규화</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ RESPOND</span>
+              <span class="myslide-step-title" data-en="Locate + SOP">위치 식별+SOP</span>
+              <span class="myslide-step-sub" data-en="Spatial Alarm">경보 대응 절차</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="🏢 Office 3DGS (23.1dB)">🏢 오피스 3DGS</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="✂️ Spatial Prune (-79.8%)">✂️ 공간 정제</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="🔌 Protocol Unify">🔌 규격 통합</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="🚨 Locate + SOP">🚨 위치 식별+SOP</span>
+        </div>
+
+        <div class="card-foot">
+          <span class="badge badge-ai">3D Gaussian Splatting</span>
+          <span class="badge badge-js">JavaScript</span>
+          <span class="badge badge-ai">Modbus·BACnet·MQTT</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
