@@ -19,11 +19,12 @@ Personal GitHub Pages site served at https://leeyunhome.github.io/ — a project
 
 ## Editing the hub page
 
-- Project cards live in `index.html` inside seven tab panels (`#panel-graphics`, `#panel-tools`, `#panel-monitoring`, `#panel-embedded`, `#panel-ai`, `#panel-dataviz`, `#panel-deeplearning`), switched by plain vanilla-JS click handlers on `.tab-btn` — no framework, no build step. Each card is an `<a class="card">` with icon, title, description, and tech `badge-*` spans (`badge-js`, `badge-ts`, `badge-py`, `badge-html`, `badge-ai`, `badge-css`).
+- Project cards live in `index.html` inside eight tab panels (`#panel-graphics`, `#panel-tools`, `#panel-monitoring`, `#panel-digitaltwin`, `#panel-embedded`, `#panel-ai`, `#panel-dataviz`, `#panel-deeplearning`), switched by plain vanilla-JS click handlers on `.tab-btn` — no framework, no build step. Each card is an `<a class="card">` with icon, title, description, and tech `badge-*` spans (`badge-js`, `badge-ts`, `badge-py`, `badge-html`, `badge-ai`, `badge-css`).
 - Category convention:
   - **그래픽스**: rendering/graphics-tech projects (3DGS viewer, cloth sim).
   - **도구**: everyday utility apps with no AI model in the core pipeline and not a monitoring dashboard (PDF tool, image resizer, counters, portfolio link, mini-games).
   - **모니터링 도구**: real-time monitoring/dashboard UIs (stock ticker dashboard, edge-device fleet control room) — split out once there were 2+ of these; don't re-fold them back into 도구.
+  - **디지털 트윈**: spatial/3D reconstruction used as the substrate for an operations or facility-management interface (e.g. a building reconstructed via 3DGS, with heterogeneous system telemetry overlaid on the 3D space) — split out from 모니터링 도구 2026-09-16 once mxd-twin didn't fit cleanly there; the distinguishing feature from plain 모니터링 도구 is that a 3D spatial model *is* the navigation/identification layer, not just a 2D dashboard.
   - **임베디드 시스템**: hardware/systems infrastructure engineering where any ML involved is incidental, not the subject of study (device farm test automation, firmware/kernel tooling) — split out deliberately even while it held a single card; the owner wants this as its own category going forward, don't fold it back into 도구.
   - **AI 활용 서비스**: an AI model/API is a load-bearing part of the pipeline (Whisper ASR, Gemini chat, Imagen generation) — not just "written with AI help".
   - **데이터 시각화**: charting/analysis technique showcases (histogram/KDE comparisons, dataset exploration tools) — distinct from AI 활용 서비스 since the analysis itself isn't AI-model-driven.
