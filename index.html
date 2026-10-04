@@ -1311,7 +1311,7 @@
           <span class="card-arrow">→</span>
         </div>
         <div class="card-title" data-en="EBS Beginner English Dashboard">EBS 왕초보 영어 대시보드</div>
-        <div class="card-desc" data-en="A web player for a pipeline that auto-downloads EBS radio, transcribes it with &lt;strong&gt;Whisper&lt;/strong&gt;, and extracts just the English dialogue by detecting music segments — using faster-whisper large-v3-turbo and inaSpeechSegmenter.">EBS 라디오를 자동 다운로드 → <strong>Whisper</strong>로 전사 → 음악 구간 분석으로 영어 대화만 추출해 배포하는 파이프라인의 웹 플레이어. faster-whisper large-v3-turbo + inaSpeechSegmenter 사용.</div>
+        <div class="card-desc" data-en="A web player for a pipeline that auto-downloads EBS radio, transcribes it with &lt;strong&gt;OpenAI Whisper&lt;/strong&gt;, and extracts just the English dialogue by detecting music segments — running the large-v3-turbo model via faster-whisper, plus inaSpeechSegmenter.">EBS 라디오를 자동 다운로드 → <strong>OpenAI Whisper</strong>로 전사 → 음악 구간 분석으로 영어 대화만 추출해 배포하는 파이프라인의 웹 플레이어. OpenAI Whisper large-v3-turbo 모델을 faster-whisper로 구동하고 inaSpeechSegmenter 사용.</div>
         
         <!-- Style A: myslide Dark Diagram -->
         <div class="card-diagram-myslide">
@@ -1325,7 +1325,7 @@
             <div class="myslide-step highlight">
               <span class="myslide-step-num">② ASR</span>
               <span class="myslide-step-title" data-en="Whisper v3">음성 전사</span>
-              <span class="myslide-step-sub" data-en="faster-whisper">Whisper Large</span>
+              <span class="myslide-step-sub" data-en="OpenAI Whisper">OpenAI Whisper</span>
             </div>
             <span class="myslide-arrow">➔</span>
             <div class="myslide-step">
@@ -1346,7 +1346,7 @@
         <div class="card-flow-chips">
           <span class="flow-chip" data-en="📻 EBS Radio">📻 라디오 자동수집</span>
           <span class="flow-sep">➔</span>
-          <span class="flow-chip active" data-en="🎙️ Whisper ASR">🎙️ Whisper 전사</span>
+          <span class="flow-chip active" data-en="🎙️ OpenAI Whisper ASR">🎙️ OpenAI Whisper 전사</span>
           <span class="flow-sep">➔</span>
           <span class="flow-chip" data-en="🎵 inaSpeech Music Filter">🎵 음악 구간 분리</span>
           <span class="flow-sep">➔</span>
@@ -1355,7 +1355,7 @@
 
         <div class="card-foot">
           <span class="badge badge-html">HTML</span>
-          <span class="badge badge-ai">🤖 AI · Whisper (ASR)</span>
+          <span class="badge badge-ai">🤖 AI · OpenAI Whisper (ASR)</span>
         </div>
       </a>
 
