@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>박자 연습 | Rhythm Practice</title>
+<style>
+  :root { --bg:#0f1220; --panel:#181c30; --line:#2a3050; --fg:#e8ebf7; --dim:#8b93b8; --acc:#6ea8ff; --ok:#5ad19a; --warn:#ffb454; --bad:#ff6b7a; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font-family:"Malgun Gothic",system-ui,sans-serif; }
+  main { max-width:960px; margin:0 auto; padding:14px; }
+  h1 { font-size:20px; margin:4px 0 2px; }
+  .sub { color:var(--dim); font-size:13px; margin-bottom:12px; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:12px; }
+  .row { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; }
+  label { font-size:13px; color:var(--dim); display:flex; align-items:center; gap:6px; }
+  input[type=number], input[type=text] { background:#0f1220; color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:5px; }
+  input[type=number] { width:78px; } input[type=text] { flex:1; min-width:220px; }
+  input[type=range] { width:130px; }
+  select, textarea { background:#0f1220; color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:5px; }
+  textarea { width:100%; height:110px; font-size:13px; font-family:inherit; resize:vertical; }
+  button { background:#232a4a; color:var(--fg); border:1px solid var(--line); border-radius:8px; padding:8px 14px; font-size:14px; cursor:pointer; }
+  button:hover { background:#2d3560; } button.primary { background:var(--acc); color:#0a1020; border:none; font-weight:700; }
+  button:disabled { opacity:.4; cursor:default; }
+  button.tab { border-radius:8px 8px 0 0; } button.tab.sel { background:var(--acc); color:#0a1020; font-weight:700; }
+  #stage { position:relative; }
+  canvas { width:100%; display:block; border-radius:10px; background:#0b0e1b; touch-action:none; }
+  #cv { height:260px; } #hist { height:110px; margin-top:8px; }
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px; margin-top:8px; }
+  .stat { background:#0f1220; border:1px solid var(--line); border-radius:8px; padding:8px; text-align:center; }
+  .stat b { display:block; font-size:20px; } .stat span { font-size:11px; color:var(--dim); }
+  .note { font-size:12px; color:var(--dim); line-height:1.6; }
+  .privacy { color:var(--ok); }
+  #msg { min-height:20px; font-size:13px; color:var(--warn); margin-top:6px; }
+  .hint { position:absolute; left:0; right:0; bottom:8px; text-align:center; font-size:12px; color:var(--dim); pointer-events:none; }
+  #ytWrap { width:100%; max-width:560px; aspect-ratio:16/9; margin-top:10px; background:#000; border-radius:8px; overflow:hidden; }
+  #ytWrap iframe { width:100%; height:100%; border:0; }
+  #kara { background:#0b0e1b; border-radius:10px; padding:14px; text-align:center; min-height:150px; }
+  #kara div { margin:4px 0; color:var(--dim); font-size:15px; min-height:20px; }
+  #kara div.cur { color:var(--fg); font-size:26px; font-weight:700; min-height:34px; }
+  .take { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:8px 0; border-top:1px solid var(--line); }
+  .take audio { height:32px; }
+</style>
+</head>
+<body>
+<a href="https://leeyunhome.github.io/" class="lyh-hub-back" aria-label="프로젝트 허브로 돌아가기">← 허브</a>
+<style>
+  .lyh-hub-back { display: none; }
+  @media (max-width: 700px) {
+    .lyh-hub-back {
+      display: inline-flex; align-items: center;
+      position: fixed; bottom: 14px; left: 14px; z-index: 9999;
+      background: var(--panel); color: var(--fg);
+      font-family: inherit; font-weight: 600; font-size: 12px; line-height: 1;
+      padding: 8px 14px; border-radius: 20px;
+      border: 1px solid var(--line); box-shadow: 0 2px 8px rgba(0, 0, 0, .35);
+      text-decoration: none;
+    }
+  }
+</style>
+<main>
+  <h1>🥁 박자 연습</h1>
+  <div class="sub">음원에 맞춰 <b>스페이스바 / 터치</b>로 탭하고, 가사를 따라 부르며 내 목소리를 녹음해 보세요.</div>
+
+  <div style="display:flex;gap:4px"><button class="tab sel" id="tabFile">📁 내 파일</button><button class="tab" id="tabYt">▶ 유튜브</button></div>
+  <div class="panel" style="border-top-left-radius:0">
+    <div id="filePanel" class="row">
+      <input type="file" id="file" accept="audio/*">
+      <span class="note privacy">🔒 파일은 이 기기 안에서만 처리되며 업로드되지 않습니다. 박자는 자동 분석됩니다.</span>
+    </div>
+    <div id="ytPanel" hidden>
+      <div class="row"><input type="text" id="ytUrl" placeholder="유튜브 주소 또는 영상 ID"><button id="ytLoad">불러오기</button></div>
+      <div id="ytWrap"><div id="ytbox"></div></div>
+      <div class="note" style="margin-top:6px">유튜브는 소리를 분석할 수 없어 <b>BPM을 직접 입력</b>하거나 아래 <b>탭 템포</b>로 맞춥니다. 영상 앞에 광고가 나오면 끝난 뒤에 시작하세요.
+      재생 시각을 임베드가 대략만 알려줘서 판정은 파일 모드보다 거칩니다(±50~100ms).</div>
+    </div>
+    <div id="msg"></div>
+  </div>
+
+  <div class="panel" id="setup" hidden>
+    <div class="row">
+      <label>BPM <input type="number" id="bpm" step="0.01" min="40" max="240" value="100"></label>
+      <button id="half">÷2</button><button id="dbl">×2</button>
+      <label>박 위치 미세조정(ms) <input type="number" id="phase" step="5" value="0"></label>
+      <label>박자 간격
+        <select id="every"><option value="1">매 박</option><option value="2">2박마다</option><option value="4">마디 첫 박(4/4)만</option></select>
+      </label>
+      <label>첫 박 이동 <select id="down"><option>0</option><option>1</option><option>2</option><option>3</option></select></label>
+      <button id="tapTempo">👆 탭 템포 (T)</button>
+    </div>
+    <div class="note" style="margin-top:6px">노래가 재생 중일 때 박에 맞춰 <b>T 키</b>(또는 버튼)를 4번 이상 누르면 BPM과 박 위치가 맞춰집니다(2~3번이면 박 위치만).
+      "박자음(메트로놈)"을 켜고 들어보며 미세조정하세요.</div>
+  </div>
+
+  <div class="panel" id="play" hidden>
+    <div class="row">
+      <button id="go" class="primary">▶ 시작</button>
+      <button id="stop">■ 정지</button>
+      <button id="calib">🎯 입력 지연 보정</button>
+      <label><input type="checkbox" id="click"> 박자음(메트로놈)</label>
+      <label><input type="checkbox" id="loop"> 구간 반복</label>
+      <label><input type="checkbox" id="rec"> 🎙 내 목소리 녹음</label>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <label>시작 <input type="number" id="from" value="0" min="0" step="1">초</label>
+      <label>끝 <input type="number" id="to" value="0" min="0" step="1">초</label>
+      <label>속도 <input type="range" id="rate" min="0.5" max="1" step="0.05" value="1"><span id="rateV">1.00×</span></label>
+      <label>입력 지연 <input type="number" id="lat" step="5" value="0">ms</label>
+    </div>
+    <div class="note" style="margin-top:6px">속도: 파일 모드는 음높이도 함께 내려가고, 유튜브 모드는 0.25 단위로 음높이를 유지합니다. 녹음은 <b>이어폰을 끼고</b> 하세요(스피커 소리가 마이크에 섞입니다). 녹음 중에는 구간 반복이 꺼집니다.</div>
+  </div>
+
+  <div class="panel" id="stagePanel" hidden>
+    <div id="stage"><canvas id="cv"></canvas><div class="hint">Space / F / J / 화면 터치</div></div>
+    <div class="stats">
+      <div class="stat"><b id="sPerf">0</b><span>Perfect (±45ms)</span></div>
+      <div class="stat"><b id="sGreat">0</b><span>Great (±90ms)</span></div>
+      <div class="stat"><b id="sGood">0</b><span>Good (±150ms)</span></div>
+      <div class="stat"><b id="sMiss">0</b><span>Miss</span></div>
+      <div class="stat"><b id="sAvg">–</b><span>평균 오차 (−빠름/+느림)</span></div>
+      <div class="stat"><b id="sStd">–</b><span>들쭉날쭉(표준편차)</span></div>
+    </div>
+    <canvas id="hist"></canvas>
+    <div class="note" id="verdict" style="margin-top:6px"></div>
+  </div>
+
+  <div class="panel" id="lyrPanel" hidden>
+    <div id="kara"></div>
+    <div class="row" style="margin-top:10px">
+      <input type="text" id="lrcQ" placeholder="곡명 검색 (예: 곡 제목 가수)">
+      <button id="lrcSearch">🔎 LRCLIB에서 싱크 가사 찾기</button>
+      <select id="lrcRes" hidden></select><button id="lrcGet" hidden>불러오기</button>
+    </div>
+    <div class="note">LRCLIB(공개 가사 DB)에서 이 브라우저가 직접 가져옵니다. 가사 저작권은 권리자에게 있으니 개인 연습 용도로만 쓰세요. 선택한 곡 길이가 내 음원과 비슷한지 확인하세요.
+      -1키/-2키 파일은 원키보다 약 0.4초 늦게 시작하므로 "가사 타이밍"을 -0.4로 맞추세요.</div>
+    <div class="row" style="margin-top:10px">
+      <button id="lyrApply">적용</button>
+      <button id="syncStart">🕒 싱크 찍기 시작</button>
+      <button id="syncStamp" disabled>이 줄 시작! (Enter / L)</button>
+      <button id="syncUndo" disabled>↶ 이전 줄</button>
+      <button id="lrcSave">💾 .lrc 저장</button>
+      <label>불러오기 <input type="file" id="lrcLoad" accept=".lrc,.txt"></label>
+      <label>가사 타이밍 <input type="number" id="lyrOff" step="0.1" value="0">초</label>
+    </div>
+    <textarea id="lyrText" placeholder="가사를 붙여 넣으세요. 시간 표시가 없는 줄은 '싱크 찍기'로 시간을 입력합니다.
+시간이 있는 형식(LRC)도 됩니다 — 예: [01:23.45]가사 한 줄"></textarea>
+    <div class="note">가사는 이 기기(브라우저)에만 저장되고 서버로 전송되지 않습니다. 싱크 찍기: 노래를 재생하고, 각 줄이 시작될 때마다 Enter 또는 L 키(버튼)를 누르세요. 반응 시간 0.15초는 자동 보정되며 "가사 타이밍"으로 전체를 앞뒤로 옮길 수 있습니다.</div>
+  </div>
+
+  <div class="panel" id="takePanel" hidden>
+    <div class="row"><b style="font-size:14px">🎙 내 녹음</b>
+      <label>반주 볼륨 <input type="range" id="bvol" min="0" max="1" step="0.05" value="0.7"></label>
+      <label>녹음 지연 보정 <input type="number" id="recLag" step="10" value="0">ms</label>
+    </div>
+    <div class="note">"반주와 함께 듣기"에서 목소리가 반주보다 늦게 들리면 보정값을 올리세요. 유튜브 모드의 함께 듣기는 0.1~0.3초 어긋날 수 있습니다. 녹음은 새로고침하면 사라지니 필요하면 저장하세요.</div>
+    <div id="takes"></div>
+  </div>
+</main>
+
+<script src="beat.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const AC = new (window.AudioContext || window.webkitAudioContext)();
+let mode = 'file', songId = null;
+let buffer = null, analysis = null, src = null, playingFile = false;
+let yt = null, ytReady = false, ytState = -1, ytId = null, ytStopAt = 0; const ring = [];
+let startCtx = 0, startSong = 0, rate = 1, loopFrom = 0, loopTo = 0, minJudgeT = 0;
+let sessionActive = false, judged = new Map(), devs = [], counts = { p: 0, g: 0, o: 0, m: 0 }, lastFx = null;
+let calibMode = false, calibBeats = [], calibT0 = 0, lastClickBeat = -1;
+
+function msg(t) { $('msg').textContent = t || ''; }
+function bpmV() { return parseFloat($('bpm').value) || 100; }
+function period() { return 60 / bpmV(); }
+function phase0() { return (analysis ? analysis.phase : 0) + (parseFloat($('phase').value) || 0) / 1000; }
+function step() { return parseInt($('every').value); }
+function shift() { return parseInt($('down').value); }
+function lat() { return (parseFloat($('lat').value) || 0) / 1000; }
+function beatTime(n) { return phase0() + (n * step() + shift() % step()) * period(); }
+function hasSong() { return mode === 'file' ? !!buffer : ytReady; }
+function dur() { return mode === 'file' ? (buffer ? buffer.duration : 0) : (ytReady && yt.getDuration ? yt.getDuration() : 0); }
+function isPlaying() { return mode === 'yt' ? ytState === 1 : playingFile; }
+
+function songTime() {
+  if (mode === 'yt') {
+    if (!ytReady || !yt.getCurrentTime) return 0;
+    const t = yt.getCurrentTime() || 0;
+    if (ytState !== 1) { ring.length = 0; return t; }
+    // 임베드가 알려주는 시각은 오래된 값일 수 있어, 최근 추정치 중 최댓값으로 보간한다
+    const now = performance.now() / 1000, r = yt.getPlaybackRate() || 1, off = t - now * r;
+    if (ring.length && Math.abs(off - ring[ring.length - 1]) > 0.6) ring.length = 0;
+    ring.push(off); if (ring.length > 90) ring.shift();
+    return now * r + Math.max(...ring);
+  }
+  return playingFile ? startSong + (AC.currentTime - startCtx) * rate : startSong;
+}
+
+$('lat').value = localStorage.getItem('rp_lat') || 0;
+$('recLag').value = localStorage.getItem('rp_reclag') || 0;
+$('recLag').onchange = () => localStorage.setItem('rp_reclag', $('recLag').value);
+$('rate').oninput = () => $('rateV').textContent = (+$('rate').value).toFixed(2) + '×';
+if (!window.isSecureContext) { $('rec').disabled = true; $('rec').parentElement.title = '녹음은 localhost 또는 HTTPS 주소에서만 가능합니다'; }
+
+// ---------- 모드 / 파일 / 유튜브 ----------
+function setMode(m) {
+  stopAll(); mode = m;
+  $('tabFile').classList.toggle('sel', m === 'file'); $('tabYt').classList.toggle('sel', m === 'yt');
+  $('filePanel').hidden = m !== 'file'; $('ytPanel').hidden = m !== 'yt';
+  const ready = hasSong(); ['setup', 'play', 'stagePanel', 'lyrPanel', 'takePanel'].forEach(i => $(i).hidden = !ready);
+  $('rate').step = m === 'yt' ? 0.25 : 0.05;
+  msg('');
+}
+$('tabFile').onclick = () => setMode('file'); $('tabYt').onclick = () => setMode('yt');
+function showPanels() { ['setup', 'play', 'stagePanel', 'lyrPanel', 'takePanel'].forEach(i => $(i).hidden = false); }
+
+$('file').onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  stopAll(); msg('파일 읽는 중…');
+  try { buffer = await AC.decodeAudioData(await f.arrayBuffer()); }
+  catch (err) { msg('이 파일은 열 수 없습니다: ' + err.message); return; }
+  msg('박자 분석 중… (몇 초 걸립니다)');
+  await new Promise(r => setTimeout(r, 30));
+  const ch = buffer.numberOfChannels, n = buffer.length, ds = Math.max(1, Math.round(buffer.sampleRate / 22050));
+  const mono = new Float32Array(Math.floor(n / ds));
+  for (let c = 0; c < ch; c++) { const d = buffer.getChannelData(c); for (let i = 0; i < mono.length; i++) mono[i] += d[i * ds] / ch; }
+  analysis = BeatAnalyzer.analyze(mono, buffer.sampleRate / ds);
+  $('bpm').value = analysis.bpm.toFixed(2); $('phase').value = 0; $('from').value = 0;
+  $('to').value = Math.floor(buffer.duration);
+  setSong('f_' + f.name + '_' + f.size);
+  showPanels();
+  msg(`분석 완료: ${analysis.bpm.toFixed(2)} BPM · 길이 ${Math.floor(buffer.duration / 60)}:${String(Math.floor(buffer.duration % 60)).padStart(2, '0')}`);
+};
+
+function loadYtApi() {
+  return new Promise(res => {
+    if (window.YT && YT.Player) return res();
+    window.onYouTubeIframeAPIReady = res;
+    const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.onerror = () => msg('유튜브 API를 불러오지 못했습니다(인터넷 연결 확인).');
+    document.head.appendChild(s);
+  });
+}
+function parseYtId(s) {
+  s = s.trim(); if (/^[\w-]{11}$/.test(s)) return s;
+  try {
+    const u = new URL(s);
+    if (u.hostname.includes('youtu.be')) return u.pathname.slice(1, 12);
+    const v = u.searchParams.get('v'); if (v) return v.slice(0, 11);
+    const m = u.pathname.match(/\/(shorts|embed|live)\/([\w-]{11})/); if (m) return m[2];
+  } catch (e) {}
+  return null;
+}
+$('ytLoad').onclick = async () => {
+  const id = parseYtId($('ytUrl').value); if (!id) { msg('유튜브 주소를 확인해 주세요.'); return; }
+  stopAll(); msg('유튜브 불러오는 중…'); await loadYtApi();
+  ytId = id; analysis = null; $('phase').value = 0; $('from').value = 0; $('to').value = 0;
+  setSong('y_' + id);
+  const saved = JSON.parse(localStorage.getItem('rp_set_' + songId) || 'null');
+  if (saved) { $('bpm').value = saved.bpm; $('phase').value = saved.phase; }
+  if (yt) { yt.cueVideoById(id); ytReady = true; showPanels(); msg('불러왔습니다.'); return; }
+  yt = new YT.Player('ytbox', {
+    width: '100%', height: '100%', videoId: id, playerVars: { playsinline: 1, rel: 0 },
+    events: {
+      onReady: () => { ytReady = true; showPanels(); msg('불러왔습니다. BPM을 입력하거나 탭 템포로 맞추세요.'); },
+      onStateChange: e => {
+        ytState = e.data; if (e.data === 0 && sessionActive) finish();
+        // 정지 직후 버퍼링이 끝나 뒤늦게 재생되는 경우를 막는다
+        if (e.data === 1 && !sessionActive && !pendingReview && performance.now() - ytStopAt < 8000) yt.pauseVideo();
+      },
+      onError: e => msg('이 영상은 재생할 수 없습니다(임베드 금지·비공개 등, 오류 ' + e.data + '). 다른 업로드를 시도해 보세요.')
+    }
+  });
+};
+['bpm', 'phase'].forEach(i => $(i).addEventListener('change', () => {
+  if (mode === 'yt' && songId) localStorage.setItem('rp_set_' + songId, JSON.stringify({ bpm: bpmV(), phase: parseFloat($('phase').value) || 0 }));
+}));
+$('half').onclick = () => { $('bpm').value = (bpmV() / 2).toFixed(2); $('bpm').dispatchEvent(new Event('change')); };
+$('dbl').onclick = () => { $('bpm').value = (bpmV() * 2).toFixed(2); $('bpm').dispatchEvent(new Event('change')); };
+
+// ---------- 탭 템포 ----------
+let tapT = [], tapReal = 0;
+function tapTempo() {
+  if (!isPlaying()) { msg('노래가 재생 중일 때 눌러 주세요.'); return; }
+  const real = performance.now(); if (real - tapReal > 3000) tapT = []; tapReal = real;
+  tapT.push(songTime() - lat() * (mode === 'yt' ? yt.getPlaybackRate() : rate));
+  if (tapT.length < 2) { msg('탭 1회…'); return; }
+  let p = period();
+  if (tapT.length >= 4) {
+    const d = []; for (let i = 1; i < tapT.length; i++) d.push(tapT[i] - tapT[i - 1]);
+    d.sort((a, b) => a - b); const med = d[Math.floor(d.length / 2)];
+    if (med > .25 && med < 1.5) { $('bpm').value = (60 / med).toFixed(2); p = med; }
+  }
+  let sx = 0, sy = 0; tapT.forEach(t => { const a = 2 * Math.PI * (((t % p) + p) % p) / p; sx += Math.cos(a); sy += Math.sin(a); });
+  let ph = Math.atan2(sy, sx) / (2 * Math.PI) * p; if (ph < 0) ph += p;
+  $('phase').value = Math.round((ph - (analysis ? analysis.phase : 0)) * 1000);
+  $('bpm').dispatchEvent(new Event('change'));
+  msg(`탭 ${tapT.length}회: ${bpmV().toFixed(2)} BPM`);
+}
+$('tapTempo').onclick = tapTempo;
+
+// ---------- 재생 ----------
+function click(t, accent) {
+  const o = AC.createOscillator(), g = AC.createGain();
+  o.frequency.value = accent ? 1500 : 1000; o.connect(g); g.connect(AC.destination);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.5, t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+  o.start(t); o.stop(t + 0.06);
+}
+$('click').onchange = () => AC.resume();
+function resetStats() { judged = new Map(); devs = []; counts = { p: 0, g: 0, o: 0, m: 0 }; lastFx = null; updateStats(); $('verdict').textContent = ''; }
+
+async function start() {
+  if (!hasSong()) return;
+  await AC.resume(); stopAll(); resetStats(); ytStopAt = 0;
+  rate = +$('rate').value;
+  loopFrom = Math.max(0, +$('from').value || 0);
+  loopTo = +$('to').value || 0;
+  const D = dur();
+  if (mode === 'file') { loopTo = Math.min(D, loopTo || D); if (loopTo <= loopFrom + 1) { loopFrom = 0; loopTo = D; } }
+  else { if (!loopTo || loopTo <= loopFrom + 1) loopTo = 1e9; if (D && loopTo > D) loopTo = D; }
+  minJudgeT = loopFrom + .4; sessionActive = true; lastClickBeat = -1;
+  await recStart();
+  if (mode === 'file') play(loopFrom, 0.6);
+  else {
+    rate = Math.min(1, Math.max(0.5, Math.round(rate * 4) / 4)); $('rate').value = rate; $('rate').oninput();
+    yt.setPlaybackRate(rate); yt.setVolume(100); yt.seekTo(loopFrom, true); yt.playVideo(); ring.length = 0;
+  }
+}
+function play(fromSong, lead) {
+  const node = AC.createBufferSource(); node.buffer = buffer; node.playbackRate.value = rate; node.connect(AC.destination);
+  src = node;
+  const t0 = AC.currentTime + lead + 0.1;
+  startCtx = t0; startSong = fromSong; lastClickBeat = -1;
+  node.start(t0, fromSong, (loopTo - fromSong) + 0.01);
+  playingFile = true;
+  node.onended = () => { if (node !== src) return; onEnd(); };
+}
+function onEnd() {
+  if ($('loop').checked && !recording()) { judged = new Map(); play(loopFrom, 0.6); return; }
+  playingFile = false; finish();
+}
+function stopAll() {
+  if (src) { const n = src; src = null; try { n.stop(); } catch (e) {} }
+  if (playingFile) startSong = songTime();
+  playingFile = false;
+  if (mode === 'yt' && ytReady) { yt.pauseVideo(); ytStopAt = performance.now(); }
+  stopReview();
+  if (sessionActive) { sessionActive = false; recStop(); }
+}
+function finish() { sessionActive = false; recStop(); showVerdict(); }
+$('go').onclick = start;
+$('stop').onclick = () => { const was = sessionActive; stopAll(); if (was) showVerdict(); };
+
+// ---------- 판정 ----------
+function grade(ad) { return ad <= .045 ? 'p' : ad <= .09 ? 'g' : ad <= .15 ? 'o' : null; }
+const GL = { p: ['PERFECT', '#5ad19a'], g: ['GREAT', '#6ea8ff'], o: ['GOOD', '#ffb454'], m: ['MISS', '#ff6b7a'] };
+function tap() {
+  if (calibMode) return calibTap();
+  if (!sessionActive || !isPlaying()) return;
+  const T = songTime() - lat() * rate;
+  const n = Math.round((T - beatTime(0)) / (period() * step()));
+  let bestN = null, bestD = 1e9;
+  for (const k of [n - 1, n, n + 1]) {
+    const d = T - beatTime(k);
+    if (!judged.has(k) && Math.abs(d) < Math.abs(bestD)) { bestN = k; bestD = d; }
+  }
+  const dSec = bestD / rate;
+  if (bestN === null || Math.abs(dSec) > .22 || beatTime(bestN) < minJudgeT) return;
+  const g = grade(Math.abs(dSec)) || 'm';
+  judged.set(bestN, { d: dSec, g }); counts[g]++;
+  if (g !== 'm') devs.push(dSec * 1000);
+  lastFx = { g, d: dSec * 1000, at: performance.now() };
+  updateStats();
+}
+function meanSd() {
+  const m = devs.reduce((a, b) => a + b, 0) / devs.length;
+  return [m, Math.sqrt(devs.reduce((a, b) => a + (b - m) ** 2, 0) / devs.length)];
+}
+function updateStats() {
+  $('sPerf').textContent = counts.p; $('sGreat').textContent = counts.g; $('sGood').textContent = counts.o; $('sMiss').textContent = counts.m;
+  if (devs.length) { const [m, sd] = meanSd(); $('sAvg').textContent = (m > 0 ? '+' : '') + m.toFixed(0) + 'ms'; $('sStd').textContent = sd.toFixed(0) + 'ms'; }
+  else { $('sAvg').textContent = '–'; $('sStd').textContent = '–'; }
+  drawHist();
+}
+function showVerdict() {
+  if (!devs.length) { $('verdict').textContent = ''; return; }
+  const [m, sd] = meanSd(), tot = counts.p + counts.g + counts.o + counts.m;
+  const acc = ((counts.p + counts.g * .7 + counts.o * .4) / Math.max(1, tot)) * 100;
+  let t = `정확도 ${acc.toFixed(0)}점 · `;
+  t += Math.abs(m) < 20 ? '박자 감각이 정확합니다. ' : m < 0 ? `평균 ${(-m).toFixed(0)}ms 빠르게 치는 경향 (박을 조금 더 기다려 보세요). ` : `평균 ${m.toFixed(0)}ms 늦게 치는 경향 (조금 더 앞서 보세요). `;
+  t += sd < 35 ? '일정하게 잘 유지했어요.' : sd < 60 ? '흔들림이 약간 있습니다.' : '흔들림이 큽니다 — 속도를 낮춰 연습해 보세요.';
+  if (Math.abs(m) > 60) t += ' (평균 오차가 크면 "입력 지연 보정" 또는 박 위치 미세조정도 확인하세요.)';
+  $('verdict').textContent = t;
+}
+$('calib').onclick = async () => {
+  await AC.resume(); stopAll(); calibMode = true; calibBeats = []; calibT0 = AC.currentTime + 1;
+  for (let i = 0; i < 9; i++) click(calibT0 + i, i === 0);
+  msg('보정 중: 클릭음에 맞춰 8번 탭하세요 (첫 소리는 기준음)');
+  setTimeout(() => {
+    calibMode = false;
+    if (calibBeats.length >= 4) {
+      const s = calibBeats.slice().sort((a, b) => a - b), med = s[Math.floor(s.length / 2)];
+      $('lat').value = Math.round(med); localStorage.setItem('rp_lat', Math.round(med)); msg(`보정 완료: 입력 지연 ${Math.round(med)}ms (저장됨)`);
+    } else msg('탭이 부족합니다. 다시 시도하세요.');
+  }, 10200);
+};
+function calibTap() {
+  const t = AC.currentTime - calibT0; if (t < 0.5) return;
+  const k = Math.round(t); if (k < 1 || k > 8) return;
+  const d = (t - k) * 1000; if (Math.abs(d) < 400) calibBeats.push(d);
+}
+const typing = () => /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName);
+addEventListener('keydown', e => {
+  if (e.repeat || typing()) return;
+  if (['Space', 'KeyF', 'KeyJ'].includes(e.code)) { e.preventDefault(); tap(); }
+  else if (e.code === 'KeyT') tapTempo();
+  else if (e.code === 'Enter' || e.code === 'KeyL') { if (syncMode) { e.preventDefault(); stamp(); } }
+});
+$('cv').addEventListener('pointerdown', e => { e.preventDefault(); tap(); });
+
+// ---------- 가사 ----------
+let lyr = [], syncMode = false, syncI = 0, lastKey = '';
+function parseLyrics(txt) {
+  const out = [];
+  for (const raw of txt.split(/\r?\n/)) {
+    let line = raw.trim(); if (!line || /^\[[a-z]+:/i.test(line)) continue;
+    const ts = []; let m;
+    while ((m = line.match(/^\[(\d+):(\d+(?:\.\d+)?)\]\s*/))) { ts.push(+m[1] * 60 + +m[2]); line = line.slice(m[0].length); }
+    if (ts.length) ts.forEach(t => out.push({ t, text: line })); else out.push({ t: null, text: line });
+  }
+  if (out.length && out.every(o => o.t != null)) out.sort((a, b) => a.t - b.t);
+  return out;
+}
+function fmt(t) { const m = Math.floor(t / 60), s = t - m * 60; return `[${String(m).padStart(2, '0')}:${s.toFixed(2).padStart(5, '0')}]`; }
+function toLRC() { return lyr.map(l => (l.t != null ? fmt(l.t) : '') + l.text).join('\n'); }
+function saveLyr() { if (songId) localStorage.setItem('rp_lyr_' + songId, $('lyrText').value); }
+function setSong(id) {
+  songId = id; lyr = []; syncMode = false; lastKey = '';
+  $('lyrText').value = localStorage.getItem('rp_lyr_' + id) || ''; lyr = parseLyrics($('lyrText').value); lyrButtons();
+}
+function lyrButtons() { $('syncStamp').disabled = $('syncUndo').disabled = !syncMode; $('syncStart').textContent = syncMode ? '싱크 찍기 취소' : '🕒 싱크 찍기 시작'; }
+$('lyrApply').onclick = () => { lyr = parseLyrics($('lyrText').value); saveLyr(); lastKey = ''; msg(`가사 ${lyr.length}줄 적용${lyr.every(l => l.t != null) ? '' : ' (시간 없는 줄이 있어 싱크 찍기가 필요합니다)'}`); };
+$('syncStart').onclick = () => {
+  if (syncMode) { syncMode = false; lyrButtons(); lastKey = ''; return; }
+  lyr = parseLyrics($('lyrText').value).map(l => ({ t: null, text: l.text }));
+  if (!lyr.length) { msg('가사를 먼저 붙여 넣으세요.'); return; }
+  syncMode = true; syncI = 0; lyrButtons(); lastKey = '';
+  msg('노래를 재생하고, 표시된 줄이 시작될 때마다 Enter 또는 L 키(버튼)를 누르세요.');
+};
+function stamp() {
+  if (!syncMode || !isPlaying()) return;
+  lyr[syncI].t = Math.max(0, songTime() - 0.15); syncI++;
+  if (syncI >= lyr.length) { syncMode = false; $('lyrText').value = toLRC(); saveLyr(); lyrButtons(); msg('싱크 완료! 아래 텍스트에 저장됐습니다. (.lrc로도 저장 가능)'); }
+  lastKey = '';
+}
+$('syncStamp').addEventListener('pointerdown', e => { e.preventDefault(); stamp(); });
+$('syncUndo').onclick = () => { if (syncMode && syncI > 0) { syncI--; lyr[syncI].t = null; lastKey = ''; } };
+$('lrcSave').onclick = () => {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([$('lyrText').value], { type: 'text/plain;charset=utf-8' })); a.download = 'lyrics.lrc'; a.click();
+};
+$('lrcLoad').onchange = async e => { const f = e.target.files[0]; if (!f) return; $('lyrText').value = await f.text(); $('lyrApply').onclick(); };
+function renderLyrics(T) {
+  const el = $('kara');
+  if (!lyr.length) { if (lastKey !== 'none') { lastKey = 'none'; el.innerHTML = '<div>가사를 아래에 붙여 넣고 [적용]을 누르세요</div>'; } return; }
+  let idx = -1;
+  if (syncMode) idx = syncI;
+  else if (lyr.every(l => l.t != null)) { const tt = T + (+$('lyrOff').value || 0); for (let i = 0; i < lyr.length; i++) { if (lyr[i].t <= tt) idx = i; else break; } }
+  const key = idx + '|' + syncMode; if (key === lastKey) return; lastKey = key;
+  const g = i => (i >= 0 && i < lyr.length ? lyr[i].text : '');
+  const cls = ['', 'cur', '', ''];
+  el.replaceChildren(...[idx - 1, idx, idx + 1, idx + 2].map((i, k) => { const d = document.createElement('div'); d.className = cls[k]; d.textContent = g(i); return d; }));
+}
+
+
+// ---------- LRCLIB 검색 (브라우저가 직접 호출) ----------
+let lrcHits = [];
+$('lrcSearch').onclick = async () => {
+  const q = $('lrcQ').value.trim(); if (!q) { msg('검색어를 입력하세요.'); return; }
+  msg('검색 중…');
+  try {
+    lrcHits = await (await fetch('https://lrclib.net/api/search?q=' + encodeURIComponent(q))).json();
+  } catch (e) { msg('LRCLIB에 연결하지 못했습니다: ' + e.message); return; }
+  const sel = $('lrcRes'); sel.replaceChildren();
+  lrcHits.forEach((d, i) => { const o = document.createElement('option'); o.value = i; o.textContent = `${d.artistName} - ${d.trackName} (${Math.round(d.duration)}s, ${d.syncedLyrics ? '싱크O' : '싱크X'})`; sel.append(o); });
+  sel.hidden = $('lrcGet').hidden = !lrcHits.length; msg(lrcHits.length ? `${lrcHits.length}건 찾음` : '결과가 없습니다.');
+};
+$('lrcGet').onclick = () => {
+  const d = lrcHits[+$('lrcRes').value]; if (!d) return;
+  if (!d.syncedLyrics) { msg('이 항목은 시간 정보가 없습니다. 다른 항목을 고르세요.'); return; }
+  $('lyrText').value = d.syncedLyrics; $('lyrApply').onclick();
+};
+
+// ---------- 녹음 ----------
+let recStream = null, mediaRec = null, recChunks = [], curTake = null, takeSeq = 0, takes = [];
+const recording = () => mediaRec && mediaRec.state === 'recording';
+async function recStart() {
+  if (!$('rec').checked) return;
+  if (!window.isSecureContext) { msg('녹음은 localhost 또는 HTTPS에서만 됩니다.'); return; }
+  try { recStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
+  catch (e) { msg('마이크를 사용할 수 없습니다: ' + e.message); return; }
+  mediaRec = new MediaRecorder(recStream); recChunks = [];
+  curTake = { songAtZero: null, startPerf: 0 };
+  mediaRec.ondataavailable = e => e.data.size && recChunks.push(e.data);
+  const take = curTake, stream = recStream, mr = mediaRec;
+  mr.onstop = () => { stream.getTracks().forEach(t => t.stop()); addTake(new Blob(recChunks, { type: mr.mimeType }), take); };
+  await new Promise(r => { mr.onstart = r; mr.start(); });
+  take.startPerf = performance.now() / 1000;
+}
+function recStop() { if (mediaRec && mediaRec.state !== 'inactive') mediaRec.stop(); }
+function addTake(blob, take) {
+  take.blob = blob; take.url = URL.createObjectURL(blob); take.n = ++takeSeq; takes.push(take);
+  if (take.songAtZero == null) take.songAtZero = loopFrom;
+  const row = document.createElement('div'); row.className = 'take';
+  const a = document.createElement('audio'); a.controls = true; a.src = take.url;
+  const label = document.createElement('span'); label.textContent = `테이크 ${take.n}`;
+  const b1 = document.createElement('button'); b1.textContent = '🎧 반주와 함께 듣기'; b1.onclick = () => review(take);
+  const b2 = document.createElement('button'); b2.textContent = '💾 저장'; b2.onclick = () => { const l = document.createElement('a'); l.href = take.url; l.download = `take${take.n}.${blob.type.includes('ogg') ? 'ogg' : 'webm'}`; l.click(); };
+  const b3 = document.createElement('button'); b3.textContent = '삭제'; b3.onclick = () => { row.remove(); URL.revokeObjectURL(take.url); };
+  row.append(label, a, b1, b2, b3); $('takes').prepend(row);
+  msg(`녹음 완료: 테이크 ${take.n}`);
+}
+let reviewNodes = [], reviewAudio = null, pendingReview = null;
+function stopReview() {
+  reviewNodes.forEach(n => { try { n.stop(); } catch (e) {} }); reviewNodes = [];
+  if (reviewAudio) { reviewAudio.pause(); reviewAudio = null; } pendingReview = null;
+}
+async function review(take) {
+  stopAll(); await AC.resume(); ytStopAt = 0;
+  const lag = (parseFloat($('recLag').value) || 0) / 1000, z = take.songAtZero, vol = +$('bvol').value;
+  if (mode === 'file') {
+    const vb = await AC.decodeAudioData(await take.blob.arrayBuffer());
+    const now = AC.currentTime + 0.15; let bOff = z, delayB = 0; if (bOff < 0) { delayB = -bOff; bOff = 0; }
+    const b = AC.createBufferSource(); b.buffer = buffer; const g = AC.createGain(); g.gain.value = vol; b.connect(g); g.connect(AC.destination);
+    const v = AC.createBufferSource(); v.buffer = vb; v.connect(AC.destination);
+    b.start(now + delayB, bOff); v.start(now, Math.min(lag, vb.duration));
+    reviewNodes = [b, v];
+  } else {
+    pendingReview = { take, lag, z };
+    yt.setPlaybackRate(1); yt.setVolume(vol * 100); yt.seekTo(Math.max(0, z), true); yt.playVideo();
+  }
+}
+function onYtPlayingForReview() {
+  if (!pendingReview) return; const { take, lag, z } = pendingReview; pendingReview = null;
+  reviewAudio = new Audio(take.url); reviewAudio.currentTime = lag + Math.max(0, -z) + 0.15; reviewAudio.play();
+}
+
+// ---------- 렌더링 ----------
+const cv = $('cv'), ctx = cv.getContext('2d'), hc = $('hist'), hx = hc.getContext('2d');
+function fit(c) { const r = devicePixelRatio || 1; c.width = c.clientWidth * r; c.height = c.clientHeight * r; return r; }
+let wasPlayingYt = false;
+function frame() {
+  requestAnimationFrame(frame);
+  const r = fit(cv), W = cv.width, Hh = cv.height;
+  ctx.fillStyle = '#0b0e1b'; ctx.fillRect(0, 0, W, Hh);
+  const hitX = W * .22, win = 2.2, pxPerSec = (W - hitX) / win;
+  const T = songTime(), p = period() * step();
+  if (mode === 'yt') {
+    if (ytState === 1 && !wasPlayingYt) onYtPlayingForReview();
+    wasPlayingYt = ytState === 1;
+    if (sessionActive && ytState === 1 && T >= loopTo) {
+      if ($('loop').checked && !recording()) { yt.seekTo(loopFrom, true); judged = new Map(); ring.length = 0; }
+      else { yt.pauseVideo(); finish(); }
+    }
+  }
+  if (curTake && curTake.songAtZero == null && isPlaying() && sessionActive) curTake.songAtZero = T - (performance.now() / 1000 - curTake.startPerf) * rate;
+  ctx.fillStyle = '#141934'; ctx.fillRect(0, Hh * .3, W, Hh * .4);
+  ctx.fillStyle = 'rgba(90,209,154,.10)'; ctx.fillRect(hitX - .045 * pxPerSec * rate, Hh * .3, .09 * pxPerSec * rate, Hh * .4);
+  ctx.strokeStyle = '#e8ebf7'; ctx.lineWidth = 3 * r; ctx.beginPath(); ctx.moveTo(hitX, Hh * .22); ctx.lineTo(hitX, Hh * .78); ctx.stroke();
+  if (hasSong()) {
+    const n0 = Math.floor((T - phase0() - .5 - shift() % step() * period()) / p), n1 = Math.ceil((T + win - phase0()) / p);
+    for (let n = Math.max(0, n0); n <= n1; n++) {
+      const bt = beatTime(n); if (bt < loopFrom - .01 || bt > loopTo) continue;
+      const x = hitX + (bt - T) * pxPerSec, j = judged.get(n);
+      if (x < -20 || x > W + 20) continue;
+      const bar = ((n * step() + shift() % step()) % 4 === 0);
+      ctx.beginPath(); ctx.arc(x, Hh * .5, (bar ? 22 : 17) * r, 0, 7);
+      if (j) { ctx.fillStyle = GL[j.g][1]; ctx.globalAlpha = .35; ctx.fill(); ctx.globalAlpha = 1; }
+      else { ctx.fillStyle = bar ? '#6ea8ff' : '#8b93b8'; ctx.fill(); }
+      if (!j && sessionActive && isPlaying() && bt >= minJudgeT && bt - T < -.15 * rate) { judged.set(n, { d: 0, g: 'm' }); counts.m++; updateStats(); }
+    }
+    if ($('click').checked && isPlaying()) {
+      const nb = Math.ceil((T - phase0() - shift() % step() * period()) / p), tNext = beatTime(nb);
+      if (nb !== lastClickBeat && tNext - T < .12 * rate && tNext >= T) { click(AC.currentTime + (tNext - T) / rate, ((nb * step() + shift() % step()) % 4) === 0); lastClickBeat = nb; }
+    }
+  }
+  if (lastFx && performance.now() - lastFx.at < 600) {
+    const a = 1 - (performance.now() - lastFx.at) / 600;
+    ctx.globalAlpha = a; ctx.fillStyle = GL[lastFx.g][1]; ctx.font = `bold ${30 * r}px sans-serif`; ctx.textAlign = 'center';
+    ctx.fillText(GL[lastFx.g][0], W * .55, Hh * .2);
+    ctx.font = `${16 * r}px sans-serif`; ctx.fillText((lastFx.d > 0 ? '+' : '') + lastFx.d.toFixed(0) + 'ms ' + (lastFx.d > 0 ? '(늦음)' : '(빠름)'), W * .55, Hh * .2 + 24 * r);
+    ctx.globalAlpha = 1;
+  }
+  const D = dur();
+  if (D > 0) { ctx.fillStyle = '#2a3050'; ctx.fillRect(0, Hh - 6 * r, W, 6 * r); ctx.fillStyle = '#6ea8ff'; ctx.fillRect(0, Hh - 6 * r, W * Math.max(0, Math.min(1, T / D)), 6 * r); }
+  ctx.textAlign = 'left'; ctx.fillStyle = '#8b93b8'; ctx.font = `${13 * r}px sans-serif`; ctx.fillText(`${T.toFixed(1)}s`, 8 * r, 20 * r);
+  if (!$('lyrPanel').hidden) renderLyrics(T);
+}
+function drawHist() {
+  const r = fit(hc), W = hc.width, H = hc.height; hx.clearRect(0, 0, W, H); hx.fillStyle = '#0b0e1b'; hx.fillRect(0, 0, W, H);
+  const lo = -150, hi = 150, bins = 30, bw = W / bins, h = new Array(bins).fill(0);
+  devs.forEach(d => { const i = Math.floor((d - lo) / (hi - lo) * bins); if (i >= 0 && i < bins) h[i]++; });
+  const mx = Math.max(1, ...h);
+  h.forEach((v, i) => { hx.fillStyle = Math.abs((i + .5) / bins * (hi - lo) + lo) <= 45 ? '#5ad19a' : '#6ea8ff'; const bh = v / mx * (H - 26 * r); hx.fillRect(i * bw + 1, H - 16 * r - bh, bw - 2, bh); });
+  hx.strokeStyle = '#e8ebf7'; hx.beginPath(); hx.moveTo(W / 2, 0); hx.lineTo(W / 2, H - 16 * r); hx.stroke();
+  hx.fillStyle = '#8b93b8'; hx.font = `${11 * r}px sans-serif`; hx.textAlign = 'left'; hx.fillText('← 빠름 −150ms', 4, H - 3 * r);
+  hx.textAlign = 'center'; hx.fillText('정박', W / 2, H - 3 * r); hx.textAlign = 'right'; hx.fillText('+150ms 느림 →', W - 4, H - 3 * r);
+}
+addEventListener('resize', drawHist);
+frame(); drawHist();
+</script>
+</body>
+</html>

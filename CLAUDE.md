@@ -6,7 +6,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal GitHub Pages site served at https://leeyunhome.github.io/ — a project hub landing page linking to the owner's other GitHub Pages projects (portfolio, AI experiments, browser tools).
 
-**The entire live site is the single self-contained [index.html](index.html)** — all CSS is inline in a `<style>` block, vanilla JS only (no framework), no build step. Content is in Korean. Deployment is automatic: push to `main` and GitHub Pages serves it.
+**The hub itself is the single self-contained [index.html](index.html)** — all CSS is inline in a `<style>` block, vanilla JS only (no framework), no build step. Content is in Korean. Deployment is automatic: push to `main` and GitHub Pages serves it. Two subfolders also live in this repo: `slides/` (rendered myslide decks, shown by the banner/modal) and `apps/` (self-hosted mini apps, see below).
+
+## Self-hosted apps (`apps/`)
+
+- `apps/rhythm-practice/` (`index.html` + `beat.js`, linked from the 도구 tab at `/apps/rhythm-practice/`) was copied here from `c:/coding/github-repository/youtube_transcript/apps/rhythm-practice/`, which is **untracked in that repo and remains the working copy** — so edits there do *not* reach the hub until re-copied (and vice versa). Re-copy only those two files.
+- **Why it's hosted here instead of linking the original URL**: the first place it ran was the Modu AI Lab VM (`http://223.130.161.43/rhythm-practice/`). That is plain HTTP, so `getUserMedia` (voice recording) is blocked, and the lab allocation **expires 2026-10-18**. Never link the hub to that address. GitHub Pages is HTTPS, so recording works here.
+- **Never copy** `take1.webm` (the owner's voice recording), anything under `recordings/`, or any `.mp3/.m4a/.wav` — the source repo's `.gitignore` forbids committing copyrighted lecture/music audio, and this repo is public. Only the app code goes in. `run_local.bat` is local-only and was also left out.
+- The app shares the `leeyunhome.github.io` origin's `localStorage` with the hub. Its keys are all `rp_*` (`rp_lat`, `rp_reclag`, `rp_set_<id>`, `rp_lyr_<id>`); hub keys are `lyh_*`. Keep the prefixes distinct if either side adds keys.
+- Its "← 허브" mobile back-link sits **bottom-left** and uses the app's own CSS variables (`--panel`, `--fg`, `--line`); the app's `<h1>` is top-left, so the usual top-left pill would cover it. `beat.js` is Node-compatible (`require('./beat.js').analyze(pcm, sampleRate)`), which makes it testable with a synthetic click track without a browser.
 
 ## Visitor analytics (owner-excluded)
 

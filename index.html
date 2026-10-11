@@ -938,6 +938,61 @@
         </div>
       </a>
 
+      <a class="card" href="https://leeyunhome.github.io/apps/rhythm-practice/" target="_blank">
+        <div class="card-header">
+          <span class="card-icon">🥁</span>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title" data-en="Rhythm Practice">박자 연습</div>
+        <div class="card-desc" data-en="Tap along to any song and see how tight your timing is. Auto-detects BPM with a hand-written FFT onset detector (no libraries), judges every tap as Perfect/Great/Good/Miss with average error and spread, compensates for input latency, and records your voice. Includes a synced-lyrics karaoke view with a built-in .lrc timestamp tool. Your audio files are processed &lt;strong&gt;entirely in your browser — never uploaded&lt;/strong&gt;.">음원에 맞춰 탭하며 내 박자 정확도를 확인하는 연습 앱. 라이브러리 없이 직접 구현한 FFT 온셋 검출로 BPM을 자동 분석하고, 탭마다 Perfect/Great/Good/Miss를 판정해 평균 오차·편차를 보여주며, 입력 지연 보정과 목소리 녹음을 지원. 싱크 가사 카라오케 뷰와 .lrc 타임스탬프 도구도 내장. 음원은 <strong>브라우저 안에서만 처리되고 업로드되지 않음</strong>.</div>
+
+        <!-- Style A: myslide Dark Diagram -->
+        <div class="card-diagram-myslide">
+          <div class="myslide-flow">
+            <div class="myslide-step">
+              <span class="myslide-step-num">① LOAD</span>
+              <span class="myslide-step-title" data-en="Audio In">음원 불러오기</span>
+              <span class="myslide-step-sub" data-en="File / YouTube">파일·유튜브</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">② ANALYZE</span>
+              <span class="myslide-step-title" data-en="Beat Detect">박자 분석</span>
+              <span class="myslide-step-sub" data-en="FFT Onset">FFT 온셋 검출</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step highlight">
+              <span class="myslide-step-num">③ TAP</span>
+              <span class="myslide-step-title" data-en="Judge Timing">박자 판정</span>
+              <span class="myslide-step-sub" data-en="±45 / 90 / 150ms">±45·90·150ms</span>
+            </div>
+            <span class="myslide-arrow">➔</span>
+            <div class="myslide-step">
+              <span class="myslide-step-num">④ REVIEW</span>
+              <span class="myslide-step-title" data-en="Error Stats">오차 분석</span>
+              <span class="myslide-step-sub" data-en="Histogram + Lyrics">분포·가사 싱크</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style B: Modern Flow Chips -->
+        <div class="card-flow-chips">
+          <span class="flow-chip" data-en="🎵 Load Audio">🎵 음원 불러오기</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="📈 FFT Beat Detect">📈 FFT 박자 분석</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip active" data-en="👆 Tap + Judge">👆 탭 판정</span>
+          <span class="flow-sep">➔</span>
+          <span class="flow-chip" data-en="📊 Error Stats">📊 오차 분석</span>
+        </div>
+
+        <div class="card-foot">
+          <span class="badge badge-js">JavaScript</span>
+          <span class="badge badge-html">Web Audio API</span>
+          <span class="badge badge-ts">FFT</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
